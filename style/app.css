@@ -1,0 +1,58 @@
+:root {
+
+  --dark-100: rgba( 0, 0, 0,  1 );
+  --dark-50:  rgba( 0, 0, 0, .5 );
+  --dark-25:  rgba( 0, 0, 0, .5 );
+  --dark-10:  rgba( 0, 0, 0, .1 );
+
+  --light-100: rgba( 255, 255, 255,  1 );
+  --light-50:  rgba( 255, 255, 255, .5 );
+  --light-25:  rgba( 255, 255, 255, .5 );
+  --light-10:  rgba( 255, 255, 255, .1 );
+
+  --highlight: rgba( 215, 165, 101, 1 );
+  --highlight-rgb:   215, 165, 101;
+
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  transition: opacity .6s, transform .6s;
+  transition-timing-function: ease-in-out;
+}
+
+@font-face {
+  font-family: Piaui;
+  src: url(../fonts/piaui/piaui-bold.woff) format('woff');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Piaui;
+  src: url(../fonts/piaui/piaui-regular.woff) format('woff');
+  font-weight: 500;
+}
+
+html {
+  height: 100%;
+  background: var(--dark-100);
+}
+
+body {
+  height: 100%;
+  font-family: Inter, sans-serif;
+  line-height: 1.5;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Piaui, sans-serif;
+  font-weight: 700;
+}
