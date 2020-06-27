@@ -21,6 +21,7 @@
     <link rel="manifest" href="site.webmanifest">
 
     <link rel="stylesheet" href="https://unpkg.com/normalize.css@8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons&display=swap">
     <link rel="stylesheet" href="style/app.css">
 
@@ -132,10 +133,6 @@
 
       </div>
 
-      <div class="story">
-
-      </div>
-
       <div class="search">
 
         <form>
@@ -209,14 +206,147 @@
 
       </div>
 
-      <div class="share">
+      <div class="story">
+
+        <article>
+
+          <div class="canvas"></div>
+
+          <nav>
+
+            <button type="button" class="close">
+              <span class="material-icons">close</span>
+              <span class="screen-reader">Encerrar simulação</span>
+            </button>
+
+            <button type="button" class="share" disabled>
+              <!-- <span class="material-icons">save_alt</span> -->
+              <span>Compartilhar meu mapa</span>
+            </button>
+
+          </nav>
+
+          <header>
+            <h1 class="screen-reader">Simulação</h1>
+          <header>
+
+          <div class="steps-container">
+
+            <div class="controls">
+
+              <label>
+                <input type="checkbox" name="labels" class="screen-reader" checked>
+                <div>
+                  <div class="switch"></div>
+                  <span>Mostrar nomes</span>
+                </div>
+              </label>
+
+            </div>
+
+            <div class="steps">
+
+              <div class="swiper-container">
+
+                <div class="swiper-wrapper">
+
+                  <div class="swiper-slide">
+                    <p>Esta é sua vizinhança no dia 17 de março. Neste dia, um homem de 62 anos faleceu em São Paulo em decorrência do novo coronavírus</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Ele vivia num bairro da Zona Sul. Mas, neste mapa, vamos simular que quem faleceu foi um morador do seu bairro</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Ele vivia num bairro da Zona Sul. Mas, neste mapa, vamos simular que quem faleceu foi um morador do seu bairro</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Após dois dias, outras quatro mortes foram registradas no país. Novamente, vamos simular que todas viviam na sua vizinhança</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Hoje, mais de três meses após a primeira morte, 60.248 pessoas vieram a falecer por conta do novo coronavírus em todo o Brasil</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>É como se todo mundo que vive dentro desse círculo, desenhado exatamente ao redor da sua casa, tivesse falecido</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Tantas mortes são suficientes para riscar do mapa uma cidade aí perto, da qual você já deve ter ouvido falar: Campos do Jordão</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Moram lá, de acordo com estimativas do IBGE para 2019, aproximadamente 47 mil pessoas</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Na verdade, a maior parte das cidades do Brasil tem menos habitantes do que o número total de mortos no país </p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Cada uma das 4.609 cidades destacadas agora sumiria caso a epidemia acontecesse somente dentro de seus limites municipais</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Essas cidades são pequenas, mas mortes nessa escala também teriam impactos radicais nos grandes centros urbanos</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Veja como ficaria Porto Alegre (RS), por exemplo, caso todas as mortes no país se concentrassem ao redor da Usina do Gasômetro</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Também dê uma olhada em Belém (PA), com as mortes se espalhando ao redor do Mercado Ver-o-Peso</p>
+                  </div>
+                  <div class="swiper-slide">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a mi eu enim efficitur iaculis. In ullamcorper sed erat in aliquet</p>
+                  </div>
+
+                </div>
+
+                <div class="swiper-pagination"></div>
+
+                <div class="arrows">
+                  <div class="swiper-button-next"></div>
+                  <div class="swiper-button-prev"></div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+      <div class="poster">
+
+        <article>
+
+          <nav>
+
+            <button type="button" class="close">
+              <span class="material-icons">close</span>
+              <span class="screen-reader">Voltar à história</span>
+            </button>
+
+          </nav>
+
+          <header>
+            <h1 class="screen-reader">Compartilhar meu mapa</h1>
+          <header>
+
+          <figure>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+          </figure>
+
+          <p><a href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=" download>Salvar imagem ↓</a></p>
+          <p>Etiam mattis tellus massa. Quisque id leo sit amet purus faucibus luctus nam imperdiet blandit tellus, vel.</p>
+          <p class="notes">Lorem ipsum dolor sit amet</p>
+
+        </article>
 
       </div>
 
 
     </div>
 
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
     <script src="script/app.js"></script>
+
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
 
   </body>
