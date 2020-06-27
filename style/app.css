@@ -50,6 +50,7 @@ body {
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--light-100);
 }
 
 h1, h2, h3, h4, h5, h6 {
