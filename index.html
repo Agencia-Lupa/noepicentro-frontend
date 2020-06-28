@@ -156,16 +156,25 @@
             <div class="input">
 
               <label>
+
                 <span class="screen-reader">Onde você mora?</span>
-                <input type="search" placeholder="Insira seu endereço aqui" name="address" autocomplete="off">
-                <div class="line"></div>
-              <label>
+                <input type="search" placeholder="Insira seu endereço aqui" name="address" autocomplete="off" spellcheck="false">
 
-              <span class="material-icons">search</span>
+                <div>
 
-              <button type="reset">
-                <span class="material-icons">close</span>
-              </button>
+                  <div class="line"></div>
+
+                  <div class="icon">
+                    <span class="material-icons">search</span>
+                  </div>
+
+                  <button type="reset" class="button">
+                    <span class="material-icons">close</span>
+                  </button>
+
+                </div>
+
+              </label>
 
             </div>
 
@@ -206,7 +215,7 @@
 
             <div class="geolocation">
 
-              <button type="button">
+              <button type="button" class="button">
                 <span class="material-icons">gps_fixed</span>
                 <span>Usar minha localização</span>
               </button>
