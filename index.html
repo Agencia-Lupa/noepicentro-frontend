@@ -34,10 +34,12 @@
   <body>
 
     <div
+
       class="app"
 
-      data-geolocation="(|false)"
-      data-search="(blur|focus|typing|suggestions)"
+      data-page="(main|search|story|poster)"
+      data-geolocation="(true|false)"
+      data-search="(blur|focus|loading|suggestions|done)"
 
     >
 
@@ -156,7 +158,7 @@
 
       <div class="search">
 
-        <form>
+        <form autocomplete="off" spellcheck="false">
 
           <fieldset>
             <legend class="screen-reader">Faça a simulação em seu bairro:</legend>
@@ -166,7 +168,7 @@
               <label>
 
                 <span class="screen-reader">Onde você mora?</span>
-                <input type="search" placeholder="Insira seu endereço aqui" name="address" autocomplete="off" spellcheck="false">
+                <input type="search" placeholder="Insira seu endereço aqui" name="address" autocorrect="off">
 
                 <div>
 

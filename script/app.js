@@ -1,20 +1,28 @@
 const app = {
 
-  selector : '.app',
+  element : document.querySelector( '.app' ),
 
   pages : {
 
-    current : '',
+    previous : 'main',
 
     open : function( name ) {
 
+      app.pages.previous = JSON.parse( JSON.stringify( app.element.dataset.page ) )
+
+      app.element.dataset.page = name
+
     },
 
-    close : function( name ) {
+    close : function() {
+
+      app.element.dataset.page = app.pages.previous
 
     },
 
     initialize : function() {
+
+      app.element.dataset.page = 'main'
 
     }
 
@@ -38,11 +46,123 @@ const app = {
 
   search : {
 
+    form : {
+
+      element : document.querySelector( 'form' ),
+
+      initialize : function() {
+
+        app.search.form.element.addEventListener( 'reset', function( event ) {
+
+          app.search.suggestions.clear()
+
+        } )
+
+        app.search.form.element.addEventListener( 'submit', function( event ) {
+
+          app.search.input.identify()
+          event.preventDefault()
+
+        } )
+
+      }
+
+    },
+
+    input : {
+
+      sanitized : function() {
+
+        return app.search.input.element.value.trim()
+
+      },
+
+      element : document.querySelector( 'input[type="search"]' ),
+
+      debounce : {
+
+        timer : undefined,
+
+        function : function( callback, delay ) {
+
+          delay = delay || 500
+
+          clearTimeout( app.search.input.debounce.timer )
+
+          app.search.input.debounce.timer = setTimeout( callback , delay )
+
+        }
+
+      },
+
+      identify : function() {
+
+        let address = app.search.input.sanitized()
+
+        if ( address )
+          console.log( 'Call MapBox API to get suggestions for: ' + address )
+
+      },
+
+      initialize : function() {
+
+        app.search.input.element.addEventListener( 'input', function() {
+
+          let address = app.search.input.sanitized()
+
+          if ( address )
+            app.search.input.debounce.function( app.search.input.identify )
+          else
+            app.search.suggestions.clear()
+
+        } )
+
+        app.search.input.element.addEventListener( 'focus', function() {
+
+          app.element.dataset.search = 'focus'
+
+        } )
+
+        app.search.input.element.addEventListener( 'blur', function() {
+
+          app.element.dataset.search = 'blur'
+
+        } )
+
+      }
+
+    },
+
+    suggestions : {
+
+      show : function() {
+
+      },
+
+      hide : function() {
+
+      },
+
+      fill : function() {
+
+      },
+
+      clear : function() {
+
+        console.log( 'Clear suggestions' )
+
+      },
+
+      initialize : function() {
+
+      },
+
+    },
+
     geolocation : {
 
       send : function( position ) {
 
-        console.log( position )
         alert( position.coords.latitude + ', ' + position.coords.longitude )
 
       },
@@ -67,6 +187,9 @@ const app = {
 
     initialize : function() {
 
+      app.search.form.initialize()
+      app.search.input.initialize()
+      app.search.suggestions.initialize()
       app.search.geolocation.initialize()
 
     }
@@ -74,6 +197,27 @@ const app = {
   },
 
   story : {
+
+    canvas : {
+
+      map : {
+
+        center : function(  ) {
+
+          console.log( 'Center map on: ' + latitude + ', ' + longitude )
+
+        }
+
+      }
+
+    },
+
+    begin : function( latitude, longitude ) {
+
+      app.story.canvas.map.center( latitude, longitude )
+      app.pages.open( 'story' )
+
+    },
 
     carousel : {
 
@@ -125,13 +269,11 @@ const app = {
 
   triggers : {
 
-    selector : '[data-trigger]',
+    elements : document.querySelectorAll( '[data-trigger]' ) ,
 
     initialize : function() {
 
-      let triggers = document.querySelectorAll( app.triggers.selector )
-
-      for ( let trigger of triggers ) {
+      for ( let trigger of app.triggers.elements ) {
 
         trigger.addEventListener( 'click', function() {
 
@@ -150,8 +292,6 @@ const app = {
   },
 
   initialize : function() {
-
-    app.element = document.querySelector( app.selector )
 
     app.pages.initialize()
     app.cover.initialize()
