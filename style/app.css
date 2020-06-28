@@ -1,19 +1,42 @@
+/* palette */
+
 :root {
 
-  --dark-100: rgba( 0, 0, 0,  1 );
-  --dark-50:  rgba( 0, 0, 0, .5 );
-  --dark-25:  rgba( 0, 0, 0, .5 );
-  --dark-10:  rgba( 0, 0, 0, .1 );
+  --dark-100: rgba( 0, 0, 0,  1  );
+  --dark-50:  rgba( 0, 0, 0, .5  );
+  --dark-25:  rgba( 0, 0, 0, .25 );
+  --dark-10:  rgba( 0, 0, 0, .1  );
 
-  --light-100: rgba( 255, 255, 255,  1 );
-  --light-50:  rgba( 255, 255, 255, .5 );
-  --light-25:  rgba( 255, 255, 255, .5 );
-  --light-10:  rgba( 255, 255, 255, .1 );
+  --light-100: rgba( 255, 255, 255,  1  );
+  --light-50:  rgba( 255, 255, 255, .5  );
+  --light-25:  rgba( 255, 255, 255, .25 );
+  --light-10:  rgba( 255, 255, 255, .1  );
 
   --highlight: rgba( 215, 165, 101, 1 );
   --highlight-rgb:   215, 165, 101;
 
 }
+
+
+
+/* fonts */
+
+/*
+@font-face {
+  font-family: Piaui;
+  src: url(../fonts/piaui/piaui-regular.woff) format('woff');
+  font-weight: 500;
+}
+*/
+
+@font-face {
+  font-family: Piaui;
+  src: url(../fonts/piaui/piaui-bold.woff) format('woff');
+  font-weight: 700;
+}
+
+
+/* general */
 
 *,
 *::before,
@@ -26,17 +49,76 @@
   transition-timing-function: ease-in-out;
 }
 
-@font-face {
-  font-family: Piaui;
-  src: url(../fonts/piaui/piaui-bold.woff) format('woff');
-  font-weight: 700;
+html {
+  height: 100%;
+  background: var(--dark-100);
+  font-size: 62.5%;
 }
 
-@font-face {
-  font-family: Piaui;
-  src: url(../fonts/piaui/piaui-regular.woff) format('woff');
-  font-weight: 500;
+body {
+  height: 100%;
+  font-family: Inter, sans-serif;
+  line-height: 1.5;
+  font-size: 1.8rem;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--light-50);
 }
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--light-100);
+  font-family: Piaui, sans-serif;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 3.2rem;
+}
+
+a {
+  color: var(--light-100);
+  text-decoration: none;
+  border-bottom: .1rem solid currentColor;
+}
+
+p {
+  color: var(--light-50);
+}
+
+p + p {
+  margin-top: calc( 1.8rem * 1.5 );
+}
+
+small {
+  font-size: 1.4rem;
+  color: var(--light-50);
+}
+
+small a {
+  border: none;
+  color: inherit
+}
+
+section {
+  margin-top: 9.6rem;
+}
+
+.button {
+  font-family: Piaui;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: calc( 1.8rem * 1.5 );
+  text-transform: uppercase;
+  letter-spacing: .2rem;
+  border: none;
+}
+
+
+/* accessibility */
 
 .screen-reader {
   position: absolute;
@@ -50,28 +132,89 @@
   border-width: 0;
 }
 
-html {
-  height: 100%;
-  background: var(--dark-100);
+
+
+/* cover */
+
+
+
+/* main */
+
+.main {
+  padding: 0 2.4rem;
 }
 
-body {
-  height: 100%;
-  font-family: Inter, sans-serif;
-  line-height: 1.5;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: var(--light-100);
+.brands,
+.brands a {
+  display: flex;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: Piaui, sans-serif;
-  font-weight: 700;
+.brands a {
+  border: none;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
+.brands a + a::before {
+  content: '';
+  display: flex;
+  height: 3.2rem;
+  min-width: .1rem;
+  margin: 0 1.6rem;
+  background: var(--light-50);
+}
+
+.brands a:first-child img {
+  width: 8rem;
+  align-self: center;
+}
+
+.brands a:last-child img {
+  width: 17.6rem;
+  align-self: center;
+}
+
+dl::before {
+  content: '';
+  display: flex;
+  width: 100%;
+  height: .1rem;
+  margin: 4.8rem 0;
+  background: var(--light-25);
+}
+
+dl > div + div {
+  margin-top: calc( 1.8rem * 1.5 );
+}
+
+dt {
+  font-size: 1.4rem;
+  color: var(--light-50);
+  line-height: calc( 1.8rem * 1.5 );
+}
+
+.main nav {
+  margin: 9.6rem 0;
+  color: var(--light-50);
+}
+
+.main nav > * + * {
+  margin-left: 2.4rem;
+}
+
+
+/* search */
+
+
+
+/* story */
+
+.story {
+  display: none;
+}
+
+
+
+/* poster */
+
+.poster {
+  display: none;
 }
