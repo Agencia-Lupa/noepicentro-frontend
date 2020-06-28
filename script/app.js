@@ -56,8 +56,10 @@ const app = {
 
       initialize : function() {
 
-        if ( !navigator.geolocation )
-          app.element.setAttribute( 'data-geolocation', 'false' )
+        if ( navigator.geolocation )
+          app.element.dataset.geolocation = true
+        else
+          app.element.dataset.geolocation = false
 
       }
 
