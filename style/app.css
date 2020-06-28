@@ -386,6 +386,7 @@ button {
 
 .input .icon {
   display: none;
+  pointer-events: none;
 }
 
 .input label input:placeholder-shown + div .icon {
