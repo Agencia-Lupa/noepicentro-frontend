@@ -1,5 +1,7 @@
 const app = {
 
+  selector : '.app',
+
   pages : {
 
     current : '',
@@ -36,7 +38,34 @@ const app = {
 
   search : {
 
+    geolocation : {
+
+      send : function( position ) {
+
+        console.log( position )
+        alert( position.coords.latitude + ', ' + position.coords.longitude )
+
+      },
+
+      get : function() {
+
+        if ( navigator.geolocation )
+          navigator.geolocation.getCurrentPosition( app.search.geolocation.send )
+
+      },
+
+      initialize : function() {
+
+        if ( !navigator.geolocation )
+          app.element.setAttribute( 'data-geolocation', 'false' )
+
+      }
+
+    },
+
     initialize : function() {
+
+      app.search.geolocation.initialize()
 
     }
 
@@ -48,7 +77,7 @@ const app = {
 
       instance : undefined,
 
-      container : '.swiper-container',
+      selector : '.swiper-container',
 
       options : {
 
@@ -67,7 +96,7 @@ const app = {
       initialize : function() {
 
         app.story.carousel.instance = new Swiper(
-          app.story.carousel.container,
+          app.story.carousel.selector,
           app.story.carousel.options
         )
 
@@ -92,7 +121,35 @@ const app = {
 
   },
 
+  triggers : {
+
+    selector : '[data-trigger]',
+
+    initialize : function() {
+
+      let triggers = document.querySelectorAll( app.triggers.selector )
+
+      for ( let trigger of triggers ) {
+
+        trigger.addEventListener( 'click', function() {
+
+          let instructions = this.dataset.trigger
+
+          let f = new Function( instructions )
+
+          return( f() )
+
+        } )
+
+      }
+
+    }
+
+  },
+
   initialize : function() {
+
+    app.element = document.querySelector( app.selector )
 
     app.pages.initialize()
     app.cover.initialize()
@@ -100,6 +157,7 @@ const app = {
     app.search.initialize()
     app.story.initialize()
     app.poster.initialize()
+    app.triggers.initialize()
 
   }
 
