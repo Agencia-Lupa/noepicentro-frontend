@@ -37,9 +37,9 @@
 
       class="app"
 
-      data-page="(main|search|story|poster)"
+      data-page="(main|story|poster)"
       data-geolocation="(true|false)"
-      data-search="(blur|focus|loading|suggestions|done)"
+      data-search="(blur|focus|suggestions|done)"
 
     >
 
@@ -161,6 +161,7 @@
         <form autocomplete="off" spellcheck="false">
 
           <fieldset>
+
             <legend class="screen-reader">Faça a simulação em seu bairro:</legend>
 
             <div class="input">
@@ -189,38 +190,7 @@
             </div>
 
             <div class="suggestions">
-              <ol>
-                <li>
-                  <button type="button">
-                    <span>Rua Olímpia de Almeida Prado</span>
-                    <span>SP, Brasil – 01151</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button">
-                    <span>Rua Olimpio de Almeida Caxambu</span>
-                    <span>MG, Brasil – 37440</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button">
-                    <span>Rua Maria Olympia de Almeida Sorocaba</span>
-                    <span>SP, Brasil</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button">
-                    <span>Rua Olímpio Rodrigues de Almeida Itapetininga dos Santos</span>
-                    <span>SP, Brasil – 18217</span>
-                  </button>
-                </li>
-                <li>
-                  <button type="button">
-                    <span>Rua Coronel Olimpio de Almeida Passa Quatro</span>
-                    <span>MG, Brasil – 37460</span>
-                  </button>
-                </li>
-              </ol>
+              <ol></ol>
             </div>
 
             <div class="geolocation">
@@ -246,7 +216,7 @@
 
           <nav>
 
-            <button type="button" class="close">
+            <button type="button" class="close" data-trigger="app.pages.open('main')">
               <span class="material-icons">close</span>
               <span class="screen-reader">Encerrar simulação</span>
             </button>

@@ -294,7 +294,13 @@ form {
   pointer-events: all;
 }
 
+form > * {
+  width: 100%;
+  max-width: 100%;
+}
+
 fieldset {
+  min-width: 0;
   width: 100%;
 }
 
@@ -322,7 +328,30 @@ button {
 }
 
 .search .suggestions {
-  display: none;
+  /* display: none; */
+}
+
+.suggestions button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 6.4rem;
+  padding: .8rem 2.4rem;
+  font-size: 1.4rem;
+}
+
+.suggestions button span {
+  display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  pointer-events: none;
+}
+
+.suggestions button span + span {
+  color: var(--dark-50);
 }
 
 .input,
@@ -436,7 +465,25 @@ button {
 /* story */
 
 .story {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: none;
+}
+
+.app[data-page="story"] .story {
+  display: flex;
+}
+
+.story article {
+  background: var(--dark-100);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
 
