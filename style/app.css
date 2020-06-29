@@ -173,6 +173,13 @@ section {
   -webkit-overflow-scrolling: touch;
 }
 
+.main > article,
+.main > nav,
+.main > footer {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
 .brands {
   margin-top: 28.8rem;
 }
@@ -226,13 +233,21 @@ dt {
 
 .main nav {
   display: flex;
-  margin: 9.6rem 0;
+  margin: 9.6rem auto;
   color: var(--light-50);
 }
 
 .main nav span.button {
   margin-left: -2.4rem;
   cursor: default;
+}
+
+@media( min-width: 800px ) {
+
+  .main {
+    padding-right: calc( 50vw + 2.4rem );
+  }
+
 }
 
 
