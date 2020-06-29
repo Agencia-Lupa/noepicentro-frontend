@@ -400,6 +400,7 @@ let app = {
             })
             .then(function(response) {
               if (!response.ok) {
+                console.log( 'erro' )
                 throw Error();
               }
               return response.json();
@@ -408,7 +409,7 @@ let app = {
               let time_after = performance.now();
               console.log("tempo para fetch", time_after - time_before);
 
-              let circle = draw_circle(
+              let circle = app.story.canvas.map.draw_circle(
                 center = center,
                 point_on_circle = api_result[1]);
 
@@ -448,9 +449,9 @@ let app = {
               })
 
             })
-          .catch(function(e) {
-              console.log( "Erro na busca do raio. Provavelmente por causa do certificado do servidor da API. Experimente visitar primeiro https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/ e tentar novamente.")
-          })
+          // .catch(function(e) {
+          //     console.log( "Erro na busca do raio. Provavelmente por causa do certificado do servidor da API. Experimente visitar primeiro https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/ e tentar novamente.")
+          // })
 
         },
 
