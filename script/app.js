@@ -4,8 +4,9 @@
 // span feature.text + ' ' + feature.address
 // span Bairro, Cidade, UF — CEP
 
+let map;
 
-const app = {
+let app = {
 
   element : document.querySelector( '.app' ),
 
@@ -350,9 +351,22 @@ const app = {
 
       map : {
 
+        id : 'map',
+        style : 'mapbox://styles/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr',
+        token : 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw',
+
         center : function( center ) {
 
-          alert( center )
+          console.log( 'center', center )
+
+          mapboxgl.accessToken = app.story.canvas.map.token;
+
+          map = new mapboxgl.Map( {
+              container: app.story.canvas.map.id,
+              style: app.story.canvas.map.style,
+              center: center,
+              zoom: 16
+          } )
 
         }
 
@@ -470,13 +484,11 @@ app.initialize()
 
 /* temporary until merge */
 
-mapboxgl.accessToken = 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw';
-var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr',
-    center: [-30, 0],
-    zoom: 4
-});
+// draw_circle
+// show_people
+// highlight_people_inside
+// toggle_labels
+// toggle_circle
 
 // vis functions
 
