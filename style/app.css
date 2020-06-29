@@ -94,6 +94,10 @@ a {
   border-bottom: .1rem solid currentColor;
 }
 
+#map a {
+  border: initial;
+}
+
 p {
   color: var(--light-50);
 }
@@ -603,6 +607,11 @@ button {
   margin: 0 auto;
   padding: 2rem;
   z-index: 3;
+  pointer-events: none;
+}
+
+.controls {
+  pointer-events: all;
 }
 
 .steps {
@@ -611,6 +620,7 @@ button {
   width: 100%;
   max-width: 37.5rem;
   border-radius: .8rem;
+  pointer-events: all;
 }
 
 .steps p {
