@@ -127,7 +127,7 @@ const app = {
           url += '&'
           url += 'language=pt'
           url += '&'
-          url += 'limit=5'
+          url += 'limit=3'
           url += '&'
           url += 'access_token='
           url += token
