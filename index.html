@@ -151,8 +151,10 @@
         </nav>
 
         <footer>
-          <p><small><a href="#" target="_blank" rel="nofollow">Política de Privacidade</a> <a href="#" target="_blank" rel="nofollow">Termos de Uso</a></small></p>
-        <footer>
+          <p><small><a href="#" target="_blank" rel="nofollow">Política de Privacidade</a>&nbsp; &nbsp;<a href="#" target="_blank" rel="nofollow">Termos de Uso</a></small></p>
+        </footer>
+
+        <div class="background"></div>
 
       </div>
 
@@ -216,21 +218,23 @@
 
           <nav>
 
-            <button type="button" class="close" data-trigger="app.pages.open('main')">
+            <button type="button" class="button close" data-trigger="app.pages.open('main')">
               <span class="material-icons">close</span>
               <span class="screen-reader">Encerrar simulação</span>
             </button>
 
-            <button type="button" class="share" disabled>
+            <button type="button" class="button share" disabled>
               <!-- <span class="material-icons">save_alt</span> -->
               <span>Compartilhar meu mapa</span>
             </button>
+
+            <span class="button" style="width: 6.4rem"></span>
 
           </nav>
 
           <header>
             <h1 class="screen-reader">Simulação</h1>
-          <header>
+          </header>
 
           <div class="steps-container">
 
@@ -299,11 +303,15 @@
 
                 <div class="swiper-pagination"></div>
 
-                <div class="arrows">
-                  <div class="swiper-button-next"></div>
-                  <div class="swiper-button-prev"></div>
-                </div>
+              </div>
 
+              <div class="arrows">
+                <button type="button" class="prev">
+                  <span class="material-icons">chevron_left</span>
+                </button>
+                <button type="button" class="next">
+                  <span class="material-icons">chevron_right</span>
+                </button>
               </div>
 
             </div>

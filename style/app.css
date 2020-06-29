@@ -6,14 +6,18 @@
   --dark-50:  rgba( 0, 0, 0, .5  );
   --dark-25:  rgba( 0, 0, 0, .25 );
   --dark-10:  rgba( 0, 0, 0, .1  );
+  --dark-05:  rgba( 0, 0, 0, .05  );
 
   --light-100: rgba( 255, 255, 255,  1  );
   --light-50:  rgba( 255, 255, 255, .5  );
   --light-25:  rgba( 255, 255, 255, .25 );
   --light-10:  rgba( 255, 255, 255, .1  );
+  --light-05:  rgba( 255, 255, 255, .05  );
 
   --highlight: rgba( 215, 165, 101, 1 );
   --highlight-rgb:   215, 165, 101;
+
+  --swiper-theme-color: rgba( 215, 165, 101, 1 );
 
 }
 
@@ -157,6 +161,22 @@ section {
 
 /* cover */
 
+.cover,
+.cover figure,
+.cover img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.cover figure img {
+  width: 100%;
+  height: 50%;
+  object-fit: cover;
+}
+
 
 
 /* main */
@@ -173,11 +193,43 @@ section {
   -webkit-overflow-scrolling: touch;
 }
 
+.main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  z-index: 1;
+  background: linear-gradient(
+    var( --dark-05 ),
+    var( --dark-100 )
+  );
+}
+
+.main .background {
+  content: '';
+  position: absolute;
+  top: 100vh;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  height: 0; /* JS */
+  display: flex;
+  background: var(--dark-100);
+  width: 100%;
+  z-index: 1;
+}
+
 .main > article,
 .main > nav,
 .main > footer {
+  position: relative;
   max-width: 42rem;
   margin: 0 auto;
+  z-index: 2;
 }
 
 .brands {
@@ -245,7 +297,7 @@ dt {
 @media( min-width: 800px ) {
 
   .main {
-    padding-right: calc( 50vw + 2.4rem );
+    /* padding-right: calc( 50vw + 2.4rem ); */
   }
 
 }
@@ -275,9 +327,9 @@ fieldset {
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-  -webkit-border-radius: 0 !important;
-  -moz-border-radius: 0 !important;
-  border-radius: 0 !important;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
 
 input[type=search]::-ms-clear {
@@ -307,6 +359,7 @@ form {
   max-width: 37.5rem;
   overflow: hidden;
   pointer-events: all;
+  box-shadow: 0 0 4.8rem var(--dark-100);
 }
 
 form > * {
@@ -340,6 +393,7 @@ button {
   justify-content: center;
   align-items: flex-end;
   pointer-events: none;
+  z-index: 2;
 }
 
 .search .suggestions {
@@ -485,25 +539,215 @@ button {
 /* story */
 
 .story {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: none;
-}
-
-.app[data-page="story"] .story {
-  display: flex;
-}
-
-.story article {
   background: var(--dark-100);
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  display: none;
+  z-index: 3;
+}
+
+.app[data-page="story"] .story {
+  display: flex;
+}
+
+.story article,
+.story .canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.story nav {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 6.4rem;
+  z-index: 2;
+}
+
+.story nav button {
+  color: var(--light-100);
+}
+
+.button.share {
+  background: var(--highlight);
+  height: 4rem;
+  overflow: hidden;
+  border-radius: 2.4rem;
+}
+
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0 auto;
+  padding: 2rem;
+  z-index: 3;
+}
+
+.steps {
+  position: relative;
+  background: var(--light-100);
+  width: 100%;
+  max-width: 37.5rem;
+  border-radius: .8rem;
+}
+
+.steps p {
+  color: var(--dark-50);
+}
+
+.swiper-container-horizontal > .swiper-pagination-progressbar {
+  bottom: 0;
+  top: unset;
+  height: .8rem;
+  border-radius: 0 0 .8rem .8rem;
+  overflow: hidden;
+  background: var(--dark-25);
+}
+
+.swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  background: var(--highlight);
+}
+
+.swiper-slide {
+  padding: 3.6rem 2rem 2.6rem;
+}
+
+.arrows {
+  display: flex;
+  position: absolute;
+  top: -2.4rem;
+  right: 2.4rem;
+  height: 4.8rem;
+  width: 9.6rem;
+  border-radius: 2.4rem;
+  background: var(--light-100);
+  box-shadow: 0 .2rem 1.2rem var( --dark-25);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.arrows button {
+  height: 4.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 4.8rem;
+  cursor: pointer;
+}
+
+.arrows button.swiper-button-disabled {
+  color: var(--dark-25);
+}
+
+.arrows button:hover {
+  background: var(--dark-05);
+}
+
+.arrows button:first-child {
+  border-right: 1px solid var(--dark-10);
+}
+
+.controls label {
+  cursor: pointer
+}
+
+input[type="checkbox"] + div {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  color: var(--light-50);
+  padding: .8rem;
+  transition: color .4s linear;
+}
+
+input[type="checkbox"] + div .switch {
+  position: relative;
+  display: flex;
+  width: 2.4rem;
+  height: 1.2rem;
+  background: var(--light-50);
+  border-radius: .6rem;
+  margin-right: .8rem;
+  padding: .3rem;
+  transition: background-color .4s linear;
+}
+
+input[type="checkbox"] + div .switch::before {
+  content: '';
+  position: relative;
+  display: flex;
+  width: .6rem;
+  height: .6rem;
+  border-radius: .3rem;
+  background: var(--light-100);
+  transform: translateX( 0 );
+  transition: transform .4s ease-in-out;
+}
+
+input[type="checkbox"]:checked + div {
+  color: var(--light-100);
+}
+
+input[type="checkbox"]:checked + div .switch {
+  background: var(--highlight);
+}
+
+input[type="checkbox"]:checked + div .switch::before {
+  transform: translateX( 200% );
+}
+
+@media (min-width: 640px) {
+
+  .story nav {
+    padding: 2.4rem 6.4rem;
+    height: initial;
+    min-height: 6.4rem;
+  }
+
+  .steps-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 6.4rem;
+  }
+
+  input[type="checkbox"] + div {
+    font-size: 1.8rem;
+  }
+
+  input[type="checkbox"] + div .switch {
+    width: 4.2rem;
+    height: 2.4rem;
+    border-radius: 1.2rem;
+    margin-right: 1.6rem;
+    padding: .6rem;
+  }
+
+  input[type="checkbox"] + div .switch::before {
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: .6rem;
+  }
+
+  input[type="checkbox"]:checked + div .switch::before {
+    transform: translateX( 150% );
+  }
+
 }
 
 
@@ -512,4 +756,5 @@ button {
 
 .poster {
   display: none;
+  z-index: 4;
 }

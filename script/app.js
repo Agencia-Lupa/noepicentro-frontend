@@ -45,7 +45,25 @@ const app = {
 
   main : {
 
+    element : document.querySelector( '.main' ),
+
+    background : function() {
+
+      document.querySelector( '.background' ).style.height = '0'
+
+      setTimeout( function() {
+
+        document.querySelector( '.background' ).style.height = ( app.main.element.scrollHeight - app.main.element.offsetHeight ) + 'px'
+
+      }, 10 )
+
+    },
+
     initialize : function() {
+
+      app.main.background()
+      
+      window.addEventListener( 'resize', app.main.background )
 
     }
 
@@ -369,9 +387,14 @@ const app = {
         },
 
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }
+          prevEl: '.prev',
+          nextEl: '.next',
+        },
+
+        keyboard: {
+          enabled: true,
+          onlyInViewport: false,
+        },
 
       },
 
