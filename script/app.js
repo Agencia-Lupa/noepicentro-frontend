@@ -347,6 +347,20 @@ let app = {
 
   story : {
 
+    controls : {
+
+      initialize : function() {
+
+        document.querySelector( '[type="checkbox"]' ).addEventListener( 'change', function() {
+
+          app.story.canvas.map.toggle_labels( this.checked )
+
+        } )
+
+      }
+
+    },
+
     canvas : {
 
       map : {
@@ -601,6 +615,7 @@ let app = {
     initialize : function() {
 
       app.story.carousel.initialize()
+      app.story.controls.initialize()
 
     }
 

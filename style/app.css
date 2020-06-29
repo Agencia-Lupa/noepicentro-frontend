@@ -550,6 +550,14 @@ button {
   left: 0;
 }
 
+.mapboxgl-ctrl.mapboxgl-ctrl-attrib {
+  background: transparent;
+}
+
+.mapboxgl-ctrl-attrib a {
+  color: var(--light-50);
+}
+
 .story {
   background: var(--dark-100);
   position: absolute;
