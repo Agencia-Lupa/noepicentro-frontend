@@ -381,10 +381,12 @@ button {
   bottom: 0;
   left: 0;
   width: 100%;
+  pointer-events: none;
 }
 
 .input label input {
   width: calc( 100% - 6.4rem );
+  height: 100%;
   caret-color: var(--highlight);
 }
 
@@ -430,9 +432,12 @@ button {
   color: var(--dark-50);
 }
 
+.input button {
+  pointer-events: all
+}
+
 .input .icon {
   display: none;
-  pointer-events: none;
 }
 
 .input label input:placeholder-shown + div .icon {
