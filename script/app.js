@@ -540,7 +540,7 @@ let app = {
           let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
 
           let circles = [];
-          let steps = 4;
+          let steps = 8;
           for (let i = 1; i<=steps; i++) {
               circles.push(turf.circle(center_ft, radius * i / steps));
           }
@@ -565,7 +565,7 @@ let app = {
           // for each circle/mask, updates the 'data' parameter for the mask source,
           // redrawing it
 
-          let duration = 1500;
+          let duration = 600;
 
           for (let i = 0; i<steps; i++) {
               window.setTimeout(function() {
