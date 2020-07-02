@@ -363,9 +363,17 @@ let app = {
         style : 'mapbox://styles/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr',
         token : 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw',
 
+        user : {
+
+          center : undefined
+
+        },
+
         initialize : function( center ) {
 
           console.log( 'center', center )
+
+          app.story.canvas.map.user.center = center;
 
           mapboxgl.accessToken = app.story.canvas.map.token;
 
@@ -444,7 +452,11 @@ let app = {
                       fittingBounds = false;
 
                       app.story.canvas.map.show_people();
-                      app.story.canvas.map.highlight_people_inside(circle);
+                      app.story.canvas.map.highlight_people_inside(
+                        center = app.story.canvas.map.user.center,
+                        point_on_circle = api_result[1]
+                      );
+
                       //toggle_labels(show = false);
                       //toggle_circle(show = false);
                     }
@@ -508,23 +520,59 @@ let app = {
         	map.moveLayer("people", "national-park")
         },
 
-        highlight_people_inside : function(circle) {
+        highlight_people_inside : function(center, point_on_circle) {
 
-        	if (map.getLayer('people-inside')) map.removeLayer('people-inside');
+          if (map.getLayer('mask')) map.removeLayer('mask');
+          if (map.getSource('mask')) map.removeSource('mask');
 
-        	map.addLayer({
-        			'id': 'people-inside',
-        			'type': 'circle',
-        			'source': 'composite',
-        			'source-layer': 'people',
-        			'paint': {
-        				'circle-radius': 2,
-        				'circle-color': 'white',
-        				'circle-opacity': 0.8
-        			},
-        			'filter': ['within', circle]
-        		},
-        		'people');
+          ///// this could be a helper function. we use this code twice.
+          // transform coordinates into features
+          let center_ft = turf.point(center);
+          let point_on_circle_ft = turf.point(point_on_circle);
+
+          // calculate radius in km
+          let radius = turf.distance(
+              center_ft,
+              point_on_circle_ft
+          );
+          ///// end of helper function
+
+          let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
+
+          let circles = [];
+          let steps = 4;
+          for (let i = 1; i<=steps; i++) {
+              circles.push(turf.circle(center_ft, radius * i / steps));
+          }
+
+          let masks = circles.map(d => turf.mask(d, bbox_br));
+
+          map.addSource('mask', {
+              'type': 'geojson',
+              'data': masks[0]
+          });
+
+          map.addLayer({
+              'id': 'mask',
+              'type': 'fill',
+              'source': 'mask',
+              'paint': {
+                  'fill-color': 'black',
+                  'fill-opacity': 0.55
+              }
+          });
+
+          // for each circle/mask, updates the 'data' parameter for the mask source,
+          // redrawing it
+
+          let duration = 1500;
+
+          for (let i = 0; i<steps; i++) {
+              window.setTimeout(function() {
+                  map.getSource('mask').setData(masks[i])
+              }, i * duration);
+          }
+
         },
 
         toggle_labels : function(show) {
