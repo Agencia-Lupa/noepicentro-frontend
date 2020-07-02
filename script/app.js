@@ -1,9 +1,3 @@
-// Bairro, Cidade, UF — CEP
-
-
-// span feature.text + ' ' + feature.address
-// span Bairro, Cidade, UF — CEP
-
 let map;
 
 let app = {
@@ -405,8 +399,6 @@ let app = {
 
           let url = 'https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/coords?lat=' + lat + '&lon=' + lon
 
-          console.log( url )
-
           let time_before = performance.now()
 
           fetch(url, {
@@ -414,7 +406,6 @@ let app = {
             })
             .then(function(response) {
               if (!response.ok) {
-                console.log( 'erro' )
                 throw Error();
               }
               return response.json();
