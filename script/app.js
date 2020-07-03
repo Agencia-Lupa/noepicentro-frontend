@@ -552,7 +552,7 @@ let app = {
           let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
 
           let circles = [];
-          let steps = 8;
+          let steps = 10;
           for (let i = 1; i<=steps; i++) {
               circles.push(turf.circle(center_ft, radius * i / steps));
           }
