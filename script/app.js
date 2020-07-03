@@ -210,19 +210,30 @@ let app = {
 
             for ( let context of feature.context ) {
 
+              console.log( context )
+
               feature.secondary += context.id.includes( 'poi'          ) ? ', ' + context.text : ''
               feature.secondary += context.id.includes( 'neighborhood' ) ? ', ' + context.text : ''
               feature.secondary += context.id.includes( 'locality'     ) ? ', ' + context.text : ''
               feature.secondary += context.id.includes( 'place'        ) ? ', ' + context.text : ''
               feature.secondary += context.id.includes( 'district'     ) ? ', ' + context.text : ''
-              feature.secondary += context.id.includes( 'region'       ) ? ', ' + context.short_code.replace( 'BR-', '' ) : ''
+
+              // fix Rio de Janeiro addresses (they do not have short_code property)
+              if ( context.id.includes( 'region' ) ) {
+
+                if ( 'short_code' in context )
+                  feature.secondary += ', ' + context.short_code.replace( 'BR-', '' )
+                else
+                  feature.secondary += context.text === 'Rio de Janeiro' ? ', RJ' : ''
+
+              }
 
               if ( !feature.postcode )
                 feature.postcode += context.id.includes( 'postcode' ) ? ' – ' + context.text : ''
 
             }
 
-            feature.secondary = feature.secondary.replace(/(^,\s*)/g, '')
+            feature.secondary = feature.secondary.replace( /(^,\s*)/g, '' )
             feature.secondary += feature.postcode
 
           }
@@ -381,7 +392,8 @@ let app = {
               container: app.story.canvas.map.id,
               style: app.story.canvas.map.style,
               center: center,
-              zoom: 14
+              zoom: 14,
+              preserveDrawingBuffer: true
           } )
 
           // remove existing layers for new search
