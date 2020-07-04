@@ -8,62 +8,115 @@ let app = {
 
     elements : document.querySelectorAll( '[data-variable]' ),
 
-    initial : undefined,
+    initial : undefined, // Death count | Cities with deaths
+    radius : undefined, // get from turf
     result : undefined,
-    radius : undefined,
 
     retrieve : {
 
       "Death count" : function() {
-        console.log( "Death count" )
+
+        return ''
+
       },
 
       "Cities with deaths" : function() {
-        console.log( "Cities with deaths" )
+
+        return ''
+
       },
 
       "Time since first death" : function() {
-        console.log( "Time since first death" )
+
+        let today = new Date()
+        let first = new Date( 2020, 2, 16 )
+
+        let diff = {}
+
+        diff.milliseconds = today - first
+        diff.days = Math.floor( diff.milliseconds / (1000*60*60*24) )
+
+        return diff.days + ' dias'
+
       },
 
       "Featured city 1" : function() {
-        console.log( "Featured city 1" )
+
+        let city = app.variables.result.capitals_to_highlight[ 0 ]
+        return city.name_muni + ' (' + city.name_muni + ')'
+
       },
 
       "Featured city 1 location" : function() {
-        console.log( "Featured city 1 location" )
+
+        let city = app.variables.result.capitals_to_highlight[ 0 ]
+        return city.display_text
+
       },
 
       "Featured city 1 location description" : function() {
-        console.log( "Featured city 1 location description" )
+
+        let city = app.variables.result.capitals_to_highlight[ 0 ]
+        return city.display_desc || ''
+
       },
 
       "Featured city 2" : function() {
-        console.log( "Featured city 2" )
+
+        let city = app.variables.result.capitals_to_highlight[ 1 ]
+        return city.name_muni + ' (' + city.name_muni + ')'
+
       },
 
       "Featured city 2 location" : function() {
-        console.log( "Featured city 2 location" )
+
+        let city = app.variables.result.capitals_to_highlight[ 1 ]
+        return city.display_text
+
       },
 
       "Featured city 2 location description" : function() {
-        console.log( "Featured city 2 location description" )
+
+        let city = app.variables.result.capitals_to_highlight[ 1 ]
+        return city.display_desc || ''
+
       },
 
       "Vanished city" : function() {
-        console.log( "Vanished city" )
+
+        let city = app.variables.result.neighboring_city
+        return city.name_muni + ' (' + city.name_state + ')'
+
       },
 
       "Vanished city population" : function() {
-        console.log( "Vanished city population" )
+
+        let city = app.variables.result.neighboring_city
+        let population = city.pop_2019
+        let value = Math.round( population / 1000 )
+        return value + ' mil'
+
       },
 
       "Vanished city population difference" : function() {
-        console.log(       "Vanished city population difference" )
+
+        let city = app.variables.result.neighboring_city
+        let population = city.pop_2019 // 8
+        let deaths = 0 // ???
+        let difference = deaths - population
+
+        if ( difference < 1000 )
+          return difference
+
+        let value = Math.round( difference / 1000 ) * 1000
+        return value + ' mil'
+
       },
 
       "Vanished cities" : function() {
-          console.log(       "Vanished cities" )
+
+        return ''
+
       },
 
     },
@@ -76,8 +129,13 @@ let app = {
 
         for ( let element of app.variables.elements ) {
 
-          if ( element.dataset.variable == variable )
-            app.variables.retrieve[ variable ]()
+          if ( element.dataset.variable == variable ) {
+
+            let text = app.variables.retrieve[ variable ]()
+            element.innerText = text
+
+          }
+
 
         }
 
