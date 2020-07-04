@@ -287,6 +287,10 @@ dt {
   line-height: calc( 1.8rem * 1.5 );
 }
 
+.main > article footer {
+  margin-top: 6.4rem;
+}
+
 .main nav {
   display: flex;
   margin: 9.6rem auto;
