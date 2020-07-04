@@ -665,6 +665,10 @@ button {
   padding: 3.6rem 2rem 2.6rem;
 }
 
+span[data-variable] {
+
+}
+
 .arrows {
   display: flex;
   position: absolute;

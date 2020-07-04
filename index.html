@@ -41,6 +41,7 @@
       data-page="(main|story|poster)"
       data-geolocation="(true|false)"
       data-search="(blur|focus|suggestions|done)"
+      data-step="(name)"
 
     >
 
@@ -71,8 +72,8 @@
             <h1>E se todos os mortos por Covid&#8209;19 no Brasil fossem seus vizinhos?</h1>
           </header>
 
-          <p>Até ontem, 61.314 pessoas haviam morrido por Covid-19 no Brasil.</p>
-          <p>Essas mortes estão espalhadas por mais de 2.751 cidades, em todos os estados.</p>
+          <p>Até ontem, <span data-variable="Death count">61.314</span> pessoas haviam morrido por Covid-19 no Brasil.</p>
+          <p>Essas mortes estão espalhadas por mais de <span data-variable="Cities with deaths">2.751 cidades</span>, em todos os estados.</p>
           <p>E se elas tivessem acontecido perto de você?</p>
           <p>Como os surtos de Covid-19 no país se concentram em algumas regiões metropolitanas, muitos de nós não enxergam o efeito da doença.</p>
           <p>Esta simulação mostra como a pandemia afetaria sua vizinhança, “apagando” do mapa áreas que são familiares a você.</p>
@@ -265,44 +266,44 @@
 
                 <div class="swiper-wrapper">
 
-                  <div class="swiper-slide">
-                    <p>Essa é sua vizinhança no dia 12 de março. Neste dia, uma mulher de 57 anos faleceu em São Paulo em decorrência do novo coronavírus</p>
+                  <div data-step="You are here" class="swiper-slide">
+                    <p>Essa é sua vizinhança no dia 16 de março. Neste dia, foi confirmada a primeira morte pelo novo coronavírus no Brasil.</p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Nesse mapa, vamos simular que quem faleceu foi um morador do seu bairro</p>
+                  <div data-step="First death" class="swiper-slide">
+                    <p>A vítima foi um  homem de 62 anos que vivia na cidade de São Paulo. No mapa, simulamos que essa morte aconteceu no seu bairro</p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Após uma semana, outras nove mortes foram registradas no país. Novamente, vamos simular que todas viviam na sua vizinhança</p>
+                  <div data-step="Following deaths" class="swiper-slide">
+                    <p>Uma semana depois, no dia 24 de março, mais 46 pessoas haviam morrido por Covid-19 no Brasil. De novo, simulamos que elas viviam na sua vizinhança</p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Hoje, mais de três meses após a primeira morte, 61.314 pessoas morreram vítimas do novo coronavírus em todo o Brasil</p>
+                  <div data-step="All deaths" class="swiper-slide">
+                    <p>Hoje, <span data-variable="Time since first death">mais de três meses</span> após a confirmação da primeira morte, o número total de óbitos causados pelo novo coronavírus no Brasil chega a <span data-variable="Death count">61.314</span></p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>É como se todo mundo que vive dentro desse círculo, desenhado exatamente ao redor da sua casa, tivesse falecido</p>
+                  <div data-step="All deaths with outline" class="swiper-slide">
+                    <p>É como se todo mundo que vive dentro desse círculo, desenhado ao redor da sua casa, tivesse morrido</p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Tantas mortes são suficientes para riscar do mapa uma cidade aí perto, da qual você já deve ter ouvido falar: Campos do Jordão</p>
+                  <div data-step="City that would have vanished" class="swiper-slide">
+                    <p>Tantas mortes são suficientes para riscar do mapa uma cidade aí perto, da qual você já deve ter ouvido falar: <span data-variable="Vanished city">Campos do Jordão (SP)</span></p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Moram lá, de acordo com estimativas do IBGE para 2019, aproximadamente 47 mil pessoas</p>
+                  <div data-step="City vanished" class="swiper-slide">
+                    <p>Moram lá, de acordo com estimativas do IBGE para 2019, aproximadamente <span data-variable="Vanished city population">47 mil</span> pessoas, <span data-variable="Vanished city population difference">4 mil</span> a menos que o total de mortes registrados no Brasil por Covid-19 até hoje</p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Na verdade, a maior parte das cidades do Brasil tem menos habitantes do que o número total de mortos no país </p>
+                  <div data-step="Cities that would have vanished" class="swiper-slide">
+                    <p>Assim como <span data-variable="Vanished city">Campos do Jordão (SP)</span>, a maior parte das cidades brasileiras tem menos habitantes do que o número de mortos pela doença no país</p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Cada uma das 4.609 cidades destacadas agora sumiria caso a epidemia acontecesse somente dentro de seus limites municipais</p>
+                  <div data-step="Cities vanished" class="swiper-slide">
+                    <p>Cada uma das <span data-variable="Vanished cities">4.609</span> cidades destacadas no mapa sumiria caso a epidemia acontecesse somente dentro de seus limites municipais</p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Essas cidades são pequenas, mas mortes nessa escala também teriam impactos radicais nos grandes centros urbanos</p>
+                  <div data-step="Featured city 1" class="swiper-slide">
+                    <p>Mortes nessa escala também teriam impacto nos grandes centros urbanos</p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Veja como ficaria Porto Alegre (RS), por exemplo, caso todas as mortes no país se concentrassem ao redor da Usina do Gasômetro</p>
+                  <div data-step="Featured city 1 location" class="swiper-slide">
+                    <p>Veja como ficaria <span data-variable="Featured city 1">Porto Alegre (RS)</span>, por exemplo, caso todas as mortes no país se concentrassem ao redor de <span data-variable="Featured city 1 location">Usina do Gasômetro</span>, <span data-variable="Featured city 1 location description">ponto turístico da capital gaúcha</span></p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Também dê uma olhada em Belém (PA), com as mortes se espalhando ao redor do Mercado Ver-o-Peso</p>
+                  <div data-step="Featured city 2" class="swiper-slide">
+                    <p>Também dê uma olhada em <span data-variable="Featured city 2">Belém (PA)</span>, com as mortes se espalhando ao redor de <span data-variable="Featured city 2 location">Mercado Ver-o-Peso</span>, <span data-variable="Featured city 2 location description">no centro histórico da cidade</span></p>
                   </div>
-                  <div class="swiper-slide">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a mi eu enim efficitur iaculis. In ullamcorper sed erat in aliquet</p>
+                  <div data-step="All deaths" class="swiper-slide">
+                    <p>Na vida real, os mortos pela Covid-19 não estão todos próximos de você. Porém, mesmo que você não os veja de perto, eles existem. E são muitos.</p>
                   </div>
 
                 </div>

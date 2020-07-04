@@ -4,6 +4,100 @@ let app = {
 
   element : document.querySelector( '.app' ),
 
+  variables : {
+
+    elements : document.querySelectorAll( '[data-variable]' ),
+
+    initial : undefined,
+    result : undefined,
+    radius : undefined,
+
+    retrieve : {
+
+      "Death count" : function() {
+        console.log( "Death count" )
+      },
+
+      "Cities with deaths" : function() {
+        console.log( "Cities with deaths" )
+      },
+
+      "Time since first death" : function() {
+        console.log( "Time since first death" )
+      },
+
+      "Featured city 1" : function() {
+        console.log( "Featured city 1" )
+      },
+
+      "Featured city 1 location" : function() {
+        console.log( "Featured city 1 location" )
+      },
+
+      "Featured city 1 location description" : function() {
+        console.log( "Featured city 1 location description" )
+      },
+
+      "Featured city 2" : function() {
+        console.log( "Featured city 2" )
+      },
+
+      "Featured city 2 location" : function() {
+        console.log( "Featured city 2 location" )
+      },
+
+      "Featured city 2 location description" : function() {
+        console.log( "Featured city 2 location description" )
+      },
+
+      "Vanished city" : function() {
+        console.log( "Vanished city" )
+      },
+
+      "Vanished city population" : function() {
+        console.log( "Vanished city population" )
+      },
+
+      "Vanished city population difference" : function() {
+        console.log(       "Vanished city population difference" )
+      },
+
+      "Vanished cities" : function() {
+          console.log(       "Vanished cities" )
+      },
+
+    },
+
+    update : function( list ) {
+
+      list = list || Object.keys( app.variables.retrieve )
+
+      for ( let variable of list ) {
+
+        for ( let element of app.variables.elements ) {
+
+          if ( element.dataset.variable == variable )
+            app.variables.retrieve[ variable ]()
+
+        }
+
+      }
+
+    },
+
+    initialize : function() {
+
+      app.variables.update(
+        [
+          'Death count',
+          'Cities with deaths'
+        ]
+      )
+
+    }
+
+  },
+
   pages : {
 
     previous : 'main',
@@ -195,8 +289,6 @@ let app = {
 
       handle : function( data ) {
 
-        console.log( data.features )
-
         if ( data.features ) {
 
           for ( let feature of data.features ) {
@@ -209,8 +301,6 @@ let app = {
             feature.primary += feature.address ? ', ' + feature.address : ''
 
             for ( let context of feature.context ) {
-
-              console.log( context )
 
               feature.secondary += context.id.includes( 'poi'          ) ? ', ' + context.text : ''
               feature.secondary += context.id.includes( 'neighborhood' ) ? ', ' + context.text : ''
@@ -306,8 +396,6 @@ let app = {
 
       handle : function( position ) {
 
-        console.log( position )
-
         if ( position.coords ) {
 
           let center = [
@@ -352,6 +440,18 @@ let app = {
 
   story : {
 
+    steps : {
+
+      display : function( step ) {
+
+      },
+
+      handle : function( carousel ) {
+
+      }
+
+    },
+
     map : {
 
       id : 'map',
@@ -394,7 +494,7 @@ let app = {
         let lat = center[1];
         let lon = center[0];
 
-        let url = 'https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/coords?lat=' + lat + '&lon=' + lon
+        let url = 'https://caco.app/coords?lat=' + lat + '&lon=' + lon
 
         let time_before = performance.now()
 
@@ -408,12 +508,16 @@ let app = {
             return response.json();
           })
           .then(function(api_result) {
+
+            console.log( api_result )
+
             let time_after = performance.now();
             console.log("tempo para fetch", time_after - time_before);
 
             let circle = app.story.map.draw_circle(
               center = center,
-              point_on_circle = api_result[1]);
+              point_on_circle = api_result.radius.outer_point
+            );
 
             bbox_circle = turf.bbox(circle);
 
@@ -443,7 +547,7 @@ let app = {
                     app.story.map.show_people();
                     app.story.map.highlight_people_inside(
                       center = app.story.map.user,
-                      point_on_circle = api_result[1]
+                      point_on_circle = api_result.radius.outer_point
                     );
 
                     //toggle_labels(show = false);
@@ -454,10 +558,10 @@ let app = {
               }
             })
 
+            app.variables.result = api_result
+            app.variables.update()
+
           })
-        // .catch(function(e) {
-        //     console.log( "Erro na busca do raio. Provavelmente por causa do certificado do servidor da API. Experimente visitar primeiro https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/ e tentar novamente.")
-        // })
 
       },
 
@@ -652,7 +756,19 @@ let app = {
           nextEl: '.next',
         },
 
-        grabCursor: true
+        grabCursor: true,
+
+        on: {
+
+          init : function( carousel ) {
+            app.story.steps.handle( carousel )
+          },
+
+          slideChangeTransitionEnd: function ( carousel ) {
+            app.story.steps.handle( carousel )
+          }
+
+        }
 
       },
 
@@ -710,6 +826,7 @@ let app = {
 
   initialize : function() {
 
+    app.variables.initialize()
     app.pages.initialize()
     app.cover.initialize()
     app.main.initialize()
