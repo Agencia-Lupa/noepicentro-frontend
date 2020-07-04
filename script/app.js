@@ -352,263 +352,269 @@ let app = {
 
   story : {
 
-    controls : {
+    map : {
 
-      initialize : function() {
+      id : 'map',
+      style : 'mapbox://styles/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr',
+      token : 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw',
 
-        document.querySelector( '[type="checkbox"]' ).addEventListener( 'change', function() {
+      user : {
 
-          app.story.canvas.map.toggle_labels( this.checked )
+        center : undefined
 
+      },
+
+      initialize : function( center ) {
+
+        console.log( 'center', center )
+
+        app.story.map.user.center = center;
+
+        mapboxgl.accessToken = app.story.map.token;
+
+        map = new mapboxgl.Map( {
+            container: app.story.map.id,
+            style: app.story.map.style,
+            center: center,
+            zoom: 14,
+            preserveDrawingBuffer: true
         } )
 
-      }
+        // remove existing layers for new search
 
-    },
+        if (map.getLayer('people-inside')) map.removeLayer('people-inside');
+        if (map.getLayer('circle')) map.removeLayer('circle');
+        if (map.getSource('circle')) map.removeSource('circle');
 
-    canvas : {
+        // fly to result (zooming in)
 
-      map : {
+        map.flyTo({
+          'center': center,
+          'speed': 0.8,
+          'zoom': 16
+        });
 
-        id : 'map',
-        style : 'mapbox://styles/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr',
-        token : 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw',
+        let flying = true;
 
-        user : {
+        // fetch
 
-          center : undefined
+        let lat = center[1];
+        let lon = center[0];
 
-        },
+        let url = 'https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/coords?lat=' + lat + '&lon=' + lon
 
-        initialize : function( center ) {
+        let time_before = performance.now()
 
-          console.log( 'center', center )
+        fetch(url, {
+            mode: 'cors'
+          })
+          .then(function(response) {
+            if (!response.ok) {
+              throw Error();
+            }
+            return response.json();
+          })
+          .then(function(api_result) {
+            let time_after = performance.now();
+            console.log("tempo para fetch", time_after - time_before);
 
-          app.story.canvas.map.user.center = center;
+            let circle = app.story.map.draw_circle(
+              center = center,
+              point_on_circle = api_result[1]);
 
-          mapboxgl.accessToken = app.story.canvas.map.token;
+            bbox_circle = turf.bbox(circle);
 
-          map = new mapboxgl.Map( {
-              container: app.story.canvas.map.id,
-              style: app.story.canvas.map.style,
-              center: center,
-              zoom: 14,
-              preserveDrawingBuffer: true
-          } )
+            // wait for the end of fly_to camera movement
+            map.on('moveend', function(e) {
+              if (flying) {
+                flying = false;
 
-          // remove existing layers for new search
+                map.fitBounds(bbox_circle, {
+                  padding: {
+                    top: 20,
+                    bottom: 20,
+                    left: 10,
+                    right: 10
+                  },
+                  duration: 1000
+                });
 
-          if (map.getLayer('people-inside')) map.removeLayer('people-inside');
-          if (map.getLayer('circle')) map.removeLayer('circle');
-          if (map.getSource('circle')) map.removeSource('circle');
+                let fittingBounds = true;
 
-          // fly to result (zooming in)
+                // wait for the end of fitBounds camera movement
 
-          map.flyTo({
-            'center': center,
-            'speed': 0.8,
-            'zoom': 16
-          });
+                map.on('moveend', function(e) {
+                  if (fittingBounds) {
+                    fittingBounds = false;
 
-          let flying = true;
+                    app.story.map.show_people();
+                    app.story.map.highlight_people_inside(
+                      center = app.story.map.user.center,
+                      point_on_circle = api_result[1]
+                    );
 
-          // fetch
+                    //toggle_labels(show = false);
+                    //toggle_circle(show = false);
+                  }
+                })
 
-          let lat = center[1];
-          let lon = center[0];
-
-          let url = 'https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/coords?lat=' + lat + '&lon=' + lon
-
-          let time_before = performance.now()
-
-          fetch(url, {
-              mode: 'cors'
-            })
-            .then(function(response) {
-              if (!response.ok) {
-                throw Error();
               }
-              return response.json();
             })
-            .then(function(api_result) {
-              let time_after = performance.now();
-              console.log("tempo para fetch", time_after - time_before);
 
-              let circle = app.story.canvas.map.draw_circle(
-                center = center,
-                point_on_circle = api_result[1]);
+          })
+        // .catch(function(e) {
+        //     console.log( "Erro na busca do raio. Provavelmente por causa do certificado do servidor da API. Experimente visitar primeiro https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/ e tentar novamente.")
+        // })
 
-              bbox_circle = turf.bbox(circle);
+      },
 
-              // wait for the end of fly_to camera movement
-              map.on('moveend', function(e) {
-                if (flying) {
-                  flying = false;
+      draw_circle : function(center, point_on_circle) {
 
-                  map.fitBounds(bbox_circle, {
-                    padding: {
-                      top: 20,
-                      bottom: 20,
-                      left: 10,
-                      right: 10
-                    },
-                    duration: 1000
-                  });
+      	// remove circle layer, if it already exists
+      	if (map.getLayer('circle')) map.removeLayer('circle');
+      	if (map.getSource('circle')) map.removeSource('circle');
 
-                  let fittingBounds = true;
+      	// transform coordinates into features
+      	let center_ft = turf.point(center);
+      	let point_on_circle_ft = turf.point(point_on_circle);
 
-                  // wait for the end of fitBounds camera movement
+      	// calculate radius in km
+      	let radius = turf.distance(
+      		center_ft,
+      		point_on_circle_ft
+      	);
 
-                  map.on('moveend', function(e) {
-                    if (fittingBounds) {
-                      fittingBounds = false;
+      	// generates circle as feature
+      	let circle = turf.circle(center_ft, radius);
 
-                      app.story.canvas.map.show_people();
-                      app.story.canvas.map.highlight_people_inside(
-                        center = app.story.canvas.map.user.center,
-                        point_on_circle = api_result[1]
-                      );
+      	map.addSource('circle', {
+      		'type': 'geojson',
+      		'data': circle
+      	});
 
-                      //toggle_labels(show = false);
-                      //toggle_circle(show = false);
-                    }
-                  })
+      	map.addLayer({
+      		'id': 'circle',
+      		'type': 'fill',
+      		'source': 'circle',
+      		'layout': {},
+      		'paint': {
+      			'fill-outline-color': 'tomato',
+      			'fill-color': 'transparent',
+      			'fill-opacity': 1
+      		}
+      	}, );
 
-                }
-              })
+      	return circle;
+      },
 
-            })
-          // .catch(function(e) {
-          //     console.log( "Erro na busca do raio. Provavelmente por causa do certificado do servidor da API. Experimente visitar primeiro https://coldfoot-api.eba-8zt2jyyb.us-west-2.elasticbeanstalk.com/ e tentar novamente.")
-          // })
+      show_people : function() {
+      	map.setPaintProperty(
+      		'people',
+      		'circle-opacity',
+      		0.25
+      	);
+      	map.moveLayer("people", "national-park")
+      },
 
-        },
+      highlight_people_inside : function(center, point_on_circle) {
 
-        draw_circle : function(center, point_on_circle) {
+        if (map.getLayer('mask')) map.removeLayer('mask');
+        if (map.getSource('mask')) map.removeSource('mask');
 
-        	// remove circle layer, if it already exists
-        	if (map.getLayer('circle')) map.removeLayer('circle');
-        	if (map.getSource('circle')) map.removeSource('circle');
+        ///// this could be a helper function. we use this code twice.
+        // transform coordinates into features
+        let center_ft = turf.point(center);
+        let point_on_circle_ft = turf.point(point_on_circle);
 
-        	// transform coordinates into features
-        	let center_ft = turf.point(center);
-        	let point_on_circle_ft = turf.point(point_on_circle);
+        // calculate radius in km
+        let radius = turf.distance(
+            center_ft,
+            point_on_circle_ft
+        );
+        ///// end of helper function
 
-        	// calculate radius in km
-        	let radius = turf.distance(
-        		center_ft,
-        		point_on_circle_ft
-        	);
+        let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
 
-        	// generates circle as feature
-        	let circle = turf.circle(center_ft, radius);
-
-        	map.addSource('circle', {
-        		'type': 'geojson',
-        		'data': circle
-        	});
-
-        	map.addLayer({
-        		'id': 'circle',
-        		'type': 'fill',
-        		'source': 'circle',
-        		'layout': {},
-        		'paint': {
-        			'fill-outline-color': 'tomato',
-        			'fill-color': 'transparent',
-        			'fill-opacity': 1
-        		}
-        	}, );
-
-        	return circle;
-        },
-
-        show_people : function() {
-        	map.setPaintProperty(
-        		'people',
-        		'circle-opacity',
-        		0.25
-        	);
-        	map.moveLayer("people", "national-park")
-        },
-
-        highlight_people_inside : function(center, point_on_circle) {
-
-          if (map.getLayer('mask')) map.removeLayer('mask');
-          if (map.getSource('mask')) map.removeSource('mask');
-
-          ///// this could be a helper function. we use this code twice.
-          // transform coordinates into features
-          let center_ft = turf.point(center);
-          let point_on_circle_ft = turf.point(point_on_circle);
-
-          // calculate radius in km
-          let radius = turf.distance(
-              center_ft,
-              point_on_circle_ft
-          );
-          ///// end of helper function
-
-          let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
-
-          let circles = [];
-          let steps = 10;
-          for (let i = 1; i<=steps; i++) {
-              circles.push(turf.circle(center_ft, radius * i / steps));
-          }
-
-          let masks = circles.map(d => turf.mask(d, bbox_br));
-
-          map.addSource('mask', {
-              'type': 'geojson',
-              'data': masks[0]
-          });
-
-          map.addLayer({
-              'id': 'mask',
-              'type': 'fill',
-              'source': 'mask',
-              'paint': {
-                  'fill-color': 'black',
-                  'fill-opacity': 0.55
-              }
-          });
-
-          // for each circle/mask, updates the 'data' parameter for the mask source,
-          // redrawing it
-
-          let duration = 600;
-
-          for (let i = 0; i<steps; i++) {
-              window.setTimeout(function() {
-                  map.getSource('mask').setData(masks[i])
-              }, i * duration);
-          }
-
-        },
-
-        toggle_labels : function(show) {
-        	//console.log(labels_layers, !labels_layers);
-        	//if (!labels_layers)
-        	labels_layers = ["settlement-subdivision-label", "poi-label", "water-point-label", "road-label",
-        		"waterway-label", "airport-label", "natural-line-label"
-        	];
-
-        	let opacity = show ? 1 : 0;
-
-        	for (layer of labels_layers) {
-        		map.setPaintProperty(layer, "text-opacity", opacity);
-        	}
-        },
-
-        toggle_circle : function(show) {
-
-        	let opacity = show ? 1 : 0;
-
-        	map.setPaintProperty("circle", "fill-opacity", opacity);
+        let circles = [];
+        let steps = 10;
+        for (let i = 1; i<=steps; i++) {
+            circles.push(turf.circle(center_ft, radius * i / steps));
         }
 
+        let masks = circles.map(d => turf.mask(d, bbox_br));
 
+        map.addSource('mask', {
+            'type': 'geojson',
+            'data': masks[0]
+        });
+
+        map.addLayer({
+            'id': 'mask',
+            'type': 'fill',
+            'source': 'mask',
+            'paint': {
+                'fill-color': 'black',
+                'fill-opacity': 0.55
+            }
+        });
+
+        // for each circle/mask, updates the 'data' parameter for the mask source,
+        // redrawing it
+
+        let duration = 600;
+
+        for (let i = 0; i<steps; i++) {
+            window.setTimeout(function() {
+                map.getSource('mask').setData(masks[i])
+            }, i * duration);
+        }
+
+      },
+
+      toggle_labels : function(show) {
+      	//console.log(labels_layers, !labels_layers);
+      	//if (!labels_layers)
+      	labels_layers = ["settlement-subdivision-label", "poi-label", "water-point-label", "road-label",
+      		"waterway-label", "airport-label", "natural-line-label"
+      	];
+
+      	let opacity = show ? 1 : 0;
+
+      	for (layer of labels_layers) {
+      		map.setPaintProperty(layer, "text-opacity", opacity);
+      	}
+      },
+
+      toggle_circle : function(show) {
+
+      	let opacity = show ? 1 : 0;
+
+      	map.setPaintProperty("circle", "fill-opacity", opacity);
+      },
+
+      controls : {
+
+        labels : {
+
+          element : document.querySelector( '[name="labels"][type="checkbox"]' ),
+
+          reset : function() {
+
+            app.story.map.controls.labels.element.checked = true
+
+          },
+
+          initialize : function() {
+
+            app.story.map.controls.labels.element.addEventListener( 'change', function() {
+
+              app.story.map.toggle_labels( this.checked )
+
+            } )
+
+          }
+
+        }
 
       }
 
@@ -616,14 +622,22 @@ let app = {
 
     begin : function( center ) {
 
+      if ( app.story.carousel.instance )
+        app.story.carousel.instance.destroy()
+
+      app.story.carousel.initialize()
+
       app.search.suggestions.clear()
       app.search.form.element.reset()
       app.search.input.element.blur()
 
       app.pages.open( 'story' )
 
-      app.story.canvas.map.initialize( center )
+      app.story.map.initialize( center )
+      app.story.map.controls.labels.reset()
+
       app.story.carousel.instance.update()
+      app.story.carousel.instance.keyboard.enable()
 
     },
 
@@ -645,10 +659,7 @@ let app = {
           nextEl: '.next',
         },
 
-        keyboard: {
-          enabled: true,
-          onlyInViewport: false,
-        },
+        grabCursor: true
 
       },
 
@@ -665,8 +676,7 @@ let app = {
 
     initialize : function() {
 
-      app.story.carousel.initialize()
-      app.story.controls.initialize()
+      app.story.map.controls.labels.initialize()
 
     }
 
