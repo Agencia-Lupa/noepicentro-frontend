@@ -120,6 +120,10 @@ section {
   margin-top: 9.6rem;
 }
 
+button {
+  user-select: none;
+}
+
 .button {
   font-family: Piaui;
   font-weight: 700;
@@ -416,6 +420,11 @@ button {
   height: 6.4rem;
   padding: .8rem 2.4rem;
   font-size: 1.4rem;
+}
+
+.suggestions button:hover {
+  cursor: pointer;
+  background: var(--dark-05);
 }
 
 .suggestions button span {
