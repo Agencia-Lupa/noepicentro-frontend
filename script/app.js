@@ -377,7 +377,7 @@ let app = {
             style: app.story.map.style,
             center: center,
             zoom: 14,
-            preserveDrawingBuffer: true
+            // preserveDrawingBuffer: true
         } )
 
         // remove existing layers for new search
