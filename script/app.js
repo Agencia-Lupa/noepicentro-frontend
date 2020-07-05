@@ -37,7 +37,7 @@ let app = {
 
       "User radius" : function() {
 
-        let city = app.variables.result // .user_city ?
+        let city = app.variables.result
 
         let km = turf.distance(
           turf.point( city.radius.inner_point ),
@@ -562,20 +562,27 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 16.25
+            zoom   : 16.5
           } )
 
           app.story.map.controls.labels.toggle( true )
-
-          setTimeout( function() {
-
-            app.story.map.controls.user.marker()
-            // app.story.map.controls.user.highlight( true )
-
-          }, 2000 )
+          app.story.map.controls.user.marker()
 
         },
         "First death" : function() {
+
+          map.flyTo( {
+            center : app.story.map.user,
+            speed  : .2,
+            zoom   : 16.25
+          } )
+
+          app.story.map.controls.labels.toggle( false )
+
+          // add marker for 1 death
+
+        },
+        "Following deaths" : function() {
 
           map.flyTo( {
             center : app.story.map.user,
@@ -585,20 +592,31 @@ let app = {
 
           app.story.map.controls.labels.toggle( false )
 
-        },
-        "Following deaths" : function() {
-
-          app.story.map.controls.labels.toggle( false )
+          // add marker for 46 deaths
 
         },
         "All deaths" : function() {
 
           app.story.map.controls.labels.toggle( false )
 
+          app.story.map.controls.circle.draw(
+            app.variables.result.radius.inner_point,
+            app.variables.result.radius.outer_point
+          )
+          app.story.map.controls.circle.toggle( false )
+          app.story.map.controls.circle.fitOnScreen()
+
         },
         "All deaths with outline" : function() {
 
           app.story.map.controls.labels.toggle( false )
+
+          app.story.map.controls.circle.draw(
+            app.variables.result.radius.inner_point,
+            app.variables.result.radius.outer_point
+          )
+          app.story.map.controls.circle.toggle( true )
+          app.story.map.controls.circle.fitOnScreen()
 
         },
         "City that would have vanished" : function() {
@@ -650,24 +668,6 @@ let app = {
 
         if ( !active )
           active = document.querySelector( '.swiper-slide' )
-
-
-        // if ( carousel === undefined ) {
-        //
-        //   if ( document.querySelector( '.swiper-slide-active' ) )
-        //     active = document.querySelector( '.swiper-slide-active' )
-        //   else
-        //     active = document.querySelector( '.swiper-slide' )
-        //
-        // } else if ( active === undefined && carousel.activeIndex === 0 ) {
-        //
-        //   active = document.querySelector( '.swiper-slide' )
-        //
-        // } else {
-        //
-        //   active = carousel.slides[ carousel.activeIndex ]
-        //
-        // }
 
         let step = active.dataset.step
 
@@ -737,116 +737,6 @@ let app = {
 
       },
 
-      draw_circle : function(center, point_on_circle) {
-
-      	// remove circle layer, if it already exists
-      	if (map.getLayer('circle')) map.removeLayer('circle');
-      	if (map.getSource('circle')) map.removeSource('circle');
-
-      	// transform coordinates into features
-      	let center_ft = turf.point(center);
-      	let point_on_circle_ft = turf.point(point_on_circle);
-
-      	// calculate radius in km
-      	let radius = turf.distance(
-      		center_ft,
-      		point_on_circle_ft
-      	);
-
-      	// generates circle as feature
-      	let circle = turf.circle(center_ft, radius);
-
-      	map.addSource('circle', {
-      		'type': 'geojson',
-      		'data': circle
-      	});
-
-      	map.addLayer({
-      		'id': 'circle',
-      		'type': 'fill',
-      		'source': 'circle',
-      		'layout': {},
-      		'paint': {
-      			'fill-outline-color': 'tomato',
-      			'fill-color': 'transparent',
-      			'fill-opacity': 1
-      		}
-      	}, );
-
-      	return circle;
-      },
-
-      show_people : function() {
-      	map.setPaintProperty(
-      		'people',
-      		'circle-opacity',
-      		0.25
-      	);
-      	map.moveLayer("people", "national-park")
-      },
-
-      highlight_people_inside : function(center, point_on_circle) {
-
-        if (map.getLayer('mask')) map.removeLayer('mask');
-        if (map.getSource('mask')) map.removeSource('mask');
-
-        ///// this could be a helper function. we use this code twice.
-        // transform coordinates into features
-        let center_ft = turf.point(center);
-        let point_on_circle_ft = turf.point(point_on_circle);
-
-        // calculate radius in km
-        let radius = turf.distance(
-            center_ft,
-            point_on_circle_ft
-        );
-        ///// end of helper function
-
-        let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
-
-        let circles = [];
-        let steps = 10;
-        for (let i = 1; i<=steps; i++) {
-            circles.push(turf.circle(center_ft, radius * i / steps));
-        }
-
-        let masks = circles.map(d => turf.mask(d, bbox_br));
-
-        map.addSource('mask', {
-            'type': 'geojson',
-            'data': masks[0]
-        });
-
-        map.addLayer({
-            'id': 'mask',
-            'type': 'fill',
-            'source': 'mask',
-            'paint': {
-                'fill-color': 'black',
-                'fill-opacity': 0.55
-            }
-        });
-
-        // for each circle/mask, updates the 'data' parameter for the mask source,
-        // redrawing it
-
-        let duration = 600;
-
-        for (let i = 0; i<steps; i++) {
-            window.setTimeout(function() {
-                map.getSource('mask').setData(masks[i])
-            }, i * duration);
-        }
-
-      },
-
-      toggle_circle : function(show) {
-
-      	let opacity = show ? 1 : 0;
-
-      	map.setPaintProperty("circle", "fill-opacity", opacity);
-      },
-
       controls : {
 
         labels : {
@@ -899,6 +789,80 @@ let app = {
 
             } )
 
+          }
+
+        },
+
+        circle : {
+
+          instance : undefined,
+
+          reset : function () {
+
+            if (map.getLayer('circle')) map.removeLayer('circle')
+            if (map.getSource('circle')) map.removeSource('circle')
+
+          },
+
+          draw : function( center, point_on_circle ) {
+
+            app.story.map.controls.circle.reset()
+
+            // transform coordinates into features
+            let center_ft = turf.point(center);
+            let point_on_circle_ft = turf.point(point_on_circle);
+
+            // calculate radius in km
+            let radius = turf.distance(
+            	center_ft,
+            	point_on_circle_ft
+            );
+
+            // generates circle as feature
+            let circle = turf.circle(center_ft, radius);
+
+            map.addSource(
+            	'circle', {
+            		'type': 'geojson',
+            		'data': circle
+            	}
+            )
+
+            map.addLayer({
+            	'id': 'circle',
+            	'type': 'fill',
+            	'source': 'circle',
+            	'layout': {},
+            	'paint': {
+            		'fill-outline-color': 'tomato',
+            		'fill-color': 'transparent',
+            		'fill-opacity': 0
+            	}
+            })
+
+            app.story.map.controls.circle.instance = circle
+
+          },
+
+          toggle : function( option ) {
+
+            let opacity = option ? 1 : 0;
+            map.setPaintProperty( 'circle', 'fill-opacity', opacity );
+
+          },
+
+          fitOnScreen : function( padding ) {
+
+            let circle = app.story.map.controls.circle.instance
+
+            padding = padding || { top: 112, bottom: 112, left: 16, right: 16 }
+
+          	bbox_circle = turf.bbox(circle);
+
+          	map.fitBounds(bbox_circle, {
+          		padding: padding,
+          		duration: 1000
+          	});
           }
 
         },
