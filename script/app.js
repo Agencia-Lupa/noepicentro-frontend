@@ -168,8 +168,6 @@ let app = {
 
     },
 
-
-
     update : function( list ) {
 
       list = list || Object.keys( app.variables.get )
@@ -189,16 +187,12 @@ let app = {
 
       }
 
-      app.element.dataset.wouldVanish = app.variables.result.user_city.would_vanish
-
     },
 
     initialize : function() {
 
       let url = 'https://caco.app/count'
-      let options = {
-        mode: 'cors'
-      }
+      let options = { mode: 'cors' }
 
       fetch( url, options )
         .then( response => response.json() )
@@ -213,8 +207,6 @@ let app = {
 
         } )
         .catch( error => console.log( error ) )
-
-
 
     }
 
@@ -569,6 +561,18 @@ let app = {
 
           app.story.map.controls.labels.toggle( true )
 
+          // map.flyTo( {
+          //   center : app.story.map.user,
+          //   speed  : 1,
+          //   zoom   : 14
+          // } )
+
+          map.flyTo( {
+            center : app.story.map.user,
+            speed  : 0.1,
+            zoom   : 16
+          } )
+
         },
         "First death" : function() {
 
@@ -633,14 +637,34 @@ let app = {
 
       },
 
-      handle : function( carousel ) {
+      handle : function() {
 
-        let active = carousel.slides[ carousel.activeIndex ]
+        let active = document.querySelector( '.swiper-slide-active' )
 
-        if ( active === undefined && carousel.activeIndex === 0 )
+        if ( !active )
           active = document.querySelector( '.swiper-slide' )
 
-        app.story.steps.show[ active.dataset.step ]()
+
+        // if ( carousel === undefined ) {
+        //
+        //   if ( document.querySelector( '.swiper-slide-active' ) )
+        //     active = document.querySelector( '.swiper-slide-active' )
+        //   else
+        //     active = document.querySelector( '.swiper-slide' )
+        //
+        // } else if ( active === undefined && carousel.activeIndex === 0 ) {
+        //
+        //   active = document.querySelector( '.swiper-slide' )
+        //
+        // } else {
+        //
+        //   active = carousel.slides[ carousel.activeIndex ]
+        //
+        // }
+
+        let step = active.dataset.step
+
+        app.story.steps.show[ step ]()
 
       }
 
@@ -653,109 +677,56 @@ let app = {
       token : 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw',
       user : undefined,
 
-      initialize : function( center ) {
-
-        app.story.map.user = center;
-
-        mapboxgl.accessToken = app.story.map.token;
-
-        map = new mapboxgl.Map( {
-            container: app.story.map.id,
-            style: app.story.map.style,
-            center: center,
-            zoom: 14,
-            // preserveDrawingBuffer: true
-        } )
-
-        // remove existing layers for new search
+      reset : function() {
 
         if ( map.getLayer(  'people-inside' ) ) map.removeLayer( 'people-inside' )
         if ( map.getLayer(  'circle'        ) ) map.removeLayer( 'circle' )
         if ( map.getSource( 'circle'        ) ) map.removeSource( 'circle' )
 
-        // fly to result (zooming in)
+      },
 
-        map.flyTo( {
-          'center': center,
-          'speed': 0.8,
-          'zoom': 16
+      initialize : function( center ) {
+
+        mapboxgl.accessToken = app.story.map.token
+
+        app.story.map.user = center
+
+        console.log( map )
+
+        map = new mapboxgl.Map( {
+          container: app.story.map.id,
+          style:     app.story.map.style,
+          center:    app.story.map.user,
+          zoom:      18,
+          // preserveDrawingBuffer: true
         } )
 
-        let flying = true;
+        map.setMinZoom( 2 )
+        map.setMaxZoom( 18 )
 
-        // fetch
+        app.story.steps.handle()
+        app.story.map.reset()
 
-        let lat = center[1];
-        let lon = center[0];
+        let url = 'https://caco.app/coords'
 
-        let url = 'https://caco.app/coords?lat=' + lat + '&lon=' + lon
+        url += '?'
+        url += 'lat=' + center[ 1 ]
+        url += '&'
+        url += 'lon=' + center[ 0 ]
 
-        let time_before = performance.now()
+        let options = { mode : 'cors' }
 
-        fetch(url, {
-            mode: 'cors'
-          })
-          .then(function(response) {
-            if (!response.ok) {
-              throw Error();
-            }
-            return response.json();
-          })
-          .then(function(api_result) {
+        fetch( url, options )
+          .then( response => response.json() )
+          .then( data => {
 
-            console.log( api_result )
+            app.variables.result = data
+            app.element.dataset.wouldVanish = data.user_city.would_vanish
 
-            let time_after = performance.now();
-            console.log("tempo para fetch", time_after - time_before);
-
-            let circle = app.story.map.draw_circle(
-              center = center,
-              point_on_circle = api_result.radius.outer_point
-            );
-
-            bbox_circle = turf.bbox(circle);
-
-            // wait for the end of fly_to camera movement
-            map.on('moveend', function(e) {
-              if (flying) {
-                flying = false;
-
-                map.fitBounds(bbox_circle, {
-                  padding: {
-                    top: 20,
-                    bottom: 20,
-                    left: 10,
-                    right: 10
-                  },
-                  duration: 1000
-                });
-
-                let fittingBounds = true;
-
-                // wait for the end of fitBounds camera movement
-
-                map.on('moveend', function(e) {
-                  if (fittingBounds) {
-                    fittingBounds = false;
-
-                    app.story.map.show_people();
-                    app.story.map.highlight_people_inside(
-                      center = app.story.map.user,
-                      point_on_circle = api_result.radius.outer_point
-                    );
-
-                    //toggle_labels(show = false);
-                    //toggle_circle(show = false);
-                  }
-                })
-
-              }
-            })
-
-            app.variables.result = api_result
             app.variables.update()
 
-          })
+          } )
+          .catch( error => console.log( error ) )
 
       },
 
@@ -915,11 +886,7 @@ let app = {
 
           initialize : function() {
 
-            console.log( 'OLAR' )
-
             app.story.map.controls.labels.element.addEventListener( 'change', function() {
-
-              console.log( 'hi', this )
 
               app.story.map.controls.labels.opacity( this.checked )
 
@@ -975,12 +942,12 @@ let app = {
 
         on: {
 
-          init : function ( carousel ) {
-            app.story.steps.handle( carousel )
+          init : function () {
+
           },
 
-          slideChangeTransitionEnd: function ( carousel ) {
-            app.story.steps.handle( carousel )
+          slideChangeTransitionEnd: function () {
+            app.story.steps.handle()
           }
 
         }
