@@ -8,14 +8,10 @@ let app = {
 
     elements : document.querySelectorAll( '[data-var]' ),
 
-    initial : undefined, // Death count | Cities with deaths
-    radius : {
-      user : undefined,
-      featured : []
-    },
+    initial : undefined,
     result : undefined,
 
-    retrieve : {
+    get : {
 
       "Death count" : function() {
 
@@ -178,7 +174,7 @@ let app = {
 
     update : function( list ) {
 
-      list = list || Object.keys( app.variables.retrieve )
+      list = list || Object.keys( app.variables.get )
 
       for ( let variable of list ) {
 
@@ -186,7 +182,7 @@ let app = {
 
           if ( element.dataset.var == variable ) {
 
-            let text = app.variables.retrieve[ variable ]()
+            let text = app.variables.get[ variable ]()
             element.innerText = text
 
           }
@@ -218,7 +214,6 @@ let app = {
     open : function( name ) {
 
       app.pages.previous = JSON.parse( JSON.stringify( app.element.dataset.page ) )
-
       app.element.dataset.page = name
 
     },
@@ -555,11 +550,84 @@ let app = {
 
     steps : {
 
-      display : function( step ) {
+      show : {
+
+        "You are here" : function() {
+
+          console.log( "You are here" )
+
+        },
+        "First death" : function() {
+
+          console.log( "First death" )
+
+        },
+        "Following deaths" : function() {
+
+          console.log( "Following deaths" )
+
+        },
+        "All deaths" : function() {
+
+          console.log( "All deaths" )
+
+        },
+        "All deaths with outline" : function() {
+
+          console.log( "All deaths with outline" )
+
+        },
+        "City that would have vanished" : function() {
+
+          console.log( "City that would have vanished" )
+
+        },
+        "City vanished" : function() {
+
+          console.log( "City vanished" )
+
+        },
+        "Cities that would have vanished" : function() {
+
+          console.log( "Cities that would have vanished" )
+
+        },
+        "Cities vanished" : function() {
+
+          console.log( "Cities vanished" )
+
+        },
+        "Featured city 1" : function() {
+
+          console.log( "Featured city 1" )
+
+        },
+        "Featured city 1 location" : function() {
+
+          console.log( "Featured city 1 location" )
+
+        },
+        "Featured city 2" : function() {
+
+          console.log( "Featured city 2" )
+
+        },
+        "Featured city 2 location" : function() {
+
+          console.log( "Featured city 2 location" )
+
+        },
 
       },
 
       handle : function( carousel ) {
+
+        let active = carousel.slides[ carousel.activeIndex ]
+
+        if ( active === undefined && carousel.activeIndex === 0 )
+          active = document.querySelector( '.swiper-slide' )
+
+        console.log( active.dataset.step )
 
       }
 
@@ -588,17 +656,17 @@ let app = {
 
         // remove existing layers for new search
 
-        if (map.getLayer('people-inside')) map.removeLayer('people-inside');
-        if (map.getLayer('circle')) map.removeLayer('circle');
-        if (map.getSource('circle')) map.removeSource('circle');
+        if ( map.getLayer(  'people-inside' ) ) map.removeLayer( 'people-inside' )
+        if ( map.getLayer(  'circle'        ) ) map.removeLayer( 'circle' )
+        if ( map.getSource( 'circle'        ) ) map.removeSource( 'circle' )
 
         // fly to result (zooming in)
 
-        map.flyTo({
+        map.flyTo( {
           'center': center,
           'speed': 0.8,
           'zoom': 16
-        });
+        } )
 
         let flying = true;
 
@@ -694,8 +762,6 @@ let app = {
       		point_on_circle_ft
       	);
 
-        app.variables.radius.user = radius
-
       	// generates circle as feature
       	let circle = turf.circle(center_ft, radius);
 
@@ -783,20 +849,6 @@ let app = {
 
       },
 
-      toggle_labels : function(show) {
-      	//console.log(labels_layers, !labels_layers);
-      	//if (!labels_layers)
-      	labels_layers = ["settlement-subdivision-label", "poi-label", "water-point-label", "road-label",
-      		"waterway-label", "airport-label", "natural-line-label"
-      	];
-
-      	let opacity = show ? 1 : 0;
-
-      	for (layer of labels_layers) {
-      		map.setPaintProperty(layer, "text-opacity", opacity);
-      	}
-      },
-
       toggle_circle : function(show) {
 
       	let opacity = show ? 1 : 0;
@@ -816,11 +868,33 @@ let app = {
 
           },
 
+          toggle : function( option ) {
+
+            const layers = [
+              'settlement-major-label',
+              'settlement-minor-label',
+              'settlement-subdivision-label',
+              'natural-point-label',
+              'poi-label',
+              'water-point-label',
+              'road-label',
+              'waterway-label',
+              'airport-label',
+              'natural-line-label',
+            ]
+
+            let opacity = option ? 1 : 0
+
+            for ( layer of layers )
+              map.setPaintProperty( layer, 'text-opacity', opacity )
+
+          },
+
           initialize : function() {
 
             app.story.map.controls.labels.element.addEventListener( 'change', function() {
 
-              app.story.map.toggle_labels( this.checked )
+              app.story.map.controls.labels.toggle( this.checked )
 
             } )
 
@@ -875,7 +949,7 @@ let app = {
 
         on: {
 
-          init : function( carousel ) {
+          init : function ( carousel ) {
             app.story.steps.handle( carousel )
           },
 
