@@ -559,22 +559,29 @@ let app = {
 
         "You are here" : function() {
 
-          app.story.map.controls.labels.toggle( true )
-
-          // map.flyTo( {
-          //   center : app.story.map.user,
-          //   speed  : 1,
-          //   zoom   : 14
-          // } )
-
           map.flyTo( {
             center : app.story.map.user,
-            speed  : 0.1,
-            zoom   : 16
+            speed  : .1,
+            zoom   : 16.25
           } )
+
+          app.story.map.controls.labels.toggle( true )
+
+          setTimeout( function() {
+
+            app.story.map.controls.user.marker()
+            // app.story.map.controls.user.highlight( true )
+
+          }, 2000 )
 
         },
         "First death" : function() {
+
+          map.flyTo( {
+            center : app.story.map.user,
+            speed  : .2,
+            zoom   : 16
+          } )
 
           app.story.map.controls.labels.toggle( false )
 
@@ -892,6 +899,129 @@ let app = {
 
             } )
 
+          }
+
+        },
+
+        user : {
+
+          marker : function( center, options ) {
+
+            center = center || app.story.map.user
+
+            let marker = document.createElement( 'div' )
+            marker.classList.add( 'marker', 'user' )
+
+            new mapboxgl.Marker( marker )
+              .setLngLat( center )
+              .addTo( map )
+
+          },
+
+          highlight : function( option ) {
+
+          	let canvas = document.getElementById( 'user' )
+
+          	// Set Canvas dimensions
+          	let w = window.innerWidth;
+          	let h = window.innerHeight;
+          	canvas.width = w;
+          	canvas.height = h;
+
+          	// Get drawing context
+          	let ctx = canvas.getContext('2d');
+
+          	// animation parameters
+          	// set a smaller r_step for slower animation
+          	// max_r defines the maximum radius before beginning a new pulse
+          	const r = 2;
+          	let r_step = 1;
+          	let new_r = r;
+          	const max_r = 100;
+          	const iterations_no = (max_r - r + 1) / r_step
+
+          	const linewidth = 6;
+          	const linewidth_step = linewidth / iterations_no;
+          	let new_linewidth = linewidth;
+
+          	// init point
+          	function init_point( ctx ) {
+          		ctx.beginPath();
+          		ctx.lineWidth = 1;
+          		ctx.strokeStyle = "goldenrod";
+          		ctx.arc(w / 2, h / 2, r, 0, Math.PI * 2, false);
+          		ctx.stroke();
+          	}
+
+          	init_point( ctx );
+
+          	let start;
+
+          	function animate(timestamp) {
+
+          		//in case we want to use a timer to stop the animation
+          		if (start === undefined)
+          			start = timestamp;
+          		const elapsed = timestamp - start;
+
+          		//clear canvas for new iteration
+          		ctx.clearRect(0, 0, w, h);
+
+          		//update
+          		new_r += r_step;
+          		new_linewidth -= linewidth_step;
+
+          		if (new_r > max_r) {
+          			new_r = r;
+          			new_linewidth = 6;
+          		}
+
+          		//redraw user point
+          		init_point( ctx )
+
+          		//draw expanding circle with updated parameters
+          		ctx.beginPath();
+          		ctx.lineWidth = new_linewidth;
+          		ctx.strokeStyle = "goldenrod";
+          		ctx.arc(w / 2, h / 2, new_r, 0, Math.PI * 2, false);
+          		ctx.stroke();
+
+          		//here we would check if the timer is expired beforing requesting another frame
+          		request = requestAnimationFrame(animate);
+          	}
+
+          	if (option) {
+          		console.log("começando...");
+          		request = requestAnimationFrame(animate);
+
+          		// get map bounds
+          		let bounds = map.getBounds();
+          		let coordinates = [
+          			[bounds._sw.lng, bounds._ne.lat],
+          			[bounds._ne.lng, bounds._ne.lat],
+          			[bounds._ne.lng, bounds._sw.lat],
+          			[bounds._sw.lng, bounds._sw.lat]
+          		];
+
+          		// binds canvas to the map
+          		map.addSource('canvas-source', {
+          			type: 'canvas',
+          			canvas: 'user',
+          			coordinates: coordinates,
+          			animate: true
+          		});
+
+          		map.addLayer({
+          			id: 'canvas-layer',
+          			type: 'raster',
+          			source: 'canvas-source'
+          		});
+          	} else {
+          		console.log("parando...")
+          		cancelAnimationFrame(request);
+          		if (map.getLayer("canvas-layer")) map.removeLayer("canvas-layer");
+          		if (map.getSource("canvas-source")) map.removeSource("canvas-source");
+          	}
           }
 
         }
