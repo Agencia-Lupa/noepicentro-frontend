@@ -41,6 +41,7 @@
       data-page="(main|story|poster)"
       data-geolocation="(true|false)"
       data-search="(blur|focus|suggestions|done)"
+      data-would-vanish="(name)"
       data-step="(name)"
 
     >
@@ -73,7 +74,7 @@
           </header>
 
           <p>Até ontem, <em data-var="Death count"></em> pessoas haviam morrido por Covid-19 no Brasil.</p>
-          <p>Essas mortes estão espalhadas por mais de <em data-var="Cities with deaths"></em> cidades, em todos os estados.</p>
+          <p>Essas mortes estão espalhadas por mais da metade das cidades brasileiras, em todos os estados</p>
           <p>E se elas tivessem acontecido perto de você?</p>
           <p>Como os surtos de Covid-19 no país se concentram em algumas regiões metropolitanas, muitos de nós não enxergam o efeito da doença.</p>
           <p>Esta simulação mostra como a pandemia afetaria sua vizinhança, “apagando” do mapa áreas que são familiares a você.</p>
@@ -301,24 +302,39 @@
                   </div>
 
                   <div data-step="City that would have vanished" class="swiper-slide">
-                    <p>
+                    <p data-would-vanish="false">
                       Tantas mortes são suficientes para riscar do mapa uma cidade aí perto, da qual você já deve ter ouvido falar:
                       <em data-var="Vanished city"></em>
+                    </p>
+                    <p data-would-vanish="true">
+                      Tantas mortes são suficientes para riscar a sua cidade do mapa. Consegue imaginar todas as pessoas que você conhece desaparecendo?
                     </p>
                   </div>
 
                   <div data-step="City vanished" class="swiper-slide">
-                    <p>
+                    <p data-would-vanish="false">
                       Moram lá, de acordo com estimativas do IBGE para 2019, aproximadamente
                       <em data-var="Vanished city population"></em>
                       pessoas,
                       <em data-var="Vanished city population difference"></em>
-                      a menos que o total de mortes registrados no Brasil por Covid-19 até hoje
+                      a menos que o total de óbitos registrados
+                    </p>
+                    <p data-would-vanish="true">
+                      Moram aí, de acordo com estimativas do IBGE para 2019, aproximadamente
+                      <em data-var="Vanished city population"></em>
+                      pessoas,
+                      <em data-var="Vanished city population difference"></em>
+                      a menos que o total de óbitos registrados
                     </p>
                   </div>
 
                   <div data-step="Cities that would have vanished" class="swiper-slide">
-                    <p>
+                    <p data-would-vanish="false">
+                      Assim como
+                      <em data-var="Vanished city"></em>,
+                      a maior parte das cidades brasileiras tem menos habitantes do que o número de mortos pela doença no país
+                    </p>
+                    <p data-would-vanish="true">
                       Assim como
                       <em data-var="Vanished city"></em>,
                       a maior parte das cidades brasileiras tem menos habitantes do que o número de mortos pela doença no país

@@ -650,6 +650,19 @@ button {
 
 .steps p {
   color: var(--dark-50);
+  margin: 0;
+}
+
+.steps p[data-would-vanish="true"] {
+  display: none;
+}
+
+.app[data-would-vanish="true"] .steps p[data-would-vanish="true"] {
+  display: block;
+}
+
+.app[data-would-vanish="true"] .steps p[data-would-vanish="false"] {
+  display: none;
 }
 
 .swiper-container-horizontal > .swiper-pagination-progressbar {

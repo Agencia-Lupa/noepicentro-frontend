@@ -15,13 +15,9 @@ let app = {
 
       "Death count" : function() {
 
-        return ''
-
-      },
-
-      "Cities with deaths" : function() {
-
-        return ''
+        let value = app.variables.initial.deaths
+        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
+        return value
 
       },
 
@@ -97,28 +93,28 @@ let app = {
 
       "Featured city 2" : function() {
 
-        let city = app.variables.result.capitals_to_highlight[ 1 ]
+        let city = app.variables.result.capitals_to_highlight[ 1 ][ 0 ] // remove [0]
         return city.name_muni + ' (' + city.name_state + ')'
 
       },
 
       "Featured city 2 location" : function() {
 
-        let city = app.variables.result.capitals_to_highlight[ 1 ]
+        let city = app.variables.result.capitals_to_highlight[ 1 ][ 0 ] // remove [0]
         return city.display_text
 
       },
 
       "Featured city 2 location description" : function() {
 
-        let city = app.variables.result.capitals_to_highlight[ 1 ]
+        let city = app.variables.result.capitals_to_highlight[ 1 ][ 0 ] // remove [0]
         return city.display_desc || ''
 
       },
 
       "Featured city 2 radius" : function() {
 
-        let city = app.variables.result.capitals_to_highlight[ 1 ]
+        let city = app.variables.result.capitals_to_highlight[ 1 ][ 0 ] // remove [0]
         let km = turf.distance(
           turf.point( city.radius.inner_point ),
           turf.point( city.radius.outer_point )
@@ -172,6 +168,8 @@ let app = {
 
     },
 
+
+
     update : function( list ) {
 
       list = list || Object.keys( app.variables.get )
@@ -187,21 +185,36 @@ let app = {
 
           }
 
-
         }
 
       }
+
+      app.element.dataset.wouldVanish = app.variables.result.user_city.would_vanish
 
     },
 
     initialize : function() {
 
-      app.variables.update(
-        [
-          'Death count',
-          'Cities with deaths'
-        ]
-      )
+      let url = 'https://caco.app/count'
+      let options = {
+        mode: 'cors'
+      }
+
+      fetch( url, options )
+        .then( response => response.json() )
+        .then( data => {
+
+          app.variables.initial = data
+          app.variables.update(
+            [
+              'Death count'
+            ]
+          )
+
+        } )
+        .catch( error => console.log( error ) )
+
+
 
     }
 
