@@ -6,10 +6,13 @@ let app = {
 
   variables : {
 
-    elements : document.querySelectorAll( '[data-variable]' ),
+    elements : document.querySelectorAll( '[data-var]' ),
 
     initial : undefined, // Death count | Cities with deaths
-    radius : undefined, // get from turf
+    radius : {
+      user : undefined,
+      featured : []
+    },
     result : undefined,
 
     retrieve : {
@@ -40,10 +43,28 @@ let app = {
 
       },
 
+      "User radius" : function() {
+
+        let city = app.variables.result // .user_city ?
+
+        let km = turf.distance(
+          turf.point( city.radius.inner_point ),
+          turf.point( city.radius.outer_point )
+        )
+
+        if ( km < 1 )
+          return ( km * 1000 ) + ' m'
+
+        let value = Math.round( km * 10 ) / 10
+        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
+        return  value + ' km'
+
+      },
+
       "Featured city 1" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 0 ]
-        return city.name_muni + ' (' + city.name_muni + ')'
+        return city.name_muni + ' (' + city.name_state + ')'
 
       },
 
@@ -61,10 +82,27 @@ let app = {
 
       },
 
+      "Featured city 1 radius" : function() {
+
+        let city = app.variables.result.capitals_to_highlight[ 0 ]
+        let km = turf.distance(
+          turf.point( city.radius.inner_point ),
+          turf.point( city.radius.outer_point )
+        )
+
+        if ( km < 1 )
+          return ( km * 1000 ) + ' m'
+
+        let value = Math.round( km * 10 ) / 10
+        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
+        return  value + ' km'
+
+      },
+
       "Featured city 2" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 1 ]
-        return city.name_muni + ' (' + city.name_muni + ')'
+        return city.name_muni + ' (' + city.name_state + ')'
 
       },
 
@@ -79,6 +117,23 @@ let app = {
 
         let city = app.variables.result.capitals_to_highlight[ 1 ]
         return city.display_desc || ''
+
+      },
+
+      "Featured city 2 radius" : function() {
+
+        let city = app.variables.result.capitals_to_highlight[ 1 ]
+        let km = turf.distance(
+          turf.point( city.radius.inner_point ),
+          turf.point( city.radius.outer_point )
+        )
+
+        if ( km < 1 )
+          return ( km * 1000 ) + ' m'
+
+        let value = Math.round( km * 10 ) / 10
+        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
+        return  value + ' km'
 
       },
 
@@ -117,7 +172,7 @@ let app = {
 
         return ''
 
-      },
+      }
 
     },
 
@@ -129,7 +184,7 @@ let app = {
 
         for ( let element of app.variables.elements ) {
 
-          if ( element.dataset.variable == variable ) {
+          if ( element.dataset.var == variable ) {
 
             let text = app.variables.retrieve[ variable ]()
             element.innerText = text
@@ -638,6 +693,8 @@ let app = {
       		center_ft,
       		point_on_circle_ft
       	);
+
+        app.variables.radius.user = radius
 
       	// generates circle as feature
       	let circle = turf.circle(center_ft, radius);

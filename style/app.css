@@ -116,6 +116,10 @@ small a {
   color: inherit
 }
 
+em {
+  font-style: normal;
+}
+
 section {
   margin-top: 9.6rem;
 }
