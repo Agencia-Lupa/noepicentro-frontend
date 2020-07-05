@@ -15,9 +15,9 @@ let app = {
 
       "Death count" : function() {
 
-        let value = app.variables.initial.deaths
-        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
-        return value
+        let deaths = app.variables.initial.deaths
+        deaths = new Intl.NumberFormat( 'pt-BR' ).format( deaths )
+        return deaths
 
       },
 
@@ -148,14 +148,14 @@ let app = {
       "Vanished city population difference" : function() {
 
         let city = app.variables.result.neighboring_city
-        let population = city.pop_2019 // 8
-        let deaths = 0 // ???
+        let population = city.pop_2019
+        let deaths = app.variables.initial.deaths
         let difference = deaths - population
 
         if ( difference < 1000 )
           return difference
 
-        let value = Math.round( difference / 1000 ) * 1000
+        let value = Math.round( difference / 1000 )
         return value + ' mil'
 
       },
