@@ -554,67 +554,67 @@ let app = {
 
         "You are here" : function() {
 
-          console.log( "You are here" )
+          app.story.map.controls.labels.toggle( true )
 
         },
         "First death" : function() {
 
-          console.log( "First death" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Following deaths" : function() {
 
-          console.log( "Following deaths" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "All deaths" : function() {
 
-          console.log( "All deaths" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "All deaths with outline" : function() {
 
-          console.log( "All deaths with outline" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "City that would have vanished" : function() {
 
-          console.log( "City that would have vanished" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "City vanished" : function() {
 
-          console.log( "City vanished" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Cities that would have vanished" : function() {
 
-          console.log( "Cities that would have vanished" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Cities vanished" : function() {
 
-          console.log( "Cities vanished" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 1" : function() {
 
-          console.log( "Featured city 1" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 1 location" : function() {
 
-          console.log( "Featured city 1 location" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 2" : function() {
 
-          console.log( "Featured city 2" )
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 2 location" : function() {
 
-          console.log( "Featured city 2 location" )
+          app.story.map.controls.labels.toggle( false )
 
         },
 
@@ -627,7 +627,7 @@ let app = {
         if ( active === undefined && carousel.activeIndex === 0 )
           active = document.querySelector( '.swiper-slide' )
 
-        console.log( active.dataset.step )
+        app.story.steps.show[ active.dataset.step ]()
 
       }
 
@@ -862,13 +862,7 @@ let app = {
 
           element : document.querySelector( '[name="labels"][type="checkbox"]' ),
 
-          reset : function() {
-
-            app.story.map.controls.labels.element.checked = true
-
-          },
-
-          toggle : function( option ) {
+          opacity : function( option ) {
 
             const layers = [
               'settlement-major-label',
@@ -890,11 +884,31 @@ let app = {
 
           },
 
+          toggle : function( boolean ) {
+
+            let input = app.story.map.controls.labels.element
+
+            if ( boolean === input.checked )
+              return false
+
+            if ( boolean === undefined )
+              input.checked = !input.checked
+            else
+              input.checked = boolean
+
+            input.dispatchEvent( new Event( 'change' ) )
+
+          },
+
           initialize : function() {
+
+            console.log( 'OLAR' )
 
             app.story.map.controls.labels.element.addEventListener( 'change', function() {
 
-              app.story.map.controls.labels.toggle( this.checked )
+              console.log( 'hi', this )
+
+              app.story.map.controls.labels.opacity( this.checked )
 
             } )
 
@@ -920,7 +934,6 @@ let app = {
       app.pages.open( 'story' )
 
       app.story.map.initialize( center )
-      app.story.map.controls.labels.reset()
 
       app.story.carousel.instance.update()
       app.story.carousel.instance.keyboard.enable()
