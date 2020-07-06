@@ -71,7 +71,7 @@ let app = {
       "Featured city 1 location description" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 0 ]
-        return city.display_desc || ''
+        return city.complement || ''
 
       },
 
@@ -109,7 +109,7 @@ let app = {
       "Featured city 2 location description" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 1 ]
-        return city.display_desc || ''
+        return city.complement || ''
 
       },
 
@@ -165,6 +165,23 @@ let app = {
 
         return ''
 
+      },
+
+      "Update" : function() {
+
+        let timestamp = app.variables.initial.date
+        let date =  new Date( timestamp + ' 12:00' )
+
+        /*
+        let text = date.toLocaleDateString( 'pt-BR', { dateStyle : 'long' } )
+        let markup = 'em <time datetime="' + timestamp + '">' + text + '</time>'
+        */
+
+        let text = 'diariamente'
+        let markup = '<time datetime="' + timestamp + '">' + text + '</time>'
+
+        return markup
+
       }
 
     },
@@ -180,7 +197,7 @@ let app = {
           if ( element.dataset.var == variable ) {
 
             let text = app.variables.get[ variable ]()
-            element.innerText = text
+            element.innerHTML = text
 
           }
 
@@ -202,7 +219,8 @@ let app = {
           app.variables.initial = data
           app.variables.update(
             [
-              'Death count'
+              'Death count',
+              'Update'
             ]
           )
 

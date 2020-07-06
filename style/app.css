@@ -152,6 +152,17 @@ button {
 
 .material-icons {
   font-size: 2.4rem;
+  user-select: none;
+}
+
+::-moz-selection {
+  color: var(--dark-100);
+  background: var(--highlight);
+}
+
+::selection {
+  color: var(--dark-100);
+  background: var(--highlight);
 }
 
 
@@ -584,6 +595,10 @@ button {
   border: .3rem solid var(--highlight);
   box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 );
   animation: pulse 1.6s infinite;
+}
+
+.marker.hidden {
+
 }
 
 @keyframes pulse {
