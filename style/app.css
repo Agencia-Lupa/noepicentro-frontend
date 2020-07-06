@@ -314,6 +314,7 @@ dt {
   display: flex;
   margin: 9.6rem auto;
   color: var(--light-50);
+  visibility: hidden;
 }
 
 .main nav span.button {
