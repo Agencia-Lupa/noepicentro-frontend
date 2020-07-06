@@ -886,8 +886,7 @@ let app = {
 
             center = center || app.story.map.user
 
-            let marker = document.createElement( 'div' )
-            marker.classList.add( 'marker', 'user' )
+            let marker = document.querySelector( '.marker' )
 
             new mapboxgl.Marker( marker )
               .setLngLat( center )
@@ -1101,6 +1100,9 @@ let app = {
 
     begin : function( center ) {
 
+      app.pages.open( 'story' )
+      app.story.map.initialize( center )
+
       if ( app.story.carousel.instance )
         app.story.carousel.instance.destroy()
 
@@ -1109,10 +1111,6 @@ let app = {
       app.search.suggestions.clear()
       app.search.form.element.reset()
       app.search.input.element.blur()
-
-      app.pages.open( 'story' )
-
-      app.story.map.initialize( center )
 
       app.story.carousel.instance.update()
       app.story.carousel.instance.keyboard.enable()
