@@ -562,11 +562,23 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 17
+            zoom   : 16
           } )
 
           app.story.map.controls.labels.toggle( true )
           app.story.map.controls.user.marker()
+
+          let monitor = setInterval( function() {
+
+            if ( map.isStyleLoaded() ) {
+
+              app.story.map.controls.people.initialize()
+              app.story.map.controls.people.highlight.overlay.initialize()
+              app.story.map.controls.people.highlight.overlay.toggle()
+
+              clearInterval( monitor )
+            }
+          }, 100 )
 
         },
         "First death" : function() {
@@ -574,12 +586,9 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 16.75,
+            zoom   : 17,
             // pitch: 60
           } )
-
-          app.story.map.controls.people.draw()
-          // app.story.map.controls.people.highlight.initialize() // create mask with 0 radius
 
           app.story.map.controls.labels.toggle( false )
 
@@ -591,7 +600,7 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 16.5
+            zoom   : 16.75
           } )
 
           app.story.map.controls.labels.toggle( false )
@@ -603,12 +612,12 @@ let app = {
 
           app.story.map.controls.labels.toggle( false )
 
-          app.story.map.controls.people.highlight.insideCircle(
+          app.story.map.controls.people.highlight.insideCircle.initialize(
             app.variables.result.radius.inner_point,
             app.variables.result.radius.outer_point
           )
 
-          app.story.map.controls.circle.draw(
+          app.story.map.controls.circle.initialize(
             app.variables.result.radius.inner_point,
             app.variables.result.radius.outer_point
           )
@@ -620,7 +629,7 @@ let app = {
 
           app.story.map.controls.labels.toggle( false )
 
-          app.story.map.controls.circle.draw(
+          app.story.map.controls.circle.initialize(
             app.variables.result.radius.inner_point,
             app.variables.result.radius.outer_point
           )
@@ -692,6 +701,24 @@ let app = {
       style : 'mapbox://styles/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr',
       token : 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw',
       user : undefined,
+
+      radius : function( center, point_on_circle ) {
+
+        let center_ft = turf.point(center);
+        let point_on_circle_ft = turf.point(point_on_circle);
+
+        // calculate radius in km
+        let radius = turf.distance(
+          center_ft,
+          point_on_circle_ft
+        );
+
+        return {
+          center : center_ft,
+          km : radius
+        }
+
+      },
 
       reset : function() {
 
@@ -817,7 +844,14 @@ let app = {
 
           },
 
-          draw : function( center, point_on_circle ) {
+          toggle : function( option ) {
+
+            let opacity = option ? 1 : 0;
+            map.setPaintProperty( 'circle', 'fill-opacity', opacity );
+
+          },
+
+          initialize : function( center, point_on_circle ) {
 
             app.story.map.controls.circle.reset()
 
@@ -854,13 +888,6 @@ let app = {
             })
 
             app.story.map.controls.circle.instance = circle
-
-          },
-
-          toggle : function( option ) {
-
-            let opacity = option ? 1 : 0;
-            map.setPaintProperty( 'circle', 'fill-opacity', opacity );
 
           },
 
@@ -1004,93 +1031,125 @@ let app = {
 
         people : {
 
-          draw : function() {
+          toggle : function(option) {
           	map.setPaintProperty(
           		'people',
           		'circle-opacity',
-          		.8
-          	)
+          		option ? .9 : 0
+          	);
+          },
+
+          initialize : function() {
+            map.setPaintProperty(
+              'people',
+              'circle-opacity',
+              0
+            )
             map.setPaintProperty(
               'people',
               'circle-radius',
               1
             )
-          	map.moveLayer("people", "national-park")
+            map.moveLayer("people", "national-park")
 
           },
 
-          toggle : function(option) {
-          	map.setPaintProperty(
-          		'people',
-          		'circle-opacity',
-          		option ? 1 : 0
-          	);
-          },
-
-          highlight : {
+          overlay : {
 
             reset : function() {
 
-              if (map.getLayer('mask')) map.removeLayer('mask');
-              if (map.getSource('mask')) map.removeSource('mask');
+              if (map.getLayer('overlay')) map.removeLayer('overlay');
+              if (map.getSource('overlay')) map.removeSource('overlay');
 
             },
 
-            insideCircle : function(center, point_on_circle) {
+            initialize : function() {
 
               app.story.map.controls.people.highlight.reset()
 
-              ///// this could be a helper function. we use this code twice.
-              // transform coordinates into features
-              let center_ft = turf.point(center);
-              let point_on_circle_ft = turf.point(point_on_circle);
+              let radius = app.map.radius( center, center )
 
-              // calculate radius in km
-              let radius = turf.distance(
-                center_ft,
-                point_on_circle_ft
-              );
-              ///// end of helper function
+              let circle = turf.circle(
+                radius.center,
+                radius.km
+              )
 
-              let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
+              let mask = turf.mask( circle )
 
-              let circles = [];
-              let steps = 1;
-              for (let i = 1; i <= steps; i++) {
-                circles.push(turf.circle(center_ft, radius * i / steps));
-              }
-
-              let masks = circles.map(d => turf.mask(d, bbox_br));
-
-              map.addSource('mask', {
+              map.addSource('overlay', {
                 'type': 'geojson',
-                'data': masks[0]
+                'data': mask
               });
 
               map.addLayer({
-                'id': 'mask',
+                'id': 'overlay',
                 'type': 'fill',
-                'source': 'mask',
+                'source': 'overlay',
                 'paint': {
-                  'fill-color': 'black',
+                  'fill-color': 'red',
                   'fill-opacity': 0.66
                 }
               });
 
-              // for each circle/mask, updates the 'data' parameter for the mask source,
-              // redrawing it
+            },
 
-              let duration = 600;
+          },
 
-              for (let i = 0; i < steps; i++) {
-                window.setTimeout(function() {
-                  map.getSource('mask').setData(masks[i])
-                }, i * duration);
+          highlight : {
+
+            points : {
+
+            },
+
+            insideCircle : {
+
+              reset : function() {
+
+                if (map.getLayer('mask')) map.removeLayer('mask');
+                if (map.getSource('mask')) map.removeSource('mask');
+
+              },
+
+              toggle : function( option ) {
+
+                let opacity = option ? .75 : 0;
+                map.setPaintProperty( 'mask', 'fill-opacity', opacity );
+
+              },
+
+              initialize : function( option ) {
+
+                app.story.map.controls.people.highlight.reset()
+
+                let radius = app.map.radius( center, point_on_circle )
+
+                let circle = turf.circle(
+                  radius.center,
+                  radius.km
+                )
+
+                let mask = turf.mask( circle )
+
+                map.addSource('mask', {
+                  'type': 'geojson',
+                  'data': mask
+                });
+
+                map.addLayer({
+                  'id': 'mask',
+                  'type': 'fill',
+                  'source': 'mask',
+                  'paint': {
+                    'fill-color': 'black',
+                    'fill-opacity': 0
+                  }
+                });
+
               }
 
             }
 
-          }
+          },
 
         }
 
@@ -1100,13 +1159,13 @@ let app = {
 
     begin : function( center ) {
 
-      app.pages.open( 'story' )
-      app.story.map.initialize( center )
-
       if ( app.story.carousel.instance )
         app.story.carousel.instance.destroy()
 
       app.story.carousel.initialize()
+
+      app.pages.open( 'story' )
+      app.story.map.initialize( center )
 
       app.search.suggestions.clear()
       app.search.form.element.reset()
