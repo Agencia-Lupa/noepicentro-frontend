@@ -93,21 +93,21 @@ let app = {
 
       "Featured city 2" : function() {
 
-        let city = app.variables.result.capitals_to_highlight[ 1 ][ 0 ] // remove [0]
+        let city = app.variables.result.capitals_to_highlight[ 1 ]
         return city.name_muni + ' (' + city.name_state + ')'
 
       },
 
       "Featured city 2 location" : function() {
 
-        let city = app.variables.result.capitals_to_highlight[ 1 ][ 0 ] // remove [0]
+        let city = app.variables.result.capitals_to_highlight[ 1 ]
         return city.display_text
 
       },
 
       "Featured city 2 location description" : function() {
 
-        let city = app.variables.result.capitals_to_highlight[ 1 ][ 0 ] // remove [0]
+        let city = app.variables.result.capitals_to_highlight[ 1 ]
         return city.display_desc || ''
 
       },
@@ -562,7 +562,7 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 16.5
+            zoom   : 17
           } )
 
           app.story.map.controls.labels.toggle( true )
@@ -573,9 +573,13 @@ let app = {
 
           map.flyTo( {
             center : app.story.map.user,
-            speed  : .2,
-            zoom   : 16.25
+            speed  : .1,
+            zoom   : 16.75,
+            // pitch: 60
           } )
+
+          app.story.map.controls.people.draw()
+          // app.story.map.controls.people.highlight.initialize() // create mask with 0 radius
 
           app.story.map.controls.labels.toggle( false )
 
@@ -586,8 +590,8 @@ let app = {
 
           map.flyTo( {
             center : app.story.map.user,
-            speed  : .2,
-            zoom   : 16
+            speed  : .1,
+            zoom   : 16.5
           } )
 
           app.story.map.controls.labels.toggle( false )
@@ -598,6 +602,11 @@ let app = {
         "All deaths" : function() {
 
           app.story.map.controls.labels.toggle( false )
+
+          app.story.map.controls.people.highlight.insideCircle(
+            app.variables.result.radius.inner_point,
+            app.variables.result.radius.outer_point
+          )
 
           app.story.map.controls.circle.draw(
             app.variables.result.radius.inner_point,
@@ -704,12 +713,16 @@ let app = {
           container: app.story.map.id,
           style:     app.story.map.style,
           center:    app.story.map.user,
-          zoom:      18,
+          zoom:      19,
+          pitch:     0,
           // preserveDrawingBuffer: true
         } )
 
         map.setMinZoom( 2 )
-        map.setMaxZoom( 18 )
+        map.setMaxZoom( 19 )
+        map.keyboard.disable()
+        map.dragRotate.disable()
+        map.touchZoomRotate.disableRotation()
 
         app.story.steps.handle()
         app.story.map.reset()
@@ -861,7 +874,7 @@ let app = {
 
           	map.fitBounds(bbox_circle, {
           		padding: padding,
-          		duration: 1000
+          		duration: 6000
           	});
           }
 
@@ -986,6 +999,98 @@ let app = {
           		if (map.getLayer("canvas-layer")) map.removeLayer("canvas-layer");
           		if (map.getSource("canvas-source")) map.removeSource("canvas-source");
           	}
+          }
+
+        },
+
+        people : {
+
+          draw : function() {
+          	map.setPaintProperty(
+          		'people',
+          		'circle-opacity',
+          		.8
+          	)
+            map.setPaintProperty(
+              'people',
+              'circle-radius',
+              1
+            )
+          	map.moveLayer("people", "national-park")
+
+          },
+
+          toggle : function(option) {
+          	map.setPaintProperty(
+          		'people',
+          		'circle-opacity',
+          		option ? 1 : 0
+          	);
+          },
+
+          highlight : {
+
+            reset : function() {
+
+              if (map.getLayer('mask')) map.removeLayer('mask');
+              if (map.getSource('mask')) map.removeSource('mask');
+
+            },
+
+            insideCircle : function(center, point_on_circle) {
+
+              app.story.map.controls.people.highlight.reset()
+
+              ///// this could be a helper function. we use this code twice.
+              // transform coordinates into features
+              let center_ft = turf.point(center);
+              let point_on_circle_ft = turf.point(point_on_circle);
+
+              // calculate radius in km
+              let radius = turf.distance(
+                center_ft,
+                point_on_circle_ft
+              );
+              ///// end of helper function
+
+              let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
+
+              let circles = [];
+              let steps = 1;
+              for (let i = 1; i <= steps; i++) {
+                circles.push(turf.circle(center_ft, radius * i / steps));
+              }
+
+              let masks = circles.map(d => turf.mask(d, bbox_br));
+
+              map.addSource('mask', {
+                'type': 'geojson',
+                'data': masks[0]
+              });
+
+              map.addLayer({
+                'id': 'mask',
+                'type': 'fill',
+                'source': 'mask',
+                'paint': {
+                  'fill-color': 'black',
+                  'fill-opacity': 0.66
+                }
+              });
+
+              // for each circle/mask, updates the 'data' parameter for the mask source,
+              // redrawing it
+
+              let duration = 600;
+
+              for (let i = 0; i < steps; i++) {
+                window.setTimeout(function() {
+                  map.getSource('mask').setData(masks[i])
+                }, i * duration);
+              }
+
+            }
+
           }
 
         }
