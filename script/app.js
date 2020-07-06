@@ -1,4 +1,5 @@
 let map;
+let first_47; // temp
 
 let app = {
 
@@ -573,10 +574,10 @@ let app = {
             if ( map.isStyleLoaded() ) {
 
               app.story.map.controls.people.initialize()
-              app.story.map.controls.people.overlay.initialize()
-              app.story.map.controls.people.overlay.toggle( true )
+              // app.story.map.controls.people.overlay.initialize()
 
               clearInterval( app.story.map.monitoring )
+
             }
 
           }, 200 )
@@ -584,24 +585,31 @@ let app = {
         },
         "First death" : function() {
 
-          // map.flyTo( {
-          //   center : app.story.map.user,
-          //   speed  : .1,
-          //   zoom   : 17,
-          // } )
-          //
-          // app.story.map.controls.labels.toggle( false )
+          map.flyTo( {
+            center : app.story.map.user,
+            speed  : .1,
+            zoom   : 17,
+          } )
+
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.highlight.someInsideCircle.initialize( 1 )
+
+          // app.story.map.controls.people.toggle( true )
+          // app.story.map.controls.people.overlay.toggle( true )
 
         },
         "Following deaths" : function() {
 
-          // map.flyTo( {
-          //   center : app.story.map.user,
-          //   speed  : .1,
-          //   zoom   : 16.75
-          // } )
-          //
-          // app.story.map.controls.labels.toggle( false )
+          map.flyTo( {
+            center : app.story.map.user,
+            speed  : .1,
+            zoom   : 16.75
+          } )
+
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.highlight.someInsideCircle.initialize( 46 )
 
         },
         "All deaths" : function() {
@@ -1025,7 +1033,7 @@ let app = {
           	map.setPaintProperty(
           		'people',
           		'circle-opacity',
-          		option ? .9 : 0
+          		option ? 1 : 0
           	);
           },
 
@@ -1055,7 +1063,7 @@ let app = {
 
             toggle : function( option ) {
 
-              let opacity = option ? .5 : 0;
+              let opacity = option ? .33 : 0;
               map.setPaintProperty( 'overlay', 'fill-opacity', opacity );
 
             },
@@ -1149,9 +1157,114 @@ let app = {
 
               }
 
+            },
+
+            someInsideCircle : {
+
+              zoomToHighlight : function( center ) {
+
+                center = center || app.story.map.user
+
+              	// map.zoomTo(18);
+
+              	let center_pt = turf.point(center);
+              	// spreading the first deaths in a 250m radius around user location
+              	let mini_circle = turf.circle(center_pt, .25);
+              	let mini_circle_bbox = turf.bbox(mini_circle);
+
+              	map.fitBounds(
+              		mini_circle_bbox, {
+              			padding: {
+              				top: 0,
+              				left: 0,
+              				right: 0,
+              				bottom: 0 // 200
+              			}
+              		});
+
+              	return mini_circle;
+              },
+
+              remove :  function() {
+              	if (map.getLayer('first-deaths')) {
+              		// this will sort of make a small shrinking transition, before removing
+              		map.setPaintProperty('first-deaths', 'circle-radius', 0);
+              		map.removeLayer('first-deaths');
+              		map.removeSource('first-deaths');
+              		first_47 = undefined; // resets first_47
+              	}
+              },
+
+              initialize : function( amount, circle ) {
+
+                circle = circle || app.story.map.controls.people.highlight.someInsideCircle.zoomToHighlight()
+
+              	let features_to_avoid = map.queryRenderedFeatures({
+              		layers: ["water", "landuse", "national-park"]
+              	});
+
+              	let circle_livable;
+
+              	if (features_to_avoid.length > 1) {
+              		let poly_features_to_avoid = turf.union(...features_to_avoid);
+              		circle_livable = turf.difference(circle, poly_features_to_avoid);
+              	} else circle_livable = circle;
+
+              	let bboxCircle = turf.bbox(circle);
+
+              	let random_points = turf.randomPoint(amount, {
+              		bbox: bboxCircle
+              	});
+
+              	let inside_points = turf.pointsWithinPolygon(random_points, circle_livable);
+
+              	if (inside_points) {
+              		if (first_47) {
+              			first_47.features = [...first_47.features, ...inside_points.features]
+              		} else first_47 = inside_points;
+              	}
+              	let nof_inside_points = first_47.features.length;
+              	let tries = 0;
+
+              	//test if points are inside livable area of circle
+              	while (nof_inside_points < amount) {
+              		let extra_point = turf.randomPoint(1, {
+              			bbox: bboxCircle
+              		});
+              		let extra_point_within = turf.pointsWithinPolygon(extra_point, circle_livable);
+              		if (extra_point_within) {
+              			if (first_47) first_47.features = [...first_47.features, ...extra_point_within.features];
+              			else first_47 = extra_point_within;
+              			nof_inside_points++;
+              		}
+              		tries++
+              		if (tries >= 100) break;
+              	};
+
+              	if (!map.getLayer("first-deaths")) {
+              		map.addSource('first-deaths', {
+              			'type': 'geojson',
+              			'data': first_47
+              		});
+
+              		map.addLayer({
+              			'id': 'first-deaths',
+              			'type': 'circle',
+              			'source': 'first-deaths',
+              			'paint': {
+              				'circle-radius': 5,
+              				'circle-color': 'white',
+              				'circle-blur': .3
+              			}
+              		});
+              	} else {
+              		map.getSource('first-deaths').setData(first_47);
+              	}
+              }
+
             }
 
-          },
+          }
 
         }
 
