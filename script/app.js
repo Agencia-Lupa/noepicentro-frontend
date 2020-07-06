@@ -568,61 +568,57 @@ let app = {
           app.story.map.controls.labels.toggle( true )
           app.story.map.controls.user.marker()
 
-          let monitor = setInterval( function() {
+          app.story.map.monitoring = setInterval( function() {
 
             if ( map.isStyleLoaded() ) {
 
               app.story.map.controls.people.initialize()
-              app.story.map.controls.people.highlight.overlay.initialize()
-              app.story.map.controls.people.highlight.overlay.toggle()
+              app.story.map.controls.people.overlay.initialize()
+              app.story.map.controls.people.overlay.toggle( true )
 
-              clearInterval( monitor )
+              clearInterval( app.story.map.monitoring )
             }
-          }, 100 )
+
+          }, 200 )
 
         },
         "First death" : function() {
 
-          map.flyTo( {
-            center : app.story.map.user,
-            speed  : .1,
-            zoom   : 17,
-            // pitch: 60
-          } )
-
-          app.story.map.controls.labels.toggle( false )
-
-          // add marker for 1 death
+          // map.flyTo( {
+          //   center : app.story.map.user,
+          //   speed  : .1,
+          //   zoom   : 17,
+          // } )
+          //
+          // app.story.map.controls.labels.toggle( false )
 
         },
         "Following deaths" : function() {
 
-          map.flyTo( {
-            center : app.story.map.user,
-            speed  : .1,
-            zoom   : 16.75
-          } )
-
-          app.story.map.controls.labels.toggle( false )
-
-          // add marker for 46 deaths
+          // map.flyTo( {
+          //   center : app.story.map.user,
+          //   speed  : .1,
+          //   zoom   : 16.75
+          // } )
+          //
+          // app.story.map.controls.labels.toggle( false )
 
         },
         "All deaths" : function() {
 
-          app.story.map.controls.labels.toggle( false )
-
-          app.story.map.controls.people.highlight.insideCircle.initialize(
-            app.variables.result.radius.inner_point,
-            app.variables.result.radius.outer_point
-          )
-
-          app.story.map.controls.circle.initialize(
-            app.variables.result.radius.inner_point,
-            app.variables.result.radius.outer_point
-          )
-          app.story.map.controls.circle.toggle( false )
-          app.story.map.controls.circle.fitOnScreen()
+          // app.story.map.controls.labels.toggle( false )
+          //
+          // app.story.map.controls.people.highlight.insideCircle.initialize(
+          //   app.variables.result.radius.inner_point,
+          //   app.variables.result.radius.outer_point
+          // )
+          //
+          // app.story.map.controls.circle.initialize(
+          //   app.variables.result.radius.inner_point,
+          //   app.variables.result.radius.outer_point
+          // )
+          // app.story.map.controls.circle.toggle( false )
+          // app.story.map.controls.circle.fitOnScreen()
 
         },
         "All deaths with outline" : function() {
@@ -639,42 +635,35 @@ let app = {
         },
         "City that would have vanished" : function() {
 
-          app.story.map.controls.labels.toggle( false )
 
         },
         "City vanished" : function() {
 
-          app.story.map.controls.labels.toggle( false )
+
 
         },
         "Cities that would have vanished" : function() {
 
-          app.story.map.controls.labels.toggle( false )
 
         },
         "Cities vanished" : function() {
 
-          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 1" : function() {
 
-          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 1 location" : function() {
 
-          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 2" : function() {
 
-          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 2 location" : function() {
 
-          app.story.map.controls.labels.toggle( false )
 
         },
 
@@ -796,6 +785,7 @@ let app = {
               'waterway-label',
               'airport-label',
               'natural-line-label',
+              // airport icons
             ]
 
             let opacity = option ? 1 : 0
@@ -1063,11 +1053,21 @@ let app = {
 
             },
 
+            toggle : function( option ) {
+
+              let opacity = option ? .5 : 0;
+              map.setPaintProperty( 'overlay', 'fill-opacity', opacity );
+
+            },
+
             initialize : function() {
 
-              app.story.map.controls.people.highlight.reset()
+              app.story.map.controls.people.overlay.reset()
 
-              let radius = app.map.radius( center, center )
+              let radius = app.story.map.radius(
+                [0,0],
+                [0,0.000001]
+              )
 
               let circle = turf.circle(
                 radius.center,
@@ -1079,17 +1079,19 @@ let app = {
               map.addSource('overlay', {
                 'type': 'geojson',
                 'data': mask
-              });
+              })
 
               map.addLayer({
                 'id': 'overlay',
                 'type': 'fill',
                 'source': 'overlay',
                 'paint': {
-                  'fill-color': 'red',
-                  'fill-opacity': 0.66
+                  'fill-color': 'black',
+                  'fill-opacity': 0
                 }
-              });
+              })
+
+              map.moveLayer('overlay', 'road-label')
 
             },
 
@@ -1117,7 +1119,7 @@ let app = {
 
               },
 
-              initialize : function( option ) {
+              initialize : function( center, point_on_circle ) {
 
                 app.story.map.controls.people.highlight.reset()
 
