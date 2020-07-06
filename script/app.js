@@ -571,10 +571,23 @@ let app = {
 
           app.story.map.monitoring = setInterval( function() {
 
-            if ( map.isStyleLoaded() ) {
+            if ( map.isStyleLoaded() && app.variables.result ) {
 
               app.story.map.controls.people.initialize()
-              // app.story.map.controls.people.overlay.initialize()
+              app.story.map.controls.people.toggle( false )
+
+              app.story.map.controls.people.highlight.someInsideCircle.initialize( 1, 'first-death' )
+              app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
+              app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+              app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+
+              app.story.map.controls.people.highlight.insideCircle.initialize(
+                app.variables.result.radius.inner_point,
+                app.variables.result.radius.outer_point
+              )
+              app.story.map.controls.people.highlight.insideCircle.toggle( false )
+
+              app.element.dataset.loaded = true
 
               clearInterval( app.story.map.monitoring )
 
@@ -588,15 +601,14 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 17,
+            zoom   : 17.5,
           } )
 
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
-          app.story.map.controls.people.highlight.someInsideCircle.initialize( 1 )
-
-          // app.story.map.controls.people.toggle( true )
-          // app.story.map.controls.people.overlay.toggle( true )
+          app.story.map.controls.people.toggle( false )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
 
         },
         "Following deaths" : function() {
@@ -604,29 +616,32 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 16.75
+            zoom   : 17.25
           } )
 
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
-          app.story.map.controls.people.highlight.someInsideCircle.initialize( 46 )
+          app.story.map.controls.people.toggle( false )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-deaths' )
 
         },
         "All deaths" : function() {
 
-          // app.story.map.controls.labels.toggle( false )
-          //
-          // app.story.map.controls.people.highlight.insideCircle.initialize(
-          //   app.variables.result.radius.inner_point,
-          //   app.variables.result.radius.outer_point
-          // )
-          //
-          // app.story.map.controls.circle.initialize(
-          //   app.variables.result.radius.inner_point,
-          //   app.variables.result.radius.outer_point
-          // )
-          // app.story.map.controls.circle.toggle( false )
-          // app.story.map.controls.circle.fitOnScreen()
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+
+          app.story.map.controls.people.highlight.insideCircle.toggle( true )
+
+          app.story.map.controls.circle.initialize(
+            app.variables.result.radius.inner_point,
+            app.variables.result.radius.outer_point
+          )
+          app.story.map.controls.circle.toggle( false )
+          app.story.map.controls.circle.fitOnScreen()
 
         },
         "All deaths with outline" : function() {
@@ -1052,6 +1067,7 @@ let app = {
 
           },
 
+          /*
           overlay : {
 
             reset : function() {
@@ -1104,12 +1120,9 @@ let app = {
             },
 
           },
+          */
 
           highlight : {
-
-            points : {
-
-            },
 
             insideCircle : {
 
@@ -1122,16 +1135,16 @@ let app = {
 
               toggle : function( option ) {
 
-                let opacity = option ? .75 : 0;
+                let opacity = option ? .5 : 0;
                 map.setPaintProperty( 'mask', 'fill-opacity', opacity );
 
               },
 
               initialize : function( center, point_on_circle ) {
 
-                app.story.map.controls.people.highlight.reset()
+                app.story.map.controls.people.highlight.insideCircle.reset()
 
-                let radius = app.map.radius( center, point_on_circle )
+                let radius = app.story.map.radius( center, point_on_circle )
 
                 let circle = turf.circle(
                   radius.center,
@@ -1168,36 +1181,51 @@ let app = {
               	// map.zoomTo(18);
 
               	let center_pt = turf.point(center);
-              	// spreading the first deaths in a 250m radius around user location
-              	let mini_circle = turf.circle(center_pt, .25);
+              	// spreading the first deaths in a 100m radius around user location
+              	let mini_circle = turf.circle(center_pt, .1);
               	let mini_circle_bbox = turf.bbox(mini_circle);
 
-              	map.fitBounds(
-              		mini_circle_bbox, {
-              			padding: {
-              				top: 0,
-              				left: 0,
-              				right: 0,
-              				bottom: 0 // 200
-              			}
-              		});
+              	// map.fitBounds(
+              	// 	mini_circle_bbox, {
+              	// 		padding: {
+              	// 			top: 0,
+              	// 			left: 0,
+              	// 			right: 0,
+              	// 			bottom: 0 // 200
+              	// 		}
+              	// 	});
 
               	return mini_circle;
               },
 
-              remove :  function() {
-              	if (map.getLayer('first-deaths')) {
-              		// this will sort of make a small shrinking transition, before removing
-              		map.setPaintProperty('first-deaths', 'circle-radius', 0);
-              		map.removeLayer('first-deaths');
-              		map.removeSource('first-deaths');
-              		first_47 = undefined; // resets first_47
-              	}
+              // remove :  function() {
+              // 	if (map.getLayer('first-deaths')) {
+              // 		// this will sort of make a small shrinking transition, before removing
+              // 		map.setPaintProperty('first-deaths', 'circle-radius', 0);
+              // 		map.removeLayer('first-deaths');
+              // 		map.removeSource('first-deaths');
+              // 		first_47 = undefined; // resets first_47
+              // 	}
+              // },
+
+              toggle : function( option, name ) {
+
+                console.log( name )
+
+                let opacity = option ? 1 : 0;
+                map.setPaintProperty( name, 'circle-opacity', opacity );
+
+
+                // map.getLayer( name )
+
               },
 
-              initialize : function( amount, circle ) {
+              initialize : function( amount, name ) {
 
-                circle = circle || app.story.map.controls.people.highlight.someInsideCircle.zoomToHighlight()
+                if ( map.getLayer( name ) )
+                  return false
+
+                let circle = app.story.map.controls.people.highlight.someInsideCircle.zoomToHighlight()
 
               	let features_to_avoid = map.queryRenderedFeatures({
               		layers: ["water", "landuse", "national-park"]
@@ -1241,24 +1269,24 @@ let app = {
               		if (tries >= 100) break;
               	};
 
-              	if (!map.getLayer("first-deaths")) {
-              		map.addSource('first-deaths', {
+              	if (!map.getLayer( name )) {
+              		map.addSource( name , {
               			'type': 'geojson',
               			'data': first_47
               		});
 
               		map.addLayer({
-              			'id': 'first-deaths',
+              			'id': name,
               			'type': 'circle',
-              			'source': 'first-deaths',
+              			'source': name,
               			'paint': {
-              				'circle-radius': 5,
+              				'circle-radius': amount === 1 ? 5 : 3,
               				'circle-color': 'white',
-              				'circle-blur': .3
+                      'circle-opacity': 0
               			}
               		});
               	} else {
-              		map.getSource('first-deaths').setData(first_47);
+              		map.getSource(name).setData(first_47);
               	}
               }
 

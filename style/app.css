@@ -687,6 +687,14 @@ button {
   pointer-events: all;
 }
 
+.steps > * {
+  pointer-events: none;
+}
+
+[data-loaded="true"] .steps > * {
+  pointer-events: all;
+}
+
 .steps p {
   color: var(--dark-50);
   margin: 0;
@@ -719,10 +727,6 @@ button {
 
 .swiper-slide {
   padding: 3.6rem 2rem 2.6rem;
-}
-
-span[data-variable] {
-
 }
 
 .arrows {
