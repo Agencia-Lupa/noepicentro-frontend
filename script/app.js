@@ -563,7 +563,7 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 16
+            zoom   : 15
           } )
 
           app.story.map.controls.labels.toggle( true )
@@ -576,6 +576,9 @@ let app = {
               app.story.map.controls.people.initialize()
               app.story.map.controls.people.toggle( false )
 
+              // app.story.map.controls.people.overlay.initialize()
+              // app.story.map.controls.people.overlay.toggle( false )
+
               app.story.map.controls.people.highlight.someInsideCircle.initialize( 1, 'first-death' )
               app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
               app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
@@ -586,6 +589,14 @@ let app = {
                 app.variables.result.radius.outer_point
               )
               app.story.map.controls.people.highlight.insideCircle.toggle( false )
+
+              app.story.map.controls.circle.initialize(
+                app.variables.result.radius.inner_point,
+                app.variables.result.radius.outer_point
+              )
+              app.story.map.controls.circle.toggle( false )
+
+
 
               app.element.dataset.loaded = true
 
@@ -607,8 +618,11 @@ let app = {
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( false )
+          // app.story.map.controls.people.overlay.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
 
         },
         "Following deaths" : function() {
@@ -622,8 +636,11 @@ let app = {
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( false )
+          // app.story.map.controls.people.overlay.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
 
         },
         "All deaths" : function() {
@@ -631,15 +648,10 @@ let app = {
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
+          // app.story.map.controls.people.overlay.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-
           app.story.map.controls.people.highlight.insideCircle.toggle( true )
-
-          app.story.map.controls.circle.initialize(
-            app.variables.result.radius.inner_point,
-            app.variables.result.radius.outer_point
-          )
           app.story.map.controls.circle.toggle( false )
           app.story.map.controls.circle.fitOnScreen()
 
@@ -647,45 +659,138 @@ let app = {
         "All deaths with outline" : function() {
 
           app.story.map.controls.labels.toggle( false )
-
-          app.story.map.controls.circle.initialize(
-            app.variables.result.radius.inner_point,
-            app.variables.result.radius.outer_point
-          )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
+          // app.story.map.controls.people.overlay.toggle( false )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( true )
           app.story.map.controls.circle.toggle( true )
           app.story.map.controls.circle.fitOnScreen()
 
         },
         "City that would have vanished" : function() {
 
+          let city = app.variables.result.neighboring_city
+          let center = city.city_centroid
+
+          map.flyTo( {
+            center : center,
+            speed  : 1,
+            zoom   : 12
+          } )
+
+          app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
+
+          // app.story.map.controls.people.overlay.toggle( true )
+
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
+
+          app.story.map.controls.location.highlight( city.code_muni )
 
         },
         "City vanished" : function() {
 
+          let city = app.variables.result.neighboring_city
+          let center = city.city_centroid
 
+          map.flyTo( {
+            center : center,
+            speed  : 1,
+            zoom   : 12
+          } )
+
+          app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
+
+          // app.story.map.controls.people.overlay.toggle( true )
+
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
+
+          app.story.map.controls.location.fill( city.code_muni )
 
         },
         "Cities that would have vanished" : function() {
 
+          map.flyTo( {
+            center : app.story.map.user,
+            speed  : .5,
+            zoom   : 3
+          } )
 
         },
         "Cities vanished" : function() {
 
+          map.flyTo( {
+            center : app.story.map.user,
+            speed  : .5,
+            zoom   : 3
+          } )
 
         },
         "Featured city 1" : function() {
 
+          let city = app.variables.result.capitals_to_highlight[ 0 ]
+          let center = city.radius.inner_point
+
+          map.flyTo( {
+            center : center,
+            speed  : 1,
+            zoom   : 15
+          } )
+
+          app.story.map.controls.user.marker( center )
 
         },
         "Featured city 1 location" : function() {
 
+          let city = app.variables.result.capitals_to_highlight[ 0 ]
+          let center = city.radius.inner_point
+
+          map.flyTo( {
+            center : center,
+            speed  : 1,
+            zoom   : 15
+          } )
+
+          app.story.map.controls.user.marker( center )
 
         },
         "Featured city 2" : function() {
 
+          let city = app.variables.result.capitals_to_highlight[ 1 ]
+          let center = city.radius.inner_point
+
+          map.flyTo( {
+            center : center,
+            speed  : 1,
+            zoom   : 15
+          } )
+
+          app.story.map.controls.user.marker( center )
 
         },
         "Featured city 2 location" : function() {
+
+          let city = app.variables.result.capitals_to_highlight[ 1 ]
+          let center = city.radius.inner_point
+
+          map.flyTo( {
+            center : center,
+            speed  : 1,
+            zoom   : 15
+          } )
+
+          app.story.map.controls.user.marker( center )
 
 
         },
@@ -932,6 +1037,12 @@ let app = {
               .setLngLat( center )
               .addTo( map )
 
+            // if ( options === false )
+            //   marker.classList.add( 'hidden' )
+            //
+            // else if ( options === true )
+            //   marker.classList.remove( 'hidden' )
+
           },
 
           highlight : function( option ) {
@@ -1067,7 +1178,6 @@ let app = {
 
           },
 
-          /*
           overlay : {
 
             reset : function() {
@@ -1079,7 +1189,7 @@ let app = {
 
             toggle : function( option ) {
 
-              let opacity = option ? .33 : 0;
+              let opacity = option ? .5 : 0;
               map.setPaintProperty( 'overlay', 'fill-opacity', opacity );
 
             },
@@ -1120,7 +1230,6 @@ let app = {
             },
 
           },
-          */
 
           highlight : {
 
@@ -1135,7 +1244,7 @@ let app = {
 
               toggle : function( option ) {
 
-                let opacity = option ? .5 : 0;
+                let opacity = option ? .66 : 0;
                 map.setPaintProperty( 'mask', 'fill-opacity', opacity );
 
               },
@@ -1167,6 +1276,8 @@ let app = {
                     'fill-opacity': 0
                   }
                 });
+
+                map.moveLayer('mask', 'road-label')
 
               }
 
@@ -1292,6 +1403,46 @@ let app = {
 
             }
 
+          }
+
+        },
+
+        location : {
+
+          highlight : function(code) {
+          	// pass city code to highlight, or
+          	// "" to remove any existing highlights
+          	// color is hard-coded in 'fill-outline-color'
+
+          	if (!map.getLayer("highlighted_city")) {
+          		map.addLayer({
+          			'id': 'highlighted_city',
+          			'type': 'fill',
+          			'source': 'composite',
+          			'source-layer': 'mun-8q037a',
+          			'paint': {
+          				'fill-opacity': 1,
+          				'fill-outline-color': '#d7a565',
+          				'fill-color': 'transparent'
+          			},
+          			'filter': ['==', 'code_muni', '']
+          		});
+          	}
+
+          	map.setFilter(
+          		'highlighted_city', [
+          			'==',
+          			['get', 'code_muni'],
+          			code
+          		]);
+          },
+
+          fill : function(code) {
+          	map.setPaintProperty(
+          		'highlighted_city',
+          		'fill-color',
+          		'#000000'
+          	)
           }
 
         }
