@@ -724,8 +724,10 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .5,
-            zoom   : 3
+            zoom   : 4
           } )
+
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Cities vanished" : function() {
@@ -733,8 +735,10 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .5,
-            zoom   : 3
+            zoom   : 4
           } )
+
+          app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 1" : function() {
@@ -745,8 +749,10 @@ let app = {
           map.flyTo( {
             center : center,
             speed  : 1,
-            zoom   : 15
+            zoom   : 13
           } )
+
+          app.story.map.controls.labels.toggle( true )
 
           app.story.map.controls.user.marker( center )
 
@@ -761,6 +767,8 @@ let app = {
             speed  : 1,
             zoom   : 15
           } )
+
+          app.story.map.controls.labels.toggle( false )
 
           app.story.map.controls.user.marker( center )
 
