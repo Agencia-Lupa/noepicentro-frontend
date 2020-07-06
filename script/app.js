@@ -114,7 +114,7 @@ let app = {
 
       "Featured city 2 radius" : function() {
 
-        let city = app.variables.result.capitals_to_highlight[ 1 ][ 0 ] // remove [0]
+        let city = app.variables.result.capitals_to_highlight[ 1 ]
         let km = turf.distance(
           turf.point( city.radius.inner_point ),
           turf.point( city.radius.outer_point )
