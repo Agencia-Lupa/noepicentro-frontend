@@ -172,13 +172,12 @@ let app = {
         let timestamp = app.variables.initial.date
         let date =  new Date( timestamp + ' 12:00' )
 
-        /*
+
         let text = date.toLocaleDateString( 'pt-BR', { dateStyle : 'long' } )
         let markup = 'em <time datetime="' + timestamp + '">' + text + '</time>'
-        */
 
-        let text = 'diariamente'
-        let markup = '<time datetime="' + timestamp + '">' + text + '</time>'
+        // let text = 'diariamente'
+        // let markup = '<time datetime="' + timestamp + '">' + text + '</time>'
 
         return markup
 
