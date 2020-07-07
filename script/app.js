@@ -928,6 +928,8 @@ let app = {
           opacity : function( option ) {
 
             const layers = [
+              'country-label',
+              'state-label',
               'settlement-major-label',
               'settlement-minor-label',
               'settlement-subdivision-label',
@@ -938,13 +940,14 @@ let app = {
               'waterway-label',
               'airport-label',
               'natural-line-label',
-              // airport icons
             ]
 
             let opacity = option ? 1 : 0
 
             for ( layer of layers )
               map.setPaintProperty( layer, 'text-opacity', opacity )
+
+            map.setPaintProperty( 'airport-label', 'icon-opacity', opacity )
 
           },
 
