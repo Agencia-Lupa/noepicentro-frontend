@@ -1405,7 +1405,7 @@ let app = {
               			nof_inside_points++;
               		}
               		tries++
-              		if (tries >= 100) break;
+              		if (tries >= 1000) break;
               	};
 
               	if (!map.getLayer( name )) {
