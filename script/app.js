@@ -163,7 +163,9 @@ let app = {
 
       "Vanished cities" : function() {
 
-        return ''
+        let value = app.variables.initial.vanishing_cities
+        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
+        return value
 
       },
 
@@ -219,7 +221,8 @@ let app = {
           app.variables.update(
             [
               'Death count',
-              'Update'
+              'Update',
+              'Vanished cities'
             ]
           )
 
@@ -1421,6 +1424,9 @@ let app = {
                       'circle-opacity': 0
               			}
               		});
+
+                  map.moveLayer(name, 'road-label')
+
               	} else {
               		map.getSource(name).setData(first_47);
               	}
