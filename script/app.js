@@ -688,135 +688,132 @@ let app = {
         },
         "City that would have vanished" : function() {
 
-          let city = app.variables.result.neighboring_city
-          let center = city.city_centroid
-
-          map.flyTo( {
-            center : center,
-            speed  : 1,
-            zoom   : 12
-          } )
-
-          app.story.map.controls.labels.toggle( true )
-          app.story.map.controls.user.marker()
-          app.story.map.controls.people.toggle( true )
-
-          // app.story.map.controls.people.overlay.toggle( true )
-
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
-          app.story.map.controls.circle.toggle( false )
-
-          app.story.map.controls.location.highlight( city.code_muni )
+          // let city = app.variables.result.neighboring_city
+          // let center = city.city_centroid
+          //
+          // map.flyTo( {
+          //   center : center,
+          //   speed  : 1,
+          //   zoom   : 12
+          // } )
+          //
+          // app.story.map.controls.labels.toggle( true )
+          // app.story.map.controls.user.marker()
+          // app.story.map.controls.people.toggle( true )
+          //
+          // app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          // app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          // app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          // app.story.map.controls.circle.toggle( false )
+          //
+          // app.story.map.controls.location.highlight( city.code_muni )
 
         },
         "City vanished" : function() {
 
-          let city = app.variables.result.neighboring_city
-          let center = city.city_centroid
-
-          map.flyTo( {
-            center : center,
-            speed  : 1,
-            zoom   : 12
-          } )
-
-          app.story.map.controls.labels.toggle( true )
-          app.story.map.controls.user.marker()
-          app.story.map.controls.people.toggle( true )
-
-          // app.story.map.controls.people.overlay.toggle( true )
-
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
-          app.story.map.controls.circle.toggle( false )
-
-          app.story.map.controls.location.fill( city.code_muni )
+          // let city = app.variables.result.neighboring_city
+          // let center = city.city_centroid
+          //
+          // map.flyTo( {
+          //   center : center,
+          //   speed  : 1,
+          //   zoom   : 12
+          // } )
+          //
+          // app.story.map.controls.labels.toggle( true )
+          // app.story.map.controls.user.marker()
+          // app.story.map.controls.people.toggle( true )
+          //
+          // // app.story.map.controls.people.overlay.toggle( true )
+          //
+          // app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          // app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          // app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          // app.story.map.controls.circle.toggle( false )
+          //
+          // app.story.map.controls.location.fill( city.code_muni )
 
         },
         "Cities that would have vanished" : function() {
 
-          map.flyTo( {
-            center : app.story.map.user,
-            speed  : .5,
-            zoom   : 4
-          } )
-
-          app.story.map.controls.labels.toggle( false )
+          // map.flyTo( {
+          //   center : app.story.map.user,
+          //   speed  : .5,
+          //   zoom   : 4
+          // } )
+          //
+          // app.story.map.controls.labels.toggle( false )
 
         },
         "Cities vanished" : function() {
 
-          map.flyTo( {
-            center : app.story.map.user,
-            speed  : .5,
-            zoom   : 4
-          } )
-
-          app.story.map.controls.labels.toggle( false )
+          // map.flyTo( {
+          //   center : app.story.map.user,
+          //   speed  : .5,
+          //   zoom   : 4
+          // } )
+          //
+          // app.story.map.controls.labels.toggle( false )
 
         },
         "Featured city 1" : function() {
 
-          let city = app.variables.result.capitals_to_highlight[ 0 ]
-          let center = city.radius.inner_point
-
-          map.flyTo( {
-            center : center,
-            speed  : 1,
-            zoom   : 13
-          } )
-
-          app.story.map.controls.labels.toggle( true )
-
-          app.story.map.controls.user.marker( center )
+          // let city = app.variables.result.capitals_to_highlight[ 0 ]
+          // let center = city.radius.inner_point
+          //
+          // map.flyTo( {
+          //   center : center,
+          //   speed  : 1,
+          //   zoom   : 13
+          // } )
+          //
+          // app.story.map.controls.labels.toggle( true )
+          //
+          // app.story.map.controls.user.marker( center )
 
         },
         "Featured city 1 location" : function() {
 
-          let city = app.variables.result.capitals_to_highlight[ 0 ]
-          let center = city.radius.inner_point
-
-          map.flyTo( {
-            center : center,
-            speed  : 1,
-            zoom   : 15
-          } )
-
-          app.story.map.controls.labels.toggle( false )
-
-          app.story.map.controls.user.marker( center )
+          // let city = app.variables.result.capitals_to_highlight[ 0 ]
+          // let center = city.radius.inner_point
+          //
+          // map.flyTo( {
+          //   center : center,
+          //   speed  : 1,
+          //   zoom   : 15
+          // } )
+          //
+          // app.story.map.controls.labels.toggle( false )
+          //
+          // app.story.map.controls.user.marker( center )
 
         },
         "Featured city 2" : function() {
 
-          let city = app.variables.result.capitals_to_highlight[ 1 ]
-          let center = city.radius.inner_point
-
-          map.flyTo( {
-            center : center,
-            speed  : 1,
-            zoom   : 15
-          } )
-
-          app.story.map.controls.user.marker( center )
+          // let city = app.variables.result.capitals_to_highlight[ 1 ]
+          // let center = city.radius.inner_point
+          //
+          // map.flyTo( {
+          //   center : center,
+          //   speed  : 1,
+          //   zoom   : 15
+          // } )
+          //
+          // app.story.map.controls.user.marker( center )
 
         },
         "Featured city 2 location" : function() {
 
-          let city = app.variables.result.capitals_to_highlight[ 1 ]
-          let center = city.radius.inner_point
-
-          map.flyTo( {
-            center : center,
-            speed  : 1,
-            zoom   : 15
-          } )
-
-          app.story.map.controls.user.marker( center )
-
+          // let city = app.variables.result.capitals_to_highlight[ 1 ]
+          // let center = city.radius.inner_point
+          //
+          // map.flyTo( {
+          //   center : center,
+          //   speed  : 1,
+          //   zoom   : 15
+          // } )
+          //
+          // app.story.map.controls.user.marker( center )
 
         },
 
@@ -1405,7 +1402,7 @@ let app = {
               			nof_inside_points++;
               		}
               		tries++
-              		if (tries >= 1000) break;
+              		if (tries >= 10000) break;
               	};
 
               	if (!map.getLayer( name )) {
