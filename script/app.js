@@ -592,38 +592,45 @@ let app = {
           app.story.map.controls.labels.toggle( true )
           app.story.map.controls.user.marker()
 
+          delete app.story.map.monitoring
+
           app.story.map.monitoring = setInterval( function() {
 
-            if ( map.isStyleLoaded() && app.variables.result ) {
+            if ( map.isStyleLoaded() /* && app.variables.result */ ) {
 
-              app.story.map.controls.people.initialize()
-              app.story.map.controls.people.toggle( false )
+              (function() {
 
-              // app.story.map.controls.people.overlay.initialize()
-              // app.story.map.controls.people.overlay.toggle( false )
+                app.story.map.controls.people.initialize()
+                app.story.map.controls.people.toggle( false )
 
-              app.story.map.controls.people.highlight.someInsideCircle.initialize( 1, 'first-death' )
-              app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
-              app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
-              app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+                // app.story.map.controls.people.overlay.initialize()
+                // app.story.map.controls.people.overlay.toggle( false )
 
-              app.story.map.controls.people.highlight.insideCircle.initialize(
-                app.variables.result.radius.inner_point,
-                app.variables.result.radius.outer_point
-              )
-              app.story.map.controls.people.highlight.insideCircle.toggle( false )
+                app.story.map.controls.people.highlight.someInsideCircle.initialize( 1, 'first-death' )
+                app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
+                app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+                app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
 
-              app.story.map.controls.circle.initialize(
-                app.variables.result.radius.inner_point,
-                app.variables.result.radius.outer_point
-              )
-              app.story.map.controls.circle.toggle( false )
+                app.story.map.controls.people.highlight.insideCircle.initialize(
+                  app.variables.result.radius.inner_point,
+                  app.variables.result.radius.outer_point
+                )
 
+                app.story.map.controls.people.highlight.insideCircle.toggle( false )
 
+                app.story.map.controls.circle.initialize(
+                  app.variables.result.radius.inner_point,
+                  app.variables.result.radius.outer_point
+                )
+                app.story.map.controls.circle.toggle( false )
 
-              app.element.dataset.loaded = true
+                app.element.dataset.loaded = true
 
-              clearInterval( app.story.map.monitoring )
+                clearInterval( app.story.map.monitoring )
+
+                // delete app.story.map.monitoring
+
+              })()
 
             }
 
@@ -867,19 +874,20 @@ let app = {
 
       reset : function() {
 
-        if ( map.getLayer(  'people-inside' ) ) map.removeLayer( 'people-inside' )
-        if ( map.getLayer(  'circle'        ) ) map.removeLayer( 'circle' )
-        if ( map.getSource( 'circle'        ) ) map.removeSource( 'circle' )
+        if ( map )
+          map.remove()
+          // app.story.map.controls.circle.reset()
+          // app.story.map.controls.people.highlight.insideCircle.reset()
+          // app.story.map.controls.people.overlay.reset() // not used
 
       },
 
       initialize : function( center ) {
 
         mapboxgl.accessToken = app.story.map.token
-
         app.story.map.user = center
 
-        console.log( map )
+        app.story.map.reset()
 
         map = new mapboxgl.Map( {
           container: app.story.map.id,
@@ -896,15 +904,12 @@ let app = {
         map.dragRotate.disable()
         map.touchZoomRotate.disableRotation()
 
-        app.story.steps.handle()
-        app.story.map.reset()
-
         let url = 'https://caco.app/coords'
 
         url += '?'
-        url += 'lat=' + center[ 1 ]
+        url += 'lat=' + app.story.map.user[ 1 ]
         url += '&'
-        url += 'lon=' + center[ 0 ]
+        url += 'lon=' + app.story.map.user[ 0 ]
 
         let options = { mode : 'cors' }
 
@@ -912,10 +917,14 @@ let app = {
           .then( response => response.json() )
           .then( data => {
 
+            if ( app.variables.result )
+              delete app.variables.result
+
             app.variables.result = data
             app.element.dataset.wouldVanish = data.user_city.would_vanish
 
             app.variables.update()
+            app.story.steps.handle()
 
           } )
           .catch( error => console.log( error ) )
@@ -947,10 +956,14 @@ let app = {
 
             let opacity = option ? 1 : 0
 
-            for ( layer of layers )
-              map.setPaintProperty( layer, 'text-opacity', opacity )
+            if ( map.isStyleLoaded() ) {
 
-            map.setPaintProperty( 'airport-label', 'icon-opacity', opacity )
+              for ( layer of layers )
+                map.setPaintProperty( layer, 'text-opacity', opacity )
+
+              map.setPaintProperty( 'airport-label', 'icon-opacity', opacity )
+
+            }
 
           },
 
@@ -988,8 +1001,8 @@ let app = {
 
           reset : function () {
 
-            if (map.getLayer('circle')) map.removeLayer('circle')
-            if (map.getSource('circle')) map.removeSource('circle')
+            if ( map.getLayer(  'circle' ) ) map.removeLayer(  'circle' )
+            if ( map.getSource( 'circle' ) ) map.removeSource( 'circle' )
 
           },
 
@@ -1058,129 +1071,26 @@ let app = {
 
         user : {
 
+          center : undefined,
+
           marker : function( center, options ) {
 
             center = center || app.story.map.user
 
-            let marker = document.querySelector( '.marker' )
+            if ( app.story.map.controls.user.center !== center ) {
 
-            new mapboxgl.Marker( marker )
-              .setLngLat( center )
-              .addTo( map )
+              let marker = document.createElement( 'div' )
+              marker.classList.add( 'marker' )
 
-            // if ( options === false )
-            //   marker.classList.add( 'hidden' )
-            //
-            // else if ( options === true )
-            //   marker.classList.remove( 'hidden' )
+              app.story.map.controls.user.instance = new mapboxgl.Marker( marker )
+                .setLngLat( center )
+                .addTo( map )
+
+              app.story.map.controls.user.center = center
+
+            }
 
           },
-
-          highlight : function( option ) {
-
-          	let canvas = document.getElementById( 'user' )
-
-          	// Set Canvas dimensions
-          	let w = window.innerWidth;
-          	let h = window.innerHeight;
-          	canvas.width = w;
-          	canvas.height = h;
-
-          	// Get drawing context
-          	let ctx = canvas.getContext('2d');
-
-          	// animation parameters
-          	// set a smaller r_step for slower animation
-          	// max_r defines the maximum radius before beginning a new pulse
-          	const r = 2;
-          	let r_step = 1;
-          	let new_r = r;
-          	const max_r = 100;
-          	const iterations_no = (max_r - r + 1) / r_step
-
-          	const linewidth = 6;
-          	const linewidth_step = linewidth / iterations_no;
-          	let new_linewidth = linewidth;
-
-          	// init point
-          	function init_point( ctx ) {
-          		ctx.beginPath();
-          		ctx.lineWidth = 1;
-          		ctx.strokeStyle = "goldenrod";
-          		ctx.arc(w / 2, h / 2, r, 0, Math.PI * 2, false);
-          		ctx.stroke();
-          	}
-
-          	init_point( ctx );
-
-          	let start;
-
-          	function animate(timestamp) {
-
-          		//in case we want to use a timer to stop the animation
-          		if (start === undefined)
-          			start = timestamp;
-          		const elapsed = timestamp - start;
-
-          		//clear canvas for new iteration
-          		ctx.clearRect(0, 0, w, h);
-
-          		//update
-          		new_r += r_step;
-          		new_linewidth -= linewidth_step;
-
-          		if (new_r > max_r) {
-          			new_r = r;
-          			new_linewidth = 6;
-          		}
-
-          		//redraw user point
-          		init_point( ctx )
-
-          		//draw expanding circle with updated parameters
-          		ctx.beginPath();
-          		ctx.lineWidth = new_linewidth;
-          		ctx.strokeStyle = "goldenrod";
-          		ctx.arc(w / 2, h / 2, new_r, 0, Math.PI * 2, false);
-          		ctx.stroke();
-
-          		//here we would check if the timer is expired beforing requesting another frame
-          		request = requestAnimationFrame(animate);
-          	}
-
-          	if (option) {
-          		console.log("começando...");
-          		request = requestAnimationFrame(animate);
-
-          		// get map bounds
-          		let bounds = map.getBounds();
-          		let coordinates = [
-          			[bounds._sw.lng, bounds._ne.lat],
-          			[bounds._ne.lng, bounds._ne.lat],
-          			[bounds._ne.lng, bounds._sw.lat],
-          			[bounds._sw.lng, bounds._sw.lat]
-          		];
-
-          		// binds canvas to the map
-          		map.addSource('canvas-source', {
-          			type: 'canvas',
-          			canvas: 'user',
-          			coordinates: coordinates,
-          			animate: true
-          		});
-
-          		map.addLayer({
-          			id: 'canvas-layer',
-          			type: 'raster',
-          			source: 'canvas-source'
-          		});
-          	} else {
-          		console.log("parando...")
-          		cancelAnimationFrame(request);
-          		if (map.getLayer("canvas-layer")) map.removeLayer("canvas-layer");
-          		if (map.getSource("canvas-source")) map.removeSource("canvas-source");
-          	}
-          }
 
         },
 
@@ -1351,8 +1261,6 @@ let app = {
               // },
 
               toggle : function( option, name ) {
-
-                console.log( name )
 
                 let opacity = option ? 1 : 0;
                 map.setPaintProperty( name, 'circle-opacity', opacity );
