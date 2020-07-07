@@ -172,8 +172,9 @@ let app = {
       "Update" : function() {
 
         let timestamp = app.variables.initial.date
-        let date =  new Date( timestamp + ' 12:00' )
+        let noon = 'T12:00:00-03:00'
 
+        let date =  new Date( timestamp + noon )
 
         let text = date.toLocaleDateString( 'pt-BR', { dateStyle : 'long' } )
         let markup = 'em <time datetime="' + timestamp + '">' + text + '</time>'
