@@ -579,10 +579,16 @@ button {
 
 #map {
   position: absolute;
-  top: 0;
+  top: -14.4rem; /* should be calculated in JS */
   right: 0;
   bottom: 0;
   left: 0;
+}
+
+@media ( min-width: 480px ) {
+  #map {
+    top: 0;
+  }
 }
 
 .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
