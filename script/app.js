@@ -562,6 +562,13 @@ let app = {
 
         if ( navigator.geolocation ) {
 
+          // dummy one, which will result in a working next statement
+          navigator.geolocation.getCurrentPosition(
+            function () {},
+            function () {},
+            {}
+          )
+          
           navigator.geolocation.getCurrentPosition(
             app.search.geolocation.success,
             app.search.geolocation.error,
