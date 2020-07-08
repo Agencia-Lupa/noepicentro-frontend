@@ -2,10 +2,10 @@ function geoFindMe() {
 
   const status = document.querySelector('#status');
   const mapLink = document.querySelector('#map-link');
-  
+
   const options = {
-    enableHighAccuracy: falase, 
-    maximumAge: 10000, 
+    enableHighAccuracy: false, 
+    maximumAge: 10000,
     timeout: 10000
   };
 
