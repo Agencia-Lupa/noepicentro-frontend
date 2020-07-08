@@ -531,7 +531,13 @@ let app = {
 
     geolocation : {
 
-      handle : function( position ) {
+      options : {
+        enableHighAccuracy : false,
+        maximumAge : 1000 * 60,
+        timeout : 10000
+      },
+
+      success : function( position ) {
 
         if ( position.coords ) {
 
@@ -546,10 +552,23 @@ let app = {
 
       },
 
+      error : function( error ) {
+
+        alert( 'Error ' + error.code + ': ' + error.message )
+
+      },
+
       get : function() {
 
-        if ( navigator.geolocation )
-          navigator.geolocation.getCurrentPosition( app.search.geolocation.handle )
+        if ( navigator.geolocation ) {
+
+          navigator.geolocation.getCurrentPosition(
+            app.search.geolocation.success,
+            app.search.geolocation.error,
+            app.search.geolocation.options
+          )
+
+        }
 
       },
 
