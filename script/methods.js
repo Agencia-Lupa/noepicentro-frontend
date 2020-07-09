@@ -465,3 +465,39 @@ function fitVanishingCity(code) {
             padding: {top: 30, bottom: 30, left: 30, right: 30}
         });
 }
+
+//////////////////////////////////////////////////
+// to make all cities with population smaller than death
+// count "vanish"
+
+function vanishAllBelow(death_count) {
+
+    if (map.getLayer("highlighted_city")) map.removeLayer("highlighted_city");
+    if (map.getLayer("other_cities")) map.removeLayer("other_cities");
+
+    if (!map.getLayer("vanishable")) {
+        map.addLayer({
+            'id': 'vanishable',
+            'type': 'fill',
+            'source': 'composite',
+            'source-layer': 'municipalities',
+            'paint': {
+                'fill-opacity' : 1,
+                'fill-outline-color' : 'transparent',
+                'fill-color' : 'black'
+            },
+            'filter': ['<=', 'pop_2019', ''] 
+        },
+        'admin-1-boundary-bg');
+    }
+
+    map.setFilter(
+        'vanishable', [
+            '<=', 
+            [
+                'number', 
+                ['get', 'pop_2019']
+            ], 
+            death_count
+        ]);
+}
