@@ -440,3 +440,28 @@ location.fill = function(code) {
         'transparent'
     )
 }
+
+
+//////////////////////////////////////////////////
+// to fly to highlighted city and to make it fit the viewport
+
+function fitVanishingCity(code) {
+
+    let municipalities = map.querySourceFeatures('composite', {
+        sourceLayer: 'municipalities'});
+
+    let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
+
+    let bbox_highlighted = [
+        [highlighted.properties.xmin, highlighted.properties.ymin], 
+        [highlighted.properties.xmax, highlighted.properties.ymax]
+    ];
+
+    map.fitBounds(
+        bbox_highlighted, 
+        {
+            linear : false, // false means the map transitions using map.flyTo()
+            speed: 1, 
+            padding: {top: 30, bottom: 30, left: 30, right: 30}
+        });
+}
