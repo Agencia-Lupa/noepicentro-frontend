@@ -27,7 +27,7 @@
 //people.highlightInsideCircle(radius)
 
 // To highlight first deaths on the beginning of the story
-people.highlightSomeInsideCircle(amount|false)
+//people.highlightSomeInsideCircle(amount|false)
 
 // To outline cities
 // location.highlight(code,color|false)
@@ -36,8 +36,8 @@ people.highlightSomeInsideCircle(amount|false)
 // location.fill(code,color|false)
 
 // To add familiar places from Google Places API
-tooltip.draw({center,label})❓
-tooltip.toggle(true|false)❓
+tooltip.draw({center,label})
+tooltip.toggle(true|false)
 
 
 
@@ -370,20 +370,56 @@ location.highlight = function(code) {
             'id': 'highlighted_city',
             'type': 'fill',
             'source': 'composite',
-            'source-layer': 'mun-8q037a',
+            'source-layer': 'municipalities', //
             'paint': {
                 'fill-opacity' : 1,
                 'fill-outline-color' : '#d7a565',
                 'fill-color' : 'transparent'
             },
             'filter': ['==', 'code_muni', '']
-        });
+        },
+        'road-label');
+
+        map.addLayer({
+            'id': 'other_cities',
+            'type': 'fill',
+            'source': 'composite',
+            'source-layer': 'municipalities', //
+            'paint': {
+                'fill-opacity' : .4,
+                'fill-outline-color' : 'transparent',
+                'fill-color' : 'black'
+            },
+            'filter': ['!=', 'code_muni', ''] 
+        },
+        'road-label');        
+    } 
+    else {
+        // makes sure the layers have the right style
+        // just in case location.fill has been called beforehand
+        map.setPaintProperty(
+            'highlighted_city',
+            'fill-color',
+            'transparent'
+        )
+        map.setPaintProperty(
+            'other_cities',
+            'fill-color',
+            'black'
+        )
     }
 
     map.setFilter(
         'highlighted_city', [
-            '==',
-            ['get', 'code_muni'],
+            '==', 
+            ['get', 'code_muni'], 
+            code
+        ]);
+
+    map.setFilter(
+        'other_cities', [
+            '!=', 
+            ['get', 'code_muni'], 
             code
         ]);
 }
@@ -397,5 +433,10 @@ location.fill = function(code) {
         'highlighted_city',
         'fill-color',
         '#000000'
+    )
+    map.setPaintProperty(
+        'other_cities',
+        'fill-color',
+        'transparent'
     )
 }
