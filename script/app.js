@@ -780,6 +780,9 @@ let app = {
         },
         "Cities that would have vanished" : function() {
 
+
+          app.story.map.controls.location.fitOnScreen( 'br' )
+
           // map.flyTo( {
           //   center : app.story.map.user,
           //   speed  : .5,
@@ -1401,29 +1404,53 @@ let app = {
 
           fitOnScreen : function(code) {
 
-            let municipalities = map.querySourceFeatures('mun', {
-            	sourceLayer: 'municipalities'
-            });
+            if ( code == 'br' ) {
 
-            let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
+              let bbox_highlighted = [
+                [ -73.9872354804, -33.7683777809 ],
+                [ -34.7299934555,  5.24448639569 ]
+              ]
 
-            let bbox_highlighted = [
-            	[highlighted.properties.xmin, highlighted.properties.ymin],
-            	[highlighted.properties.xmax, highlighted.properties.ymax]
-            ];
+              map.fitBounds(
+                bbox_highlighted, {
+                  animation: false,
+                  linear: false, // false means the map transitions using map.flyTo()
+                  speed: 1,
+                  padding: {
+                    top: 48,
+                    bottom: 48,
+                    left: 48,
+                    right: 48
+                  }
+                });
 
-            map.fitBounds(
-            	bbox_highlighted, {
-                animate: false,
-            		linear: true, // false means the map transitions using map.flyTo()
-            		speed: 1,
-            		padding: {
-            			top: 48,
-            			bottom: 48,
-            			left: 48,
-            			right: 48
-            		}
-            	});
+            } else {
+
+              let municipalities = map.querySourceFeatures('mun', {
+                sourceLayer: 'municipalities'
+              });
+
+              let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
+
+              let bbox_highlighted = [
+                [highlighted.properties.xmin, highlighted.properties.ymin],
+                [highlighted.properties.xmax, highlighted.properties.ymax]
+              ];
+
+              map.fitBounds(
+                bbox_highlighted, {
+                  animate: false,
+                  linear: true, // false means the map transitions using map.flyTo()
+                  speed: 1,
+                  padding: {
+                    top: 48,
+                    bottom: 48,
+                    left: 48,
+                    right: 48
+                  }
+                });
+
+            }
 
           },
 
