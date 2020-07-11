@@ -408,7 +408,7 @@ location.fill = function(code) {
 
 function fitVanishingCity(code) {
 
-    let municipalities = map.querySourceFeatures('composite', {
+    let municipalities = map.querySourceFeatures('mun', {
         sourceLayer: 'municipalities'});
 
     let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
