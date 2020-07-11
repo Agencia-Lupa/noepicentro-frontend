@@ -650,8 +650,11 @@ let app = {
                 )
                 app.story.map.controls.circle.toggle( false )
 
-                app.element.dataset.loaded = true
+                app.story.map.controls.location.highlight( false )
 
+
+
+                app.element.dataset.loaded = true
                 clearInterval( app.story.map.monitoring )
 
                 // delete app.story.map.monitoring
@@ -680,6 +683,8 @@ let app = {
           app.story.map.controls.people.highlight.insideCircle.toggle( false )
           app.story.map.controls.circle.toggle( false )
 
+          app.story.map.controls.location.highlight( false )
+
         },
         "Following deaths" : function() {
 
@@ -698,6 +703,8 @@ let app = {
           app.story.map.controls.people.highlight.insideCircle.toggle( false )
           app.story.map.controls.circle.toggle( false )
 
+          app.story.map.controls.location.highlight( false )
+
         },
         "All deaths" : function() {
 
@@ -710,6 +717,8 @@ let app = {
           app.story.map.controls.people.highlight.insideCircle.toggle( true )
           app.story.map.controls.circle.toggle( false )
           app.story.map.controls.circle.fitOnScreen()
+
+          app.story.map.controls.location.highlight( false )
 
         },
         "All deaths with outline" : function() {
@@ -724,8 +733,15 @@ let app = {
           app.story.map.controls.circle.toggle( true )
           app.story.map.controls.circle.fitOnScreen()
 
+          app.story.map.controls.location.highlight( false )
+
         },
         "City that would have vanished" : function() {
+
+          // centerHighlightAndFit
+          // fitOnScreen
+          // highlight
+          // fill
 
           let city = app.variables.result.neighboring_city
           let code = city.code_muni
@@ -739,8 +755,8 @@ let app = {
           app.story.map.controls.people.highlight.insideCircle.toggle( false )
           app.story.map.controls.circle.toggle( false )
 
-          app.story.map.controls.location.highlight( code )
-          // app.story.map.controls.location.fitOnScreen( code )
+          app.story.map.controls.location.centerHighlightAndFit( code )
+          // app.story.map.controls.location.highlight( '' )
 
         },
         "City vanished" : function() {
@@ -1372,8 +1388,21 @@ let app = {
 
         location : {
 
+          centerHighlightAndFit : function( code, center ) {
+
+            map.panTo(center)
+
+            app.story.map.controls.location.highlight(code)
+
+            map.once('idle', function() { // makes sure there's no more camera movement and that all tilesets are loaded
+            	app.story.map.controls.location.fitOnScreen(code)
+            })
+
+          },
+
           fitOnScreen : function(code) {
-            let municipalities = map.querySourceFeatures('composite', {
+
+            let municipalities = map.querySourceFeatures('mun', {
             	sourceLayer: 'municipalities'
             });
 
@@ -1383,8 +1412,6 @@ let app = {
             	[highlighted.properties.xmin, highlighted.properties.ymin],
             	[highlighted.properties.xmax, highlighted.properties.ymax]
             ];
-
-            console.log( bbox_highlighted )
 
             map.fitBounds(
             	bbox_highlighted, {
@@ -1397,6 +1424,7 @@ let app = {
             			right: 30
             		}
             	});
+
           },
 
           highlight : function(code) {
@@ -1404,15 +1432,22 @@ let app = {
             // pass city code to highlight, or
             // "" to remove any existing highlights
             // color is hard-coded in 'fill-outline-color'
+            if (!map.getSource('mun')) {
+            	map.addSource("mun", {
+            		'type': 'vector',
+            		'url': 'mapbox://tiagombp.95ss0c3b'
+            	});
+            }
+
             if (!map.getLayer("highlighted_city")) {
             	map.addLayer({
             			'id': 'highlighted_city',
             			'type': 'fill',
-            			'source': 'composite',
+            			'source': 'mun', //'composite',
             			'source-layer': 'municipalities', //
             			'paint': {
             				'fill-opacity': 1,
-            				'fill-outline-color': '#d7a565',
+            				// 'fill-outline-color': '#d7a565',
             				'fill-color': 'transparent'
             			},
             			'filter': ['==', 'code_muni', '']
@@ -1422,11 +1457,11 @@ let app = {
             	map.addLayer({
             			'id': 'other_cities',
             			'type': 'fill',
-            			'source': 'composite',
+            			'source': 'mun', //'composite',
             			'source-layer': 'municipalities', //
             			'paint': {
-            				'fill-opacity': .4,
-            				'fill-outline-color': 'transparent',
+            				'fill-opacity': .9,
+            				// 'fill-outline-color': 'transparent',
             				'fill-color': 'black'
             			},
             			'filter': ['!=', 'code_muni', '']
@@ -1448,28 +1483,18 @@ let app = {
             }
 
             map.setFilter(
-            	'highlighted_city',
-              [
+            	'highlighted_city', [
             		'==',
-            		[
-                  'get',
-                  'code_muni'
-                ],
+            		['get', 'code_muni'],
             		code
-            	]
-            )
+            	]);
 
             map.setFilter(
-            	'other_cities',
-              [
+            	'other_cities', [
             		'!=',
-            		[
-                  'get',
-                  'code_muni'
-                ],
+            		['get', 'code_muni'],
             		code
-            	]
-            )
+            	]);
 
           },
 
