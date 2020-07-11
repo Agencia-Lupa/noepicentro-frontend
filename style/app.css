@@ -704,6 +704,8 @@ button {
 
 .controls {
   pointer-events: all;
+  position: relative;
+  z-index: 1;
 }
 
 .steps {
@@ -713,6 +715,7 @@ button {
   max-width: 37.5rem;
   border-radius: .8rem;
   pointer-events: all;
+  box-shadow: 0 0 4.8rem var(--dark-100);
 }
 
 .steps > * {
@@ -797,11 +800,23 @@ button {
   cursor: pointer
 }
 
+.controls label span {
+  text-shadow:
+  -1px -1px 0 var(--dark-100),
+   0   -1px 0 var(--dark-100),
+   1px -1px 0 var(--dark-100),
+   1px  0   0 var(--dark-100),
+   1px  1px 0 var(--dark-100),
+   0    1px 0 var(--dark-100),
+  -1px  1px 0 var(--dark-100),
+  -1px  0   0 var(--dark-100);
+}
+
 input[type="checkbox"] + div {
   display: flex;
   align-items: center;
   font-size: 1.4rem;
-  color: var(--light-50);
+  color: var(--light-100);
   padding: .8rem;
   transition: color .4s linear;
 }
@@ -811,7 +826,7 @@ input[type="checkbox"] + div .switch {
   display: flex;
   width: 2.4rem;
   height: 1.2rem;
-  background: var(--light-50);
+  background: rgba( var(--highlight-rgb), .5 );
   border-radius: .6rem;
   margin-right: .8rem;
   padding: .3rem;
