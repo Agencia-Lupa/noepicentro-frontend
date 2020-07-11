@@ -322,11 +322,15 @@ location.highlight = function(code) {
     // "" to remove any existing highlights
     // color is hard-coded in 'fill-outline-color'
 
+    if (!map.getSource('mun')) {
+        map.addSource("mun", {'type': 'vector', 'url': 'mapbox://tiagombp.95ss0c3b'});
+    }
+
     if (!map.getLayer("highlighted_city")) {
         map.addLayer({
             'id': 'highlighted_city',
             'type': 'fill',
-            'source': 'composite',
+            'source': 'mun',//'composite',
             'source-layer': 'municipalities', //
             'paint': {
                 'fill-opacity' : 1,
@@ -340,7 +344,7 @@ location.highlight = function(code) {
         map.addLayer({
             'id': 'other_cities',
             'type': 'fill',
-            'source': 'composite',
+            'source': 'mun', //'composite',
             'source-layer': 'municipalities', //
             'paint': {
                 'fill-opacity' : .4,
