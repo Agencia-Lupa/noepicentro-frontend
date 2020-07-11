@@ -1,48 +1,5 @@
-
-// To show or hide labels on the map
-//labels.toggle(true|false)
-
-// To draw a pin on the user location
-//user.draw(center)
-
-// To make the user pin pulse
-//user.highlight(true|false)
-
-// To draw radius of death
-//circle.draw({})
-
-// To show or hide it
-//circle.toggle(true|false)
-
-// To center it on screen
-//circle.fitOnScreen(padding)
-
-// To add population density layer (rendered, but hidden)
-//people.draw()
-
-// To show or hide it
-//people.toggle(true|false)
-
-// To highlight everyone who would die
-//people.highlightInsideCircle(radius)
-
-// To highlight first deaths on the beginning of the story
-//people.highlightSomeInsideCircle(amount|false)
-
-// To outline cities
-// location.highlight(code,color|false)
-
-// To make then disappear by painting them black
-// location.fill(code,color|false)
-
-// To add familiar places from Google Places API
-tooltip.draw({center,label})
-tooltip.toggle(true|false)
-
-
-
 ///////////////////////
-//  METHODS
+//  FUNCTIONS
 ///////////////////////
 
 //////////////////////////////////////////////////
@@ -365,11 +322,15 @@ location.highlight = function(code) {
     // "" to remove any existing highlights
     // color is hard-coded in 'fill-outline-color'
 
+    if (!map.getSource('mun')) {
+        map.addSource("mun", {'type': 'vector', 'url': 'mapbox://tiagombp.95ss0c3b'});
+    }
+
     if (!map.getLayer("highlighted_city")) {
         map.addLayer({
             'id': 'highlighted_city',
             'type': 'fill',
-            'source': 'composite',
+            'source': 'mun',//'composite',
             'source-layer': 'municipalities', //
             'paint': {
                 'fill-opacity' : 1,
@@ -383,7 +344,7 @@ location.highlight = function(code) {
         map.addLayer({
             'id': 'other_cities',
             'type': 'fill',
-            'source': 'composite',
+            'source': 'mun', //'composite',
             'source-layer': 'municipalities', //
             'paint': {
                 'fill-opacity' : .4,
@@ -447,7 +408,7 @@ location.fill = function(code) {
 
 function fitVanishingCity(code) {
 
-    let municipalities = map.querySourceFeatures('composite', {
+    let municipalities = map.querySourceFeatures('mun', {
         sourceLayer: 'municipalities'});
 
     let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
@@ -466,6 +427,17 @@ function fitVanishingCity(code) {
         });
 }
 
+function centerHighlightAndFit(code, center) {
+    
+    map.panTo(center);
+    
+    highlight(code);
+
+    map.once('idle', function() { // makes sure there's no more camera movement and that all tilesets are loaded
+        fitVanishingCity(code);
+    });    
+}
+
 //////////////////////////////////////////////////
 // to make all cities with population smaller than death
 // count "vanish"
@@ -479,7 +451,7 @@ function vanishAllBelow(death_count) {
         map.addLayer({
             'id': 'vanishable',
             'type': 'fill',
-            'source': 'composite',
+            'source': 'mun',
             'source-layer': 'municipalities',
             'paint': {
                 'fill-opacity' : 1,
