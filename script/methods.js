@@ -367,7 +367,7 @@ location.highlight = function(code) {
                 'fill-outline-color': 'transparent'
             }
         },
-        'road-label');
+        'highlighted_city');
     } else {
         map.getSource('city-mask').setData(city_mask);
     }
