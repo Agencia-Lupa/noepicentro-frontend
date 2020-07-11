@@ -322,67 +322,55 @@ location.highlight = function(code) {
     // "" to remove any existing highlights
     // color is hard-coded in 'fill-outline-color'
 
-    if (!map.getSource('mun')) {
-        map.addSource("mun", {'type': 'vector', 'url': 'mapbox://tiagombp.95ss0c3b'});
-    }
+    let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
 
-    if (!map.getLayer("highlighted_city")) {
+    let features = municipalities.filter(d => d.properties.code_muni == code)
+    console.log(features);
+
+    let city_polygon = turf.union(...features);
+   
+    let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
+
+    let city_mask = turf.mask(city_polygon, bbox_br);
+
+    if (!map.getLayer('highlighted_city')) {
         map.addLayer({
             'id': 'highlighted_city',
             'type': 'fill',
-            'source': 'mun',//'composite',
+            'source': 'mun',
             'source-layer': 'municipalities', //
             'paint': {
                 'fill-opacity' : 1,
                 'fill-outline-color' : '#d7a565',
                 'fill-color' : 'transparent'
             },
-            'filter': ['==', 'code_muni', '']
+            'filter': ['==', ['get', 'code_muni'], code]
         },
         'road-label');
-
-        map.addLayer({
-            'id': 'other_cities',
-            'type': 'fill',
-            'source': 'mun', //'composite',
-            'source-layer': 'municipalities', //
-            'paint': {
-                'fill-opacity' : .4,
-                'fill-outline-color' : 'transparent',
-                'fill-color' : 'black'
-            },
-            'filter': ['!=', 'code_muni', ''] 
-        },
-        'road-label');        
-    } 
-    else {
-        // makes sure the layers have the right style
-        // just in case location.fill has been called beforehand
-        map.setPaintProperty(
-            'highlighted_city',
-            'fill-color',
-            'transparent'
-        )
-        map.setPaintProperty(
-            'other_cities',
-            'fill-color',
-            'black'
-        )
+    } else {
+        map.setFilter('highlighted_city', ['==', ['get', 'code_muni'], code]);
     }
 
-    map.setFilter(
-        'highlighted_city', [
-            '==', 
-            ['get', 'code_muni'], 
-            code
-        ]);
-
-    map.setFilter(
-        'other_cities', [
-            '!=', 
-            ['get', 'code_muni'], 
-            code
-        ]);
+    if (!map.getSource('city-mask')) {
+        map.addSource('city-mask', {
+            'type': 'geojson',
+            'data': city_mask
+        });
+    
+        map.addLayer({
+            'id': 'city-mask',
+            'type': 'fill',
+            'source': 'city-mask',
+            'paint': {
+                'fill-color': 'black',
+                'fill-opacity': 0.55,
+                'fill-outline-color': 'transparent'
+            }
+        },
+        'road-label');
+    } else {
+        map.getSource('city-mask').setData(city_mask);
+    }
 }
 
 //////////////////////////////////////////////////
@@ -395,11 +383,8 @@ location.fill = function(code) {
         'fill-color',
         '#000000'
     )
-    map.setPaintProperty(
-        'other_cities',
-        'fill-color',
-        'transparent'
-    )
+    map.removeLayer('city-mask');
+    map.removeSource('city-mask');
 }
 
 
@@ -429,13 +414,37 @@ function fitVanishingCity(code) {
 
 function centerHighlightAndFit(code, center) {
     
-    map.panTo(center);
-    
-    highlight(code);
+    if (!map.getSource('mun')) {
+        map.addSource("mun", {
+            'type': 'vector', 
+            'url': 'mapbox://tiagombp.79ib2kza'
+        });
+    }
 
-    map.once('idle', function() { // makes sure there's no more camera movement and that all tilesets are loaded
+    if (!map.getLayer('cities')) {
+        map.addLayer({
+            'id': 'cities',
+            'type': 'fill',
+            'source': 'mun',
+            'source-layer': 'municipalities', //
+            'paint': {
+                'fill-opacity' : 0,
+                'fill-outline-color' : 'transparent',
+                'fill-color' : 'transparent'
+            }
+        },
+        'road-label');
+    }
+
+    map.panTo(center);
+
+    map.once('idle', function() {
         fitVanishingCity(code);
-    });    
+
+        map.once('idle', function() {
+            highlight(code);
+        });        
+    });  
 }
 
 //////////////////////////////////////////////////
@@ -445,7 +454,7 @@ function centerHighlightAndFit(code, center) {
 function vanishAllBelow(death_count) {
 
     if (map.getLayer("highlighted_city")) map.removeLayer("highlighted_city");
-    if (map.getLayer("other_cities")) map.removeLayer("other_cities");
+    if (map.getLayer("city-mask")) map.removeLayer("city-mask");
 
     if (!map.getLayer("vanishable")) {
         map.addLayer({
