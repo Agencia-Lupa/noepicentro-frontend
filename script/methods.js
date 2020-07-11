@@ -427,6 +427,17 @@ function fitVanishingCity(code) {
         });
 }
 
+function centerHighlightAndFit(code, center) {
+    
+    map.panTo(center);
+    
+    highlight(code);
+
+    map.once('idle', function() { // makes sure there's no more camera movement and that all tilesets are loaded
+        fitVanishingCity(code);
+    });    
+}
+
 //////////////////////////////////////////////////
 // to make all cities with population smaller than death
 // count "vanish"
