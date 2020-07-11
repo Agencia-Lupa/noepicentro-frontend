@@ -568,7 +568,7 @@ let app = {
             function () {},
             {}
           )
-          
+
           navigator.geolocation.getCurrentPosition(
             app.search.geolocation.success,
             app.search.geolocation.error,
@@ -727,25 +727,20 @@ let app = {
         },
         "City that would have vanished" : function() {
 
-          // let city = app.variables.result.neighboring_city
-          // let center = city.city_centroid
-          //
-          // map.flyTo( {
-          //   center : center,
-          //   speed  : 1,
-          //   zoom   : 12
-          // } )
-          //
-          // app.story.map.controls.labels.toggle( true )
-          // app.story.map.controls.user.marker()
-          // app.story.map.controls.people.toggle( true )
-          //
-          // app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
-          // app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          // app.story.map.controls.people.highlight.insideCircle.toggle( false )
-          // app.story.map.controls.circle.toggle( false )
-          //
-          // app.story.map.controls.location.highlight( city.code_muni )
+          let city = app.variables.result.neighboring_city
+          let code = city.code_muni
+
+          app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
+
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
+
+          app.story.map.controls.location.highlight( code )
+          // app.story.map.controls.location.fitOnScreen( code )
 
         },
         "City vanished" : function() {
@@ -1377,40 +1372,120 @@ let app = {
 
         location : {
 
+          fitOnScreen : function(code) {
+            let municipalities = map.querySourceFeatures('composite', {
+            	sourceLayer: 'municipalities'
+            });
+
+            let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
+
+            let bbox_highlighted = [
+            	[highlighted.properties.xmin, highlighted.properties.ymin],
+            	[highlighted.properties.xmax, highlighted.properties.ymax]
+            ];
+
+            console.log( bbox_highlighted )
+
+            map.fitBounds(
+            	bbox_highlighted, {
+            		linear: false, // false means the map transitions using map.flyTo()
+            		speed: 1,
+            		padding: {
+            			top: 30,
+            			bottom: 30,
+            			left: 30,
+            			right: 30
+            		}
+            	});
+          },
+
           highlight : function(code) {
-          	// pass city code to highlight, or
-          	// "" to remove any existing highlights
-          	// color is hard-coded in 'fill-outline-color'
 
-          	if (!map.getLayer("highlighted_city")) {
-          		map.addLayer({
-          			'id': 'highlighted_city',
-          			'type': 'fill',
-          			'source': 'composite',
-          			'source-layer': 'mun-8q037a',
-          			'paint': {
-          				'fill-opacity': 1,
-          				'fill-outline-color': '#d7a565',
-          				'fill-color': 'transparent'
-          			},
-          			'filter': ['==', 'code_muni', '']
-          		});
-          	}
+            // pass city code to highlight, or
+            // "" to remove any existing highlights
+            // color is hard-coded in 'fill-outline-color'
+            if (!map.getLayer("highlighted_city")) {
+            	map.addLayer({
+            			'id': 'highlighted_city',
+            			'type': 'fill',
+            			'source': 'composite',
+            			'source-layer': 'municipalities', //
+            			'paint': {
+            				'fill-opacity': 1,
+            				'fill-outline-color': '#d7a565',
+            				'fill-color': 'transparent'
+            			},
+            			'filter': ['==', 'code_muni', '']
+            		},
+            		'road-label');
 
-          	map.setFilter(
-          		'highlighted_city', [
-          			'==',
-          			['get', 'code_muni'],
-          			code
-          		]);
+            	map.addLayer({
+            			'id': 'other_cities',
+            			'type': 'fill',
+            			'source': 'composite',
+            			'source-layer': 'municipalities', //
+            			'paint': {
+            				'fill-opacity': .4,
+            				'fill-outline-color': 'transparent',
+            				'fill-color': 'black'
+            			},
+            			'filter': ['!=', 'code_muni', '']
+            		},
+            		'road-label');
+            } else {
+            	// makes sure the layers have the right style
+            	// just in case location.fill has been called beforehand
+            	map.setPaintProperty(
+            		'highlighted_city',
+            		'fill-color',
+            		'transparent'
+            	)
+            	map.setPaintProperty(
+            		'other_cities',
+            		'fill-color',
+            		'black'
+            	)
+            }
+
+            map.setFilter(
+            	'highlighted_city',
+              [
+            		'==',
+            		[
+                  'get',
+                  'code_muni'
+                ],
+            		code
+            	]
+            )
+
+            map.setFilter(
+            	'other_cities',
+              [
+            		'!=',
+            		[
+                  'get',
+                  'code_muni'
+                ],
+            		code
+            	]
+            )
+
           },
 
           fill : function(code) {
-          	map.setPaintProperty(
-          		'highlighted_city',
-          		'fill-color',
-          		'#000000'
-          	)
+
+            map.setPaintProperty(
+            	'highlighted_city',
+            	'fill-color',
+            	'#000000'
+            )
+            map.setPaintProperty(
+            	'other_cities',
+            	'fill-color',
+            	'transparent'
+            )
+
           }
 
         }
