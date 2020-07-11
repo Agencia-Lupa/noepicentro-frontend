@@ -682,6 +682,7 @@ let app = {
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "Following deaths" : function() {
@@ -702,6 +703,7 @@ let app = {
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "All deaths" : function() {
@@ -717,6 +719,7 @@ let app = {
           app.story.map.controls.circle.fitOnScreen()
 
           app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "All deaths with outline" : function() {
@@ -732,6 +735,7 @@ let app = {
           app.story.map.controls.circle.fitOnScreen()
 
           app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "City that would have vanished" : function() {
@@ -756,6 +760,7 @@ let app = {
             city.code_muni,
             city.city_centroid
           )
+          app.story.map.controls.location.vanishAllBelow( false )
           // app.story.map.controls.location.highlight( '' )
 
         },
@@ -775,32 +780,40 @@ let app = {
           app.story.map.controls.location.fitOnScreen(
             city.code_muni
           )
-          app.story.map.controls.location.fill()
+          app.story.map.controls.location.vanish()
+          app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "Cities that would have vanished" : function() {
 
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
 
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
+
+          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( false )
           app.story.map.controls.location.fitOnScreen( 'br' )
-
-          // map.flyTo( {
-          //   center : app.story.map.user,
-          //   speed  : .5,
-          //   zoom   : 4
-          // } )
-          //
-          // app.story.map.controls.labels.toggle( false )
 
         },
         "Cities vanished" : function() {
 
-          // map.flyTo( {
-          //   center : app.story.map.user,
-          //   speed  : .5,
-          //   zoom   : 4
-          // } )
-          //
-          // app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
+
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
+
+          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( app.variables.initial.deaths )
+          app.story.map.controls.location.fitOnScreen( 'br' )
 
         },
         "Featured city 1" : function() {
@@ -1385,6 +1398,17 @@ let app = {
 
         location : {
 
+          load : function() {
+
+            if (!map.getSource('mun')) {
+              map.addSource("mun", {
+                'type': 'vector',
+                'url': 'mapbox://tiagombp.95ss0c3b'
+              });
+            }
+
+          },
+
           centerHighlightAndFit : function( code, center ) {
 
             map.panTo( center )
@@ -1471,12 +1495,8 @@ let app = {
             // pass city code to highlight, or
             // "" to remove any existing highlights
             // color is hard-coded in 'fill-outline-color'
-            if (!map.getSource('mun')) {
-            	map.addSource("mun", {
-            		'type': 'vector',
-            		'url': 'mapbox://tiagombp.95ss0c3b'
-            	});
-            }
+
+            app.story.map.controls.location.load()
 
           	map.addLayer( {
           			'id': 'highlighted_city',
@@ -1502,7 +1522,7 @@ let app = {
 
           },
 
-          fill : function(code) {
+          vanish : function(code) {
 
             map.setPaintProperty(
             	'highlighted_city',
@@ -1521,6 +1541,46 @@ let app = {
             // 	'fill-color',
             // 	'transparent'
             // )
+
+          },
+
+          vanishAllBelow : function( count ) {
+
+            if ( count === false ) {
+              if ( map.getLayer( 'vanishable' ) ) map.removeLayer( 'vanishable' )
+              return false
+            }
+
+            app.story.map.controls.location.load()
+
+            if (map.getLayer("highlighted_city")) map.removeLayer("highlighted_city");
+            // if (map.getLayer("other_cities")) map.removeLayer("other_cities");
+
+            if (!map.getLayer("vanishable")) {
+            	map.addLayer({
+            			'id': 'vanishable',
+            			'type': 'fill',
+            			'source': 'mun',
+            			'source-layer': 'municipalities',
+            			'paint': {
+            				'fill-opacity': 1,
+            				'fill-outline-color': 'transparent',
+            				'fill-color': 'black'
+            			},
+            			'filter': ['<=', 'pop_2019', '']
+            		},
+            		'admin-1-boundary-bg');
+            }
+
+            map.setFilter(
+            	'vanishable', [
+            		'<=',
+            		[
+            			'number',
+            			['get', 'pop_2019']
+            		],
+            		count
+            	]);
 
           }
 
