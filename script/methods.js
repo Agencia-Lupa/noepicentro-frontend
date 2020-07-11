@@ -451,7 +451,7 @@ function vanishAllBelow(death_count) {
         map.addLayer({
             'id': 'vanishable',
             'type': 'fill',
-            'source': 'composite',
+            'source': 'mun',
             'source-layer': 'municipalities',
             'paint': {
                 'fill-opacity' : 1,
