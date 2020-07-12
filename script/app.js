@@ -615,6 +615,7 @@ let app = {
             zoom   : 15
           } )
 
+          app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
           app.story.map.controls.user.marker()
 
@@ -672,6 +673,7 @@ let app = {
             zoom   : 17.5,
           } )
 
+          app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( false )
@@ -693,6 +695,7 @@ let app = {
             zoom   : 17.25
           } )
 
+          app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( false )
@@ -708,6 +711,7 @@ let app = {
         },
         "All deaths" : function() {
 
+          app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
@@ -724,6 +728,7 @@ let app = {
         },
         "All deaths with outline" : function() {
 
+          app.poster.button.toggle( true )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
@@ -747,6 +752,7 @@ let app = {
 
           let city = app.variables.result.neighboring_city
 
+          app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
@@ -768,6 +774,7 @@ let app = {
 
           let city = app.variables.result.neighboring_city
 
+          app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
@@ -786,6 +793,7 @@ let app = {
         },
         "Cities that would have vanished" : function() {
 
+          app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
@@ -802,6 +810,7 @@ let app = {
         },
         "Cities vanished" : function() {
 
+          app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
@@ -817,6 +826,9 @@ let app = {
 
         },
         "Featured city 1" : function() {
+
+          app.poster.button.toggle( false )
+          app.story.map.controls.labels.toggle( false )
 
           // let city = app.variables.result.capitals_to_highlight[ 0 ]
           // let center = city.radius.inner_point
@@ -834,6 +846,9 @@ let app = {
         },
         "Featured city 1 location" : function() {
 
+          app.poster.button.toggle( false )
+          app.story.map.controls.labels.toggle( false )
+
           // let city = app.variables.result.capitals_to_highlight[ 0 ]
           // let center = city.radius.inner_point
           //
@@ -850,6 +865,9 @@ let app = {
         },
         "Featured city 2" : function() {
 
+          app.poster.button.toggle( false )
+          app.story.map.controls.labels.toggle( false )
+
           // let city = app.variables.result.capitals_to_highlight[ 1 ]
           // let center = city.radius.inner_point
           //
@@ -863,6 +881,9 @@ let app = {
 
         },
         "Featured city 2 location" : function() {
+
+          app.poster.button.toggle( false )
+          app.story.map.controls.labels.toggle( false )
 
           // let city = app.variables.result.capitals_to_highlight[ 1 ]
           // let center = city.radius.inner_point
@@ -888,6 +909,7 @@ let app = {
 
         let step = active.dataset.step
 
+        app.element.dataset.step = step
         app.story.steps.show[ step ]()
 
       }
@@ -1663,6 +1685,17 @@ let app = {
   },
 
   poster : {
+
+    button : {
+
+      toggle : function( option ) {
+
+        option = option !== undefined ? option : false
+        app.element.dataset.poster = option
+
+      }
+
+    },
 
     initialize : function() {
 

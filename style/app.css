@@ -686,6 +686,12 @@ button {
   height: 4rem;
   overflow: hidden;
   border-radius: 2.4rem;
+  transform: translateY(-200%);
+  transition: transform .6s ease-in-out;
+}
+
+.app[data-poster="true"] .button.share {
+  transform: translateY( 0 );
 }
 
 .steps-container {

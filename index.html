@@ -44,7 +44,9 @@
       data-search="(blur|focus|suggestions|done)"
       data-would-vanish="(name)"
       data-step="(name)"
+      data-step-index="(int)"
       data-loaded="(true|false)"
+      data-poster="(true|false)"
 
     >
 
@@ -241,7 +243,7 @@
               <span class="screen-reader">Encerrar simulação</span>
             </button>
 
-            <button type="button" class="button share" disabled>
+            <button type="button" class="button share" data-trigger="app.pages.open('poster')">
               <!-- <span class="material-icons" aria-hidden="true">save_alt</span> -->
               <span>Compartilhar meu mapa</span>
             </button>
