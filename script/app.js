@@ -245,6 +245,9 @@ let app = {
       app.pages.previous = JSON.parse( JSON.stringify( app.element.dataset.page ) )
       app.element.dataset.page = name
 
+      // if name == poster || main
+        // disable swiper keyboard controls
+
     },
 
     close : function() {
@@ -256,6 +259,9 @@ let app = {
     initialize : function() {
 
       app.element.dataset.page = 'main'
+
+      // if name == poster || main
+        // disable swiper keyboard controls
 
     }
 

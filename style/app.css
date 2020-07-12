@@ -653,7 +653,8 @@ button {
   z-index: 3;
 }
 
-.app[data-page="story"] .story {
+.app[data-page="story"] .story,
+.app[data-page="poster"] .story {
   display: flex;
 }
 
@@ -911,6 +912,16 @@ input[type="checkbox"]:checked + div .switch::before {
 /* poster */
 
 .poster {
+  background: var(--highlight);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: none;
   z-index: 4;
+}
+
+.app[data-page="poster"] .poster {
+  display: flex;
 }
