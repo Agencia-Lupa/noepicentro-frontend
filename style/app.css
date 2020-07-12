@@ -128,13 +128,15 @@ button {
   user-select: none;
 }
 
-.button {
+.button,
+.kicker {
   font-family: Piaui;
   font-weight: 700;
   font-size: 1.8rem;
   line-height: calc( 1.8rem * 1.5 );
   text-transform: uppercase;
   letter-spacing: .2rem;
+  margin: 0;
   padding: .8rem 2.4rem;
   height: 6.4rem;
   display: inline-flex;
@@ -144,6 +146,16 @@ button {
   white-space: nowrap;
   user-select: none;
   cursor: pointer;
+}
+
+.kicker {
+  cursor: default;
+  user-select: auto;
+}
+
+.button.filler {
+  width: 6.4rem;
+  visibility: hidden;
 }
 
 .button .material-icons + span {
@@ -920,8 +932,58 @@ input[type="checkbox"]:checked + div .switch::before {
   left: 0;
   display: none;
   z-index: 4;
+  justify-content: center;
+  align-items: center;
+  padding: 15.2rem 2.4rem;
 }
 
 .app[data-page="poster"] .poster {
   display: flex;
+}
+
+.poster .header-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: initial;
+  height: 6.4rem;
+}
+
+.poster nav {
+  position: relative;
+  /* top: 0; */
+  /* left: 0; */
+  z-index: 2;
+}
+
+.poster header {
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  /* right: 0; */
+  display: flex;
+  justify-content: center;
+  /* z-index: 1; */
+}
+
+.poster article {
+  max-width: 42rem;
+}
+
+.poster .button {
+  color: var(--light-100);
+}
+
+@media (min-width: 640px) {
+
+  .poster .header-container {
+    padding: 2.4rem 6.4rem;
+    height: initial;
+    min-height: 6.4rem;
+  }
+
 }
