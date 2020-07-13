@@ -63,7 +63,31 @@ html {
   max-height: 100%;
   overflow: hidden;
   background: var(--dark-100);
-  font-size: 62.5%;
+  font-size: 50%; /* 8px */
+}
+
+@media (min-width: 340px) {
+  html {
+    font-size: 56.25%; /* 9px */
+  }
+}
+
+@media (min-width: 375px) {
+  html {
+    font-size: 62.5%; /* 10px */
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 68.75%; /* 11px */
+  }
+}
+
+@media (min-width: 1440px) {
+  html {
+    font-size: 75%; /* 12px */
+  }
 }
 
 body {
