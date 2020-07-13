@@ -935,6 +935,7 @@ input[type="checkbox"]:checked + div .switch::before {
   justify-content: center;
   align-items: center;
   padding: 15.2rem 2.4rem;
+  overflow: hidden;
 }
 
 .app[data-page="poster"] .poster {
@@ -951,6 +952,8 @@ input[type="checkbox"]:checked + div .switch::before {
   align-items: center;
   height: initial;
   height: 6.4rem;
+  z-index: 2;
+  background: var(--highlight);
 }
 
 .poster nav {
@@ -970,6 +973,27 @@ input[type="checkbox"]:checked + div .switch::before {
   /* z-index: 1; */
 }
 
+.poster .scroll {
+  position: absolute;
+  top: 6.4rem;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2.4rem 2.4rem 9.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;
+}
+
+.scroll > div {
+  display: flex;
+  flex-direction: column;
+}
+
 .poster article {
   max-width: 42rem;
 }
@@ -978,13 +1002,24 @@ input[type="checkbox"]:checked + div .switch::before {
   color: var(--light-100);
 }
 
-.poster figure .canvas {
-  position: relative;
+.poster figure {
   max-width: 64rem;
   width: 100%;
-  padding-top: 100%;
-  margin: 0 4.8rem 6.8rem 0;
+}
+
+.poster figure .canvas {
+  position: relative;
+  width: 100%;
+  margin: 0 0 2.4rem 0;
   box-shadow: 0 2.4rem 4.8rem #9d6a29;
+}
+
+.poster figure .canvas::before {
+  content: '';
+  display: block;
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
 }
 
 .poster figure .canvas img {
@@ -998,12 +1033,57 @@ input[type="checkbox"]:checked + div .switch::before {
   width: 100%;
 }
 
+.poster .scroll .button {
+  background: var(--dark-100);
+  border-radius: 999px;
+  margin: 4.8rem 0;
+  height: 4.8rem;
+}
+
 @media (min-width: 640px) {
 
   .poster .header-container {
     padding: 2.4rem 6.4rem;
     height: initial;
     min-height: 6.4rem;
+  }
+
+  .poster .scroll {
+    top: 11.2rem;
+    overflow-y: auto;
+  }
+
+  .poster .scroll {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 6.4rem;
+  }
+
+  .poster figure {
+    max-width: calc( 32rem + 9.6rem );
+    padding: 0 3.2rem 0 0;
+  }
+
+  .poster figure .canvas {
+    margin: 0;
+  }
+
+  .poster .scroll > div {
+    display: flex;
+    flex-direction: column;
+    max-width: calc( 32rem + 9.6rem );
+    padding: 0 0 0 3.2rem;
+  }
+
+  .poster .scroll .button {
+    order: 4;
+    height: 6.4rem;
+  }
+
+  .poster .scroll > div p:nth-of-type(1) {
+    margin-top: 0;
   }
 
 }
