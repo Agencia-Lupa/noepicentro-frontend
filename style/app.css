@@ -623,6 +623,7 @@ button {
   position: absolute;
   width: calc( 100% - 4.8rem );
   height: .2rem;
+  max-height: 2px; /* fix transitions if rem is not 10px  */
   background: var(--dark-100);
   right: 2.4rem;
   left: 2.4rem;
@@ -685,6 +686,8 @@ button {
 
   form {
     max-width: 37.5rem;
+    border-radius: 1.6rem;
+    margin-bottom: 6.4rem;
   }
 
 }
