@@ -802,7 +802,8 @@ let app = {
 
           app.story.map.controls.location.centerHighlightAndFit(
             city.bbox,
-            city.code_muni
+            city.code_muni,
+            true
           )
           app.story.map.controls.location.vanishAllBelow( false )
           // app.story.map.controls.location.highlight( '' )
