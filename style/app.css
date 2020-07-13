@@ -931,6 +931,10 @@ button {
   cursor: pointer
 }
 
+.controls label span {
+  user-select: none;
+}
+
 input[type="checkbox"] + div {
   display: flex;
   align-items: center;
