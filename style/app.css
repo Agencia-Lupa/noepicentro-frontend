@@ -612,6 +612,7 @@ button {
   transform: scaleX( 0 );
   transform-origin: left;
   background: var(--highlight);
+  transition: transform .6s ease-in-out;
 }
 
 .input label input:focus + div .line::before {
