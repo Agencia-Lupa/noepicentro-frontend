@@ -3,16 +3,20 @@
 :root {
 
   --dark-100: rgba( 0, 0, 0,  1  );
+  --dark-75:  rgba( 0, 0, 0, .75 );
   --dark-50:  rgba( 0, 0, 0, .5  );
   --dark-25:  rgba( 0, 0, 0, .25 );
   --dark-10:  rgba( 0, 0, 0, .1  );
-  --dark-05:  rgba( 0, 0, 0, .05  );
+  --dark-05:  rgba( 0, 0, 0, .05 );
+  --dark-0:   rgba( 0, 0, 0,  0  );
 
   --light-100: rgba( 255, 255, 255,  1  );
-  --light-50:  rgba( 255, 255, 255, .66  );
+  --light-75:  rgba( 255, 255, 255, .75 );
+  --light-50:  rgba( 255, 255, 255, .66 ); /* visual fix */
   --light-25:  rgba( 255, 255, 255, .25 );
   --light-10:  rgba( 255, 255, 255, .1  );
-  --light-05:  rgba( 255, 255, 255, .05  );
+  --light-05:  rgba( 255, 255, 255, .05 );
+  --light-0:   rgba( 255, 255, 255,  0  );
 
   --highlight: rgba( 215, 165, 101, 1 );
   --highlight-rgb:   215, 165, 101;
@@ -183,6 +187,20 @@ button {
   left: 0;
 }
 
+.outline {
+  text-shadow:
+  -1px -1px 0     var(--dark-100),
+   0   -1px 0     var(--dark-100),
+   1px -1px 0     var(--dark-100),
+   1px  0   0     var(--dark-100),
+   1px  1px 0     var(--dark-100),
+   0    1px 0     var(--dark-100),
+  -1px  1px 0     var(--dark-100),
+  -1px  0   0     var(--dark-100),
+   0    0   .8rem var(--dark-100);
+}
+
+
 
 /* accessibility */
 
@@ -218,6 +236,41 @@ button {
   object-fit: cover;
 }
 
+.cover figcaption {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 9.6rem 2.4rem 19.6rem;
+  background: linear-gradient(
+    var( --dark-75 ),
+    var( --dark-0 )
+  );
+  display: none;
+}
+
+.cover figcaption span:last-child {
+  color: var(--highlight);
+}
+
+@media( min-width: 800px ) {
+
+  .cover {
+    left: 50%;
+  }
+
+  .cover figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cover figcaption {
+    display: flex;
+  }
+
+}
 
 
 /* main */
@@ -245,7 +298,7 @@ button {
   width: 100%;
   z-index: 1;
   background: linear-gradient(
-    var( --dark-05 ),
+    var( --dark-0 ),
     var( --dark-100 )
   );
 }
@@ -356,16 +409,6 @@ dt {
 
   .main .background {
     display: none;
-  }
-
-  .cover {
-    left: 50%;
-  }
-
-  .cover figure img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
 
 }
@@ -839,18 +882,6 @@ button {
 
 .controls label {
   cursor: pointer
-}
-
-.controls label span {
-  text-shadow:
-  -1px -1px 0 var(--dark-100),
-   0   -1px 0 var(--dark-100),
-   1px -1px 0 var(--dark-100),
-   1px  0   0 var(--dark-100),
-   1px  1px 0 var(--dark-100),
-   0    1px 0 var(--dark-100),
-  -1px  1px 0 var(--dark-100),
-  -1px  0   0 var(--dark-100);
 }
 
 input[type="checkbox"] + div {
