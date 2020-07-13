@@ -301,7 +301,7 @@ button {
 }
 
 .brands a:last-child img {
-  width: 17.6rem;
+  width: 19.2rem;
   align-self: center;
 }
 
@@ -342,8 +342,30 @@ dt {
 
 @media( min-width: 800px ) {
 
+  .brands {
+    margin-top: 19.6rem;
+  }
+
   .main {
-    /* padding-right: calc( 50vw + 2.4rem ); */
+    padding-right: calc( 50vw + 2.4rem );
+  }
+
+  .main::before {
+    display: none;
+  }
+
+  .main .background {
+    display: none;
+  }
+
+  .cover {
+    left: 50%;
+  }
+
+  .cover figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
 }
@@ -812,7 +834,7 @@ button {
 }
 
 .arrows button:first-child {
-  border-right: 1px solid var(--dark-10);
+  border-right: .1rem solid var(--dark-10);
 }
 
 .controls label {
@@ -1035,7 +1057,7 @@ input[type="checkbox"]:checked + div .switch::before {
 
 .poster .scroll .button {
   background: var(--dark-100);
-  border-radius: 999px;
+  border-radius: 999rem;
   margin: 4.8rem 0;
   height: 4.8rem;
 }
