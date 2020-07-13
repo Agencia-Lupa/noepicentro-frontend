@@ -777,8 +777,8 @@ let app = {
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.centerHighlightAndFit(
-            city.code_muni,
-            city.city_centroid
+            city.bbox,
+            city.code_muni
           )
           app.story.map.controls.location.vanishAllBelow( false )
           // app.story.map.controls.location.highlight( '' )
@@ -799,7 +799,7 @@ let app = {
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.fitOnScreen(
-            city.code_muni
+            city.bbox
           )
           app.story.map.controls.location.vanish()
           app.story.map.controls.location.vanishAllBelow( false )
@@ -841,74 +841,79 @@ let app = {
         },
         "Featured city 1" : function() {
 
+          let city = app.variables.result.capitals_to_highlight[ 0 ]
+
+          app.story.map.controls.location.fitOnScreen(
+            city.bbox,
+            true
+          )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
 
-          // let city = app.variables.result.capitals_to_highlight[ 0 ]
-          // let center = city.radius.inner_point
-          //
-          // map.flyTo( {
-          //   center : center,
-          //   speed  : 1,
-          //   zoom   : 13
-          // } )
-          //
-          // app.story.map.controls.labels.toggle( true )
-          //
-          // app.story.map.controls.user.marker( center )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
+
+          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "Featured city 1 location" : function() {
 
+          let city = app.variables.result.capitals_to_highlight[ 0 ]
+
+          // draw circle around area
+          map.flyTo( {
+            center : city.radius.inner_point,
+            speed  : .4,
+            zoom   : 15
+          } )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
 
-          // let city = app.variables.result.capitals_to_highlight[ 0 ]
-          // let center = city.radius.inner_point
-          //
-          // map.flyTo( {
-          //   center : center,
-          //   speed  : 1,
-          //   zoom   : 15
-          // } )
-          //
-          // app.story.map.controls.labels.toggle( false )
-          //
-          // app.story.map.controls.user.marker( center )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
+
+          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "Featured city 2" : function() {
 
-          app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( false )
-
-          // let city = app.variables.result.capitals_to_highlight[ 1 ]
-          // let center = city.radius.inner_point
-          //
-          // map.flyTo( {
-          //   center : center,
-          //   speed  : 1,
-          //   zoom   : 15
-          // } )
-          //
-          // app.story.map.controls.user.marker( center )
 
         },
         "Featured city 2 location" : function() {
 
+          let city = app.variables.result.capitals_to_highlight[ 1 ]
+
+          // draw circle around area
+          map.flyTo( {
+            center : city.radius.inner_point,
+            speed  : .4,
+            zoom   : 15
+          } )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.user.marker()
+          app.story.map.controls.people.toggle( true )
 
-          // let city = app.variables.result.capitals_to_highlight[ 1 ]
-          // let center = city.radius.inner_point
-          //
-          // map.flyTo( {
-          //   center : center,
-          //   speed  : 1,
-          //   zoom   : 15
-          // } )
-          //
-          // app.story.map.controls.user.marker( center )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.circle.toggle( false )
+
+          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.vanishAllBelow( false )
 
         },
 
@@ -1180,7 +1185,12 @@ let app = {
 
             let circle = app.story.map.controls.circle.instance
 
-            padding = padding || { top: 112, bottom: 112, left: 16, right: 16 }
+            padding = padding || {
+              top: 16 + app.story.map.offset.value,
+              bottom: 16 + app.story.map.offset.value,
+              left: 16,
+              right: 16
+            }
 
           	bbox_circle = turf.bbox(circle);
 
@@ -1485,68 +1495,65 @@ let app = {
 
           },
 
-          centerHighlightAndFit : function( code, center ) {
+          centerHighlightAndFit : function( bbox, code, animate ) {
 
-            map.panTo( center )
+            app.story.map.controls.location.fitOnScreen( bbox, animate )
 
-            // map.jumpTo( {
-            //   center: center,
-            //   zoom: 19,
-            // } )
+            app.story.map.controls.location.highlight( code )
 
-            app.story.map.controls.location.highlight(code)
-
-            map.once('idle', function() { // makes sure there's no more camera movement and that all tilesets are loaded
-            	app.story.map.controls.location.fitOnScreen(code)
-            })
+            // map.once('idle', function() { // makes sure there's no more camera movement and that all tilesets are loaded
+            // 	app.story.map.controls.location.fitOnScreen(code)
+            // })
 
           },
 
-          fitOnScreen : function(code) {
+          fitOnScreen : function( bbox, animate ) {
 
-            if ( code == 'br' ) {
+            animate = animate ? true : false
 
-              let bbox_highlighted = [
+            if ( bbox == 'br' ) {
+
+              let br = [
                 [ -73.9872354804, -33.7683777809 ],
                 [ -34.7299934555,  5.24448639569 ]
               ]
 
               map.fitBounds(
-                bbox_highlighted, {
+                br, {
                   animation: false,
                   linear: false, // false means the map transitions using map.flyTo()
                   speed: 1,
                   padding: {
-                    top: 48,
-                    bottom: 48,
-                    left: 48,
-                    right: 48
+                    top: 16 + app.story.map.offset.value,
+                    bottom: 16 + app.story.map.offset.value,
+                    left: 16,
+                    right: 16
                   }
                 });
 
             } else {
 
-              let municipalities = map.querySourceFeatures('mun', {
-                sourceLayer: 'municipalities'
-              });
-
-              let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
-
-              let bbox_highlighted = [
-                [highlighted.properties.xmin, highlighted.properties.ymin],
-                [highlighted.properties.xmax, highlighted.properties.ymax]
-              ];
+              // let municipalities = map.querySourceFeatures('mun', {
+              //   sourceLayer: 'municipalities'
+              // });
+              //
+              // let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
+              //
+              // let bbox_highlighted = [
+              //   [highlighted.properties.xmin, highlighted.properties.ymin],
+              //   [highlighted.properties.xmax, highlighted.properties.ymax]
+              // ];
 
               map.fitBounds(
-                bbox_highlighted, {
-                  animate: false,
-                  linear: true, // false means the map transitions using map.flyTo()
+                bbox, {
+                  animate: animate,
+                  linear: false, // false means the map transitions using map.flyTo()
                   speed: 1,
                   padding: {
-                    top: 48,
-                    bottom: 48,
-                    left: 48,
-                    right: 48
+                    top: 16 + app.story.map.offset.value,
+                    bottom: 16 + app.story.map.offset.value,
+                    left: 16,
+                    right: 16
                   }
                 });
 
@@ -1580,7 +1587,7 @@ let app = {
           			'source': 'mun', //'composite',
           			'source-layer': 'municipalities', //
           			'paint': {
-          				'fill-opacity': .2,
+          				'fill-opacity': .33,
           				// 'fill-outline-color': '#d7a565',
           				'fill-color': '#d7a565'
           			},

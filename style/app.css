@@ -181,6 +181,11 @@ button {
   user-select: auto;
 }
 
+h1.kicker {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .button.filler {
   width: 6.4rem;
   visibility: hidden;
