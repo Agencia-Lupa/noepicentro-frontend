@@ -566,7 +566,9 @@ let app = {
 
       error : function( error ) {
 
-        alert( 'Error ' + error.code + ': ' + error.message )
+        console.error( error.code, error.message )
+
+        alert( 'Ops! Não conseguimos usar sua localização… Que tal digitar seu endereço?' )
 
       },
 
