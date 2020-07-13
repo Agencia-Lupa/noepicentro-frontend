@@ -654,10 +654,24 @@ let app = {
 
                 app.story.map.controls.people.highlight.insideCircle.initialize(
                   app.variables.result.radius.inner_point,
-                  app.variables.result.radius.outer_point
+                  app.variables.result.radius.outer_point,
+                  '0'
                 )
+                app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
 
-                app.story.map.controls.people.highlight.insideCircle.toggle( false )
+                app.story.map.controls.people.highlight.insideCircle.initialize(
+                  app.variables.result.capitals_to_highlight[ 0 ].radius.inner_point,
+                  app.variables.result.capitals_to_highlight[ 0 ].radius.outer_point,
+                  '1'
+                )
+                app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+
+                app.story.map.controls.people.highlight.insideCircle.initialize(
+                  app.variables.result.capitals_to_highlight[ 1 ].radius.inner_point,
+                  app.variables.result.capitals_to_highlight[ 1 ].radius.outer_point,
+                  '2'
+                )
+                app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
 
                 app.story.map.controls.circle.initialize(
                   app.variables.result.radius.inner_point,
@@ -694,7 +708,9 @@ let app = {
           // app.story.map.controls.people.overlay.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
@@ -716,7 +732,9 @@ let app = {
           // app.story.map.controls.people.overlay.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
@@ -732,7 +750,9 @@ let app = {
           // app.story.map.controls.people.overlay.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( true )
+          app.story.map.controls.people.highlight.insideCircle.toggle( true, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
           app.story.map.controls.circle.fitOnScreen()
 
@@ -749,7 +769,9 @@ let app = {
           // app.story.map.controls.people.overlay.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( true )
+          app.story.map.controls.people.highlight.insideCircle.toggle( true, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( true )
           app.story.map.controls.circle.fitOnScreen()
 
@@ -773,7 +795,9 @@ let app = {
 
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.centerHighlightAndFit(
@@ -795,7 +819,9 @@ let app = {
 
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.fitOnScreen(
@@ -814,7 +840,9 @@ let app = {
 
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
@@ -831,7 +859,9 @@ let app = {
 
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
@@ -855,7 +885,9 @@ let app = {
 
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
@@ -870,7 +902,7 @@ let app = {
           map.flyTo( {
             center : city.radius.inner_point,
             speed  : .4,
-            zoom   : 15
+            zoom   : 14
           } )
 
           app.poster.button.toggle( false )
@@ -880,7 +912,9 @@ let app = {
 
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( true, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
@@ -909,7 +943,9 @@ let app = {
 
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '0' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, '1' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( true, '2' )
           app.story.map.controls.circle.toggle( false )
 
           app.story.map.controls.location.highlight( false )
@@ -968,6 +1004,22 @@ let app = {
           // app.story.map.controls.circle.reset()
           // app.story.map.controls.people.highlight.insideCircle.reset()
           // app.story.map.controls.people.overlay.reset() // not used
+
+      },
+
+      padding : function() {
+
+        let distance   = 8
+        let base       = 100
+        let width      = window.innerWidth
+        let multiplier = width / base
+
+        return {
+          top:    ( distance * multiplier ) + app.story.map.offset.value,
+          bottom: ( distance * multiplier ) + app.story.map.offset.value,
+          left:   ( distance * multiplier ),
+          right:  ( distance * multiplier )
+        }
 
       },
 
@@ -1181,21 +1233,14 @@ let app = {
 
           },
 
-          fitOnScreen : function( padding ) {
+          fitOnScreen : function() {
 
             let circle = app.story.map.controls.circle.instance
-
-            padding = padding || {
-              top: 16 + app.story.map.offset.value,
-              bottom: 16 + app.story.map.offset.value,
-              left: 16,
-              right: 16
-            }
 
           	bbox_circle = turf.bbox(circle);
 
           	map.fitBounds(bbox_circle, {
-          		padding: padding,
+          		padding: app.story.map.padding(),
           		duration: 6000
           	});
           }
@@ -1311,21 +1356,45 @@ let app = {
 
               reset : function() {
 
-                if (map.getLayer('mask')) map.removeLayer('mask');
-                if (map.getSource('mask')) map.removeSource('mask');
+                let indexes = [ 0, 1, 2 ]
+
+                for ( let index of indexes ) {
+
+                  let name = 'mask' + index
+
+                  if ( map.getLayer( name ) )
+                    app.story.map.controls.people.highlight.insideCircle.toggle( false, index )
+
+                }
+
+                // if (map.getLayer('mask0')) map.removeLayer('mask0');
+                // if (map.getSource('mask0')) map.removeSource('mask0');
+                //
+                // if (map.getLayer('mask1')) map.removeLayer('mask1');
+                // if (map.getSource('mask1')) map.removeSource('mask1');
+                //
+                // if (map.getLayer('mask2')) map.removeLayer('mask2');
+                // if (map.getSource('mask2')) map.removeSource('mask2');
 
               },
 
-              toggle : function( option ) {
+              toggle : function( option, index ) {
 
+                index = index || '0'
+                let name = 'mask' + index
                 let opacity = option ? .66 : 0;
-                map.setPaintProperty( 'mask', 'fill-opacity', opacity );
+
+                map.setPaintProperty( name, 'fill-opacity', opacity );
 
               },
 
-              initialize : function( center, point_on_circle ) {
+              initialize : function( center, point_on_circle, index ) {
 
                 app.story.map.controls.people.highlight.insideCircle.reset()
+
+                index = index || '0'
+
+                let name = 'mask' + index
 
                 let radius = app.story.map.radius( center, point_on_circle )
 
@@ -1336,22 +1405,22 @@ let app = {
 
                 let mask = turf.mask( circle )
 
-                map.addSource('mask', {
+                map.addSource( name, {
                   'type': 'geojson',
                   'data': mask
                 });
 
                 map.addLayer({
-                  'id': 'mask',
+                  'id': name,
                   'type': 'fill',
-                  'source': 'mask',
+                  'source': name,
                   'paint': {
                     'fill-color': 'black',
                     'fill-opacity': 0
                   }
                 });
 
-                map.moveLayer('mask', 'road-label')
+                map.moveLayer( name, 'road-label')
 
               }
 
@@ -1523,12 +1592,7 @@ let app = {
                   animation: false,
                   linear: false, // false means the map transitions using map.flyTo()
                   speed: 1,
-                  padding: {
-                    top: 16 + app.story.map.offset.value,
-                    bottom: 16 + app.story.map.offset.value,
-                    left: 16,
-                    right: 16
-                  }
+                  padding: app.story.map.padding()
                 });
 
             } else {
@@ -1549,12 +1613,7 @@ let app = {
                   animate: animate,
                   linear: false, // false means the map transitions using map.flyTo()
                   speed: 1,
-                  padding: {
-                    top: 16 + app.story.map.offset.value,
-                    bottom: 16 + app.story.map.offset.value,
-                    left: 16,
-                    right: 16
-                  }
+                  padding: app.story.map.padding()
                 });
 
             }
