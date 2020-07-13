@@ -281,6 +281,9 @@ let app = {
 
     background : function() {
 
+      if ( window.innerWidth >= 800 )
+        return false
+
       document.querySelector( '.background' ).style.height = '0'
 
       setTimeout( function() {
