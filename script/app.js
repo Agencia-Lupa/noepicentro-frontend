@@ -281,6 +281,8 @@ let app = {
 
     background : function() {
 
+      console.log( 'bg update' )
+
       if ( window.innerWidth >= 800 )
         return false
 
@@ -288,7 +290,8 @@ let app = {
 
       setTimeout( function() {
 
-        document.querySelector( '.background' ).style.height = ( app.main.element.scrollHeight - app.main.element.offsetHeight ) + 'px'
+        let height = ( app.main.element.scrollHeight - app.main.element.offsetHeight ) + 'px'
+        document.querySelector( '.background' ).style.height = height
 
       }, 10 )
 
@@ -931,6 +934,7 @@ let app = {
       style : 'mapbox://styles/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr?optimize=true',
       token : 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw',
       user : undefined,
+      element : document.getElementById( 'map' ),
 
       radius : function( center, point_on_circle ) {
 
@@ -957,6 +961,44 @@ let app = {
           // app.story.map.controls.circle.reset()
           // app.story.map.controls.people.highlight.insideCircle.reset()
           // app.story.map.controls.people.overlay.reset() // not used
+
+      },
+
+      offset : {
+
+        value : undefined,
+
+        update : function() {
+
+
+          let container = document.querySelector( '.steps-container' )
+          let padding = parseFloat( window.getComputedStyle( container ).getPropertyValue( 'padding-bottom' ) )
+
+          let steps = document.querySelector( '.steps' )
+          let height = steps.offsetHeight
+
+          let offset = Math.round( padding + height )
+
+          if ( window.innerWidth >= 800 )
+            offset = 0
+
+          if ( app.story.map.offset.value !== offset ) {
+
+            app.story.map.element.style.top = ( offset * -1 ) + 'px'
+            app.story.map.offset.value = offset
+            map.resize()
+
+          }
+
+        },
+
+        initialize : function() {
+
+          window.addEventListener( 'resize', function() {
+            app.story.map.offset.update()
+          } )
+
+        }
 
       },
 
@@ -1003,6 +1045,7 @@ let app = {
 
             app.variables.update()
             app.story.steps.handle()
+            app.story.map.offset.initialize()
 
           } )
           .catch( error => console.log( error ) )
@@ -1663,7 +1706,7 @@ let app = {
         on: {
 
           init : function () {
-
+            setTimeout( app.story.map.offset.update, 100 )
           },
 
           slideChangeTransitionEnd: function () {
