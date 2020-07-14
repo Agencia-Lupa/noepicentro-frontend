@@ -255,6 +255,13 @@ let app = {
       app.pages.previous = JSON.parse( JSON.stringify( app.element.dataset.page ) )
       app.element.dataset.page = name
 
+      if ( name == 'poster' ) {
+        app.poster.initialize(
+          app.variables.result.radius.inner_point,
+          app.variables.result.radius.outer_point
+        )
+      }
+
       // if name == poster || main
         // disable swiper keyboard controls
 
@@ -1778,7 +1785,13 @@ let app = {
 
   poster : {
 
+    img : document.getElementById( 'poster' ),
+
+    url : undefined,
+
     button : {
+
+      element : document.getElementById( 'download' ),
 
       toggle : function( option ) {
 
@@ -1789,8 +1802,85 @@ let app = {
 
     },
 
-    initialize : function() {
+    create : function( inner, outer ) {
 
+      function getDataUrl(img) {
+      	// Create canvas
+      	const canvas = document.createElement('canvas');
+      	const ctx = canvas.getContext('2d');
+      	// Set width and height
+      	canvas.width = img.width;
+      	canvas.height = img.height;
+      	// Draw the image
+      	ctx.drawImage(img, 0, 0);
+      	return canvas.toDataURL('image/jpeg');
+      }
+
+      let radius = app.story.map.radius(
+        inner,
+        outer
+      )
+
+      let circle = turf.circle(
+        radius.center,
+        radius.km
+      )
+
+      // generates a larger circle, whose bbox will serve as our map bounds
+      let outer_circle = turf.circle(
+        radius.center,
+        radius.km * 1.2
+      );
+      let outer_circle_bbox = turf.bbox(outer_circle);
+      let bounds = turf.bboxPolygon(outer_circle_bbox);
+
+      // generates the mask, which will be used as a geojson overlay
+      let static_map_mask = turf.mask(circle, bounds);
+      static_map_mask.properties = {
+      	"fill": "black",
+      	"fill-opacity": 0.66,
+      	"fill-outline-color": "%23d7a565"
+      }
+      let overlay_arg = JSON.stringify(static_map_mask);
+
+      // generates the static map url
+      let static_map_url =
+      	"https://api.mapbox.com/styles/v1/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr/static/geojson(" +
+      	overlay_arg +
+      	")/auto/800x800?access_token=pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw&addlayer={%22id%22:%22people-overlay%22,%22type%22:%22circle%22,%22source%22:%22composite%22,%22source-layer%22:%22people%22,%22paint%22:{%22circle-color%22:%22white%22,%22circle-radius%22:1}}&before_layer=national-park";
+
+      // includes the static map as an img, to convert it to dataURL
+      // let static_map = document.createElement('img');
+      app.poster.img
+      app.poster.img.crossOrigin = 'anonymous';
+      app.poster.img.src = static_map_url;
+
+      // creates the binding that will receive the converted base64 string
+
+      // promise and async function to wait for the image to load, and then convert it to dataurl
+      function retrieveData() {
+      	return new Promise(resolve => {
+      		app.poster.img.addEventListener( 'load', function( event ) {
+      			app.poster.url = getDataUrl( event.currentTarget );
+            app.poster.button.element.href = app.poster.url;
+      			// console.log(app.poster.url)
+      		});
+      		resolve();
+      	})
+      }
+
+      async function asyncExport() {
+      	await retrieveData()
+      	return (app.poster.url)
+      }
+
+      return (asyncExport());
+
+    },
+
+    initialize : function( inner, outer ) {
+
+      app.poster.create( inner, outer )
 
     }
 
@@ -1828,7 +1918,6 @@ let app = {
     app.main.initialize()
     app.search.initialize()
     app.story.initialize()
-    app.poster.initialize()
     app.triggers.initialize()
 
   }
