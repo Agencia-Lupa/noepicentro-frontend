@@ -54,11 +54,11 @@ let app = {
         )
 
         if ( km < 1 )
-          return Math.round( km * 1000 ) + ' m'
+          return Math.round( km * 1000 ) + 'm'
 
         let value = Math.round( km * 10 ) / 10
         value = new Intl.NumberFormat( 'pt-BR' ).format( value )
-        return  value + ' km'
+        return  value + 'km'
 
       },
 
@@ -92,11 +92,11 @@ let app = {
         )
 
         if ( km < 1 )
-          return Math.round( km * 1000 ) + ' m'
+          return Math.round( km * 1000 ) + 'm'
 
         let value = Math.round( km * 10 ) / 10
         value = new Intl.NumberFormat( 'pt-BR' ).format( value )
-        return  value + ' km'
+        return  value + 'km'
 
       },
 
