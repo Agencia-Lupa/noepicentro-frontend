@@ -382,7 +382,6 @@ let app = {
       identify : function() {
 
         let api = 'https://api.mapbox.com/geocoding/v5/mapbox.places/'
-        let token = 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw'
 
         let address = encodeURIComponent( app.search.input.sanitized() )
 
@@ -401,7 +400,7 @@ let app = {
           url += 'limit=3'
           url += '&'
           url += 'access_token='
-          url += token
+          url += app.story.map.token
 
           fetch( url )
             .then( response => response.json() )
@@ -1785,9 +1784,61 @@ let app = {
 
   poster : {
 
-    img : document.getElementById( 'poster' ),
+    image : {
 
-    url : undefined,
+      size : 800,
+
+      element : document.getElementById( 'poster' ),
+
+      type : 'image/jpeg',
+
+      url : undefined,
+
+      get : {
+
+        url : function ( img ) {
+
+          const canvas = document.createElement( 'canvas' )
+          const ctx = canvas.getContext( '2d' )
+
+          canvas.width = app.poster.image.size
+          canvas.height = app.poster.image.size
+
+          ctx.drawImage( img, 0, 0 )
+          return canvas.toDataURL( app.poster.image.type )
+
+        },
+
+        blob : function ( b64Data, contentType='', sliceSize=512 ) {
+
+          let prefix = 'data:image/jpeg;base64,'
+          b64Data = b64Data.slice( prefix.length )
+
+          console.log( b64Data )
+
+          const byteCharacters = atob(b64Data);
+          const byteArrays = [];
+
+          for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            const byteNumbers = new Array(slice.length);
+            for (let i = 0; i < slice.length; i++) {
+              byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            const byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+          }
+
+          const blob = new Blob(byteArrays, {type: contentType});
+          return blob;
+
+        }
+
+      }
+
+    },
 
     button : {
 
@@ -1804,18 +1855,6 @@ let app = {
 
     create : function( inner, outer ) {
 
-      function getDataUrl(img) {
-      	// Create canvas
-      	const canvas = document.createElement('canvas');
-      	const ctx = canvas.getContext('2d');
-      	// Set width and height
-      	canvas.width = img.width;
-      	canvas.height = img.height;
-      	// Draw the image
-      	ctx.drawImage(img, 0, 0);
-      	return canvas.toDataURL('image/jpeg');
-      }
-
       let radius = app.story.map.radius(
         inner,
         outer
@@ -1826,61 +1865,94 @@ let app = {
         radius.km
       )
 
-      // generates a larger circle, whose bbox will serve as our map bounds
-      let outer_circle = turf.circle(
+      let offset = turf.circle(
         radius.center,
         radius.km * 1.2
-      );
-      let outer_circle_bbox = turf.bbox(outer_circle);
-      let bounds = turf.bboxPolygon(outer_circle_bbox);
+      )
 
-      // generates the mask, which will be used as a geojson overlay
-      let static_map_mask = turf.mask(circle, bounds);
-      static_map_mask.properties = {
-      	"fill": "black",
-      	"fill-opacity": 0.66,
-      	"fill-outline-color": "%23d7a565"
+      let bbox = turf.bbox( offset )
+      let bounds = turf.bboxPolygon( bbox )
+
+      let mask = turf.mask( circle, bounds )
+
+      mask.properties = {
+      	'fill': 'black',
+      	'fill-opacity': 0.66,
+      	'fill-outline-color': '%23d7a565'
       }
-      let overlay_arg = JSON.stringify(static_map_mask);
+
+      let overlay = JSON.stringify( mask )
+
+      let layers = [
+        {
+          "id" : "people-overlay",
+          "type" : "circle",
+          "source" : "composite",
+          "source-layer" : "people",
+          "paint": {
+            "circle-color" :"white",
+            "circle-radius" :1 }
+          }
+      ]
 
       // generates the static map url
-      let static_map_url =
-      	"https://api.mapbox.com/styles/v1/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr/static/geojson(" +
-      	overlay_arg +
-      	")/auto/800x800?access_token=pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw&addlayer={%22id%22:%22people-overlay%22,%22type%22:%22circle%22,%22source%22:%22composite%22,%22source-layer%22:%22people%22,%22paint%22:{%22circle-color%22:%22white%22,%22circle-radius%22:1}}&before_layer=national-park";
+      let url = 'https://api.mapbox.com/styles/v1/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr/static/'
 
-      // includes the static map as an img, to convert it to dataURL
-      // let static_map = document.createElement('img');
-      app.poster.img
-      app.poster.img.crossOrigin = 'anonymous';
-      app.poster.img.src = static_map_url;
+      url += 'geojson(' + overlay + ')'
+      url += '/auto/'
+      url += app.poster.image.size + 'x' + app.poster.image.size
+      url += '?'
+      url += 'access_token=' + app.story.map.token
+      url += '&'
+      url += 'addlayer=' + encodeURI( JSON.stringify( layers[ 0 ] ) )
+      url += '&'
+      url += 'before_layer=national-park'
 
-      // creates the binding that will receive the converted base64 string
+      url = encodeURI( url )
+
+      app.poster.image.element.crossOrigin = 'anonymous';
+      app.poster.image.element.src = url;
+
 
       // promise and async function to wait for the image to load, and then convert it to dataurl
       function retrieveData() {
-      	return new Promise(resolve => {
-      		app.poster.img.addEventListener( 'load', function( event ) {
-      			app.poster.url = getDataUrl( event.currentTarget );
-            app.poster.button.element.href = app.poster.url;
-      			// console.log(app.poster.url)
-      		});
-      		resolve();
+
+      	return new Promise( resolve => {
+
+      		app.poster.image.element.addEventListener( 'load', function( event ) {
+
+            const blob = app.poster.image.get.blob(
+              app.poster.image.get.url( event.currentTarget ),
+              app.poster.image.type
+            )
+
+            console.log( blob )
+
+            app.poster.button.element.href = URL.createObjectURL( blob )
+
+            console.log( URL.createObjectURL( blob ) )
+
+          } )
+
+      		resolve()
+
       	})
+
       }
 
       async function asyncExport() {
       	await retrieveData()
-      	return (app.poster.url)
+      	return ( app.poster.img )
       }
 
-      return (asyncExport());
+      return ( asyncExport() )
 
     },
 
     initialize : function( inner, outer ) {
 
-      app.poster.create( inner, outer )
+      if ( !app.poster.image.url )
+        app.poster.create( inner, outer )
 
     }
 
