@@ -482,3 +482,80 @@ function vanishAllBelow(death_count) {
             death_count
         ]);
 }
+
+//////////////////////////////////////////////////
+// generates a dataurl for the shareable static map image
+
+function static_map(center, point_on_circle) {
+
+    function getDataUrl(img) {
+        // Create canvas
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        // Set width and height
+        canvas.width = img.width;
+        canvas.height = img.height;
+        // Draw the image
+        ctx.drawImage(img, 0, 0);
+        return canvas.toDataURL('image/jpeg');
+    }
+
+    let center_ft = turf.point(center);
+    let point_on_circle_ft = turf.point(point_on_circle);
+
+    // calculate radius in km
+    let radius = turf.distance(
+        center_ft, 
+        point_on_circle_ft
+    );
+
+    // generates circle as feature
+    let circle = turf.circle(center_ft, radius);
+
+    // generates a larger circle, whose bbox will serve as our map bounds
+    let outer_circle = turf.circle(center_ft, radius * 1.2);
+    let outer_circle_bbox = turf.bbox(outer_circle);
+    let bounds = turf.bboxPolygon(outer_circle_bbox);
+
+    // generates the mask, which will be used as a geojson overlay
+    let static_map_mask = turf.mask(circle, bounds);
+    static_map_mask.properties = {"fill":"black", "fill-opacity":0.66, "fill-outline-color": "tomato"}
+    let overlay_arg = JSON.stringify(static_map_mask);
+
+    // generates the static map url
+    let static_map_url = 
+      "https://api.mapbox.com/styles/v1/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr/static/geojson(" +
+      overlay_arg +
+      ")/auto/800x800?access_token=pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw&addlayer={%22id%22:%22people-overlay%22,%22type%22:%22circle%22,%22source%22:%22composite%22,%22source-layer%22:%22people%22,%22paint%22:{%22circle-color%22:%22white%22,%22circle-radius%22:1}}&before_layer=national-park";
+    
+    // includes the static map as an img, to convert it to dataURL
+    let static_map = document.createElement('img');
+    //document.body.appendChild(static_map);
+    static_map.id = "static-map-image";
+    static_map.crossOrigin = "anonymous";
+    static_map.src = static_map_url;
+    
+    // creates the binding the will receive the converted base64 string
+    let static_map_dataUrl; 
+
+    // promise and async function to wait for the image to load, and then convert it to dataurl
+    function retrieveData() {
+        return new Promise(resolve => {
+            static_map.addEventListener('load', function (event) {
+                //console.log(event.currentTarget, "()");
+                static_map_dataUrl = getDataUrl(event.currentTarget);
+                //console.log(static_map_dataUrl);
+                console.log(static_map_dataUrl)      
+                
+            });
+            resolve();
+        })
+    }
+
+    async function asyncExport() {
+        await retrieveData()
+        return(static_map_dataUrl)
+      }
+      
+    return(asyncExport());
+}
