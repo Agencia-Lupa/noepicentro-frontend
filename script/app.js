@@ -3,6 +3,8 @@ let first_47; // temp
 
 let app = {
 
+  api : 'https://caco.app/', // https://api.noepicentro.com/
+
   element : document.querySelector( '.app' ),
 
   color : function( name ) {
@@ -221,7 +223,7 @@ let app = {
 
     initialize : function() {
 
-      let url = 'https://caco.app/count'
+      let url = app.api + 'count'
       let options = { mode: 'cors' }
 
       fetch( url, options )
@@ -1087,8 +1089,9 @@ let app = {
         map.dragRotate.disable()
         map.touchZoomRotate.disableRotation()
 
-        let url = 'https://caco.app/coords'
+        let url = app.api
 
+        url += 'coords'
         url += '?'
         url += 'lat=' + app.story.map.user[ 1 ]
         url += '&'
@@ -1528,7 +1531,7 @@ let app = {
                   'url' : 'mapbox://tiagombp.79ib2kza'
                 }
               )
-              
+
             }
 
           },
