@@ -1519,11 +1519,16 @@ let app = {
 
           load : function() {
 
-            if (!map.getSource('mun')) {
-              map.addSource("mun", {
-                'type': 'vector',
-                'url': 'mapbox://tiagombp.95ss0c3b'
-              });
+            if ( !map.getSource( 'mun' ) ) {
+
+              map.addSource(
+                'mun',
+                {
+                  'type' : 'vector',
+                  'url' : 'mapbox://tiagombp.79ib2kza'
+                }
+              )
+              
             }
 
           },
