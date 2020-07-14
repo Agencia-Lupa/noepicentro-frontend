@@ -519,7 +519,7 @@ function static_map(center, point_on_circle) {
 
     // generates the mask, which will be used as a geojson overlay
     let static_map_mask = turf.mask(circle, bounds);
-    static_map_mask.properties = {"fill":"black", "fill-opacity":0.66, "fill-outline-color": "tomato"}
+    static_map_mask.properties = {"fill":"black", "fill-opacity":0.66, "fill-outline-color": "%23d7a565"}
     let overlay_arg = JSON.stringify(static_map_mask);
 
     // generates the static map url
