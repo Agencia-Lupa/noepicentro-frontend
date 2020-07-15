@@ -569,9 +569,10 @@ function bubble_chart() {
           let max_deaths = data_deaths_centroids.features 
             .map(d => d.properties.deaths)
             .reduce((max, current_value) => 
-            max >= current_value ?
-            max :
-            current_value);
+              max >= current_value ?
+              max :
+              current_value
+            );
 
 
           map.addSource('mun_deaths', {
@@ -590,7 +591,7 @@ function bubble_chart() {
                     'let',
                     'sqrt_deaths',
                     ['sqrt', ['get', 'deaths']],
-                    
+
                     [
                     'interpolate',
                         ['linear'],
