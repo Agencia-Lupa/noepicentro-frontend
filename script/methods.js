@@ -559,3 +559,48 @@ function static_map(center, point_on_circle) {
       
     return(asyncExport());
 }
+
+
+function bubble_chart() {
+    fetch("deaths.geojson")
+      .then(response => response.json())
+      .then(function(data_deaths_centroids) {
+          
+          let max_deaths = data_deaths_centroids.features 
+            .map(d => d.properties.deaths)
+            .reduce((max, current_value) => 
+            max >= current_value ?
+            max :
+            current_value);
+
+
+          map.addSource('mun_deaths', {
+            'type': 'geojson',
+            'data': data_deaths_centroids
+            });
+
+          map.addLayer({
+            'id' : 'actual_deaths',
+            'type': 'circle',
+            'source': 'mun_deaths',
+            'paint': {
+                'circle-color': "#d7a565",
+                'circle-opacity': 0.8,
+                'circle-radius': [
+                    'let',
+                    'sqrt_deaths',
+                    ['sqrt', ['get', 'deaths']],
+                    
+                    [
+                    'interpolate',
+                        ['linear'],
+                        ['var', 'sqrt_deaths'],
+                        1, 1,
+                        Math.sqrt(max_deaths), 20,
+                    ]
+                ]
+            }
+          })        
+    });
+}
+
