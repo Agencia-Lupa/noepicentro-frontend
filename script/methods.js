@@ -559,3 +559,144 @@ function static_map(center, point_on_circle) {
       
     return(asyncExport());
 }
+
+
+function bubble_chart() {
+    fetch("deaths.geojson")
+      .then(response => response.json())
+      .then(function(data_deaths_centroids) {
+          
+          let max_deaths = data_deaths_centroids.features 
+            .map(d => d.properties.deaths)
+            .reduce((max, current_value) => 
+              max >= current_value ?
+              max :
+              current_value
+            );
+
+
+          map.addSource('mun_deaths', {
+            'type': 'geojson',
+            'data': data_deaths_centroids
+            });
+
+          map.addLayer({
+            'id' : 'actual_deaths',
+            'type': 'circle',
+            'source': 'mun_deaths',
+            'paint': {
+                'circle-color': "#d7a565",
+                'circle-opacity': 0.8,
+                'circle-radius': [
+                    'let',
+                    'sqrt_deaths',
+                    ['sqrt', ['get', 'deaths']],
+
+                    [
+                    'interpolate',
+                        ['linear'],
+                        ['var', 'sqrt_deaths'],
+                        1, 1,
+                        Math.sqrt(max_deaths), 20,
+                    ]
+                ]
+            }
+          })        
+    });
+}
+
+
+//////////////////////////////////////////////////
+// functions to show first deaths/dots
+
+function first_deaths(target, step) {
+
+    let ppl = [];
+    let radius_step = step;//.1;
+    let radius = radius_step;
+    let tries = 0;
+    let max_tries = 20; 
+    // it's recursive and asynchronous, so it's better to avoid too much tries
+    // we should probably adjust the radius_step to be some fraction of the actual death radius (1/30? 1/40?)
+
+    function searchPeople(radius, tries) {
+
+        return new Promise(resolve => {
+            console.log("raio: ", radius, ", try: ", tries);
+
+            let mini_circle = turf.circle(center, radius);
+            let mini_circle_bbox = turf.bbox(mini_circle);
+
+            map.fitBounds(
+                mini_circle_bbox, 
+                {
+                    padding: {
+                        top: 20, left: 0, right: 0, 
+                        bottom: 20
+                    }
+            });
+
+            map.once('idle', function() {
+                let persons = map.queryRenderedFeatures({layers:['people']});
+
+                let features_to_avoid = map.queryRenderedFeatures({layers : ["water", "landuse", "national-park"]});
+
+                // extreme cases: 
+                // * features_to_avoid is an empty array, when there are no such features in the viewport
+                // * liveable_area is null, when there are only "undesirable" features in the viewport
+
+                let liveable_area = features_to_avoid.length > 0 ?
+                    turf.difference(
+                        turf.bboxPolygon(mini_circle_bbox), 
+                        turf.union(...features_to_avoid)
+                    ) 
+                    :
+                    turf.bboxPolygon(mini_circle_bbox);
+
+                if (liveable_area != null) {
+                    for (person of persons) {
+                        if (turf.booleanPointInPolygon(person, liveable_area)) {
+                            ppl.push(person);
+                        }
+                        //console.log("Try: ", tries, " || Pessoa dentro? ", turf.booleanPointInPolygon(person, liveable_area), ", já são: ", ppl.length);
+                        if (ppl.length >= target) break;
+                    };
+                }
+
+                resolve();
+            });                       
+        });
+    }
+
+    async function asyncLoop(radius, tries) {
+        await searchPeople(radius, tries);
+        if (ppl.length >= target | tries >= max_tries) return ppl.slice(0,target-1);
+        return asyncLoop(radius+radius_step, tries+1);                  
+    }
+
+    asyncLoop(radius, tries);
+
+    return ppl;
+}
+
+function draw_first_deaths(ppl, tag) {
+
+    // use tag to differentiate the layer for the very fist death/dot
+    // from the layer for the next 46 dots.
+
+    if (map.getLayer('first_deaths' + tag)) map.removeLayer('first_deaths' + tag);
+    if (map.getSource('first_deaths' + tag)) map.removeSource('first_deaths' + tag);
+
+
+    let ppl_feature = turf.union(...ppl)
+    map.addSource('first_deaths' + tag, {type: 'geojson', data: ppl_feature}); 
+    map.addLayer({
+        'id': 'first_deaths' + tag,
+        'type': 'circle',
+        'source': 'first_deaths' + tag,
+        'paint': {
+            'circle-radius': 4,
+            'circle-color': 'yellow'
+        }
+    });
+}
