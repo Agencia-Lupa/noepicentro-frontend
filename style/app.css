@@ -505,7 +505,6 @@ input[type="search"]::-webkit-search-results-decoration {
 form {
   background: var(--light-100);
   border-radius: 1.6rem 1.6rem 0 0;
-  min-width: 32rem;
   width: 100%;
   max-width: 42rem;
   overflow: hidden;
