@@ -1028,12 +1028,15 @@ let app = {
         let base       = 100
         let width      = window.innerWidth
         let multiplier = width / base
+        let pad        = distance * multiplier
+        let nav        = document.querySelector( '.story nav' ).offsetHeight
+
 
         return {
-          top:    ( distance * multiplier ) + app.story.map.offset.value,
-          bottom: ( distance * multiplier ) + app.story.map.offset.value,
-          left:   ( distance * multiplier ),
-          right:  ( distance * multiplier )
+          top:    Math.max( pad, nav ) + app.story.map.offset.value,
+          bottom: pad                  + app.story.map.offset.value,
+          left:   pad,
+          right:  pad
         }
 
       },
