@@ -645,7 +645,36 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
-          app.story.map.controls.user.marker( undefined, 'Você está aqui' )
+
+
+          for ( let index of Array( 3 ).keys() ) {
+
+            let location, center, label;
+
+            if ( index === 0 ) {
+
+              center = app.story.map.user
+              label = 'Você está aqui'
+
+            } else {
+
+              location = app.variables.result.capitals_to_highlight[ index - 1 ]
+              center = location.radius.inner_point
+              label = location.display_text.replace( /^(da |de |do )/, '' )
+
+            }
+
+            app.story.map.controls.marker.initialize(
+              center,
+              index,
+              label
+            )
+
+            app.story.map.controls.marker.toggle( index > 0 ? false : true, index )
+            app.story.map.controls.marker.toggleLabel( index > 0 ? false : true, index )
+
+          }
+
 
           delete app.story.map.monitoring
 
@@ -657,7 +686,6 @@ let app = {
 
                 app.story.map.controls.people.initialize()
                 app.story.map.controls.people.toggle( false )
-
                 app.story.map.controls.people.highlight.someInsideCircle.initialize( 1, 'first-death' )
                 app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
                 app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
@@ -708,9 +736,15 @@ let app = {
             zoom   : 17.5,
           } )
 
+          app.story.map.controls.marker.toggle( true, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -734,9 +768,15 @@ let app = {
             zoom   : 17.25
           } )
 
+          app.story.map.controls.marker.toggle( true, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-deaths' )
@@ -752,9 +792,15 @@ let app = {
         },
         "All deaths" : function() {
 
+          app.story.map.controls.marker.toggle( true, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -771,9 +817,15 @@ let app = {
         },
         "All deaths with outline" : function() {
 
+          app.story.map.controls.marker.toggle( true, 0 )
+          app.story.map.controls.marker.toggleLabel( true, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( true )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -797,9 +849,15 @@ let app = {
 
           let city = app.variables.result.neighboring_city
 
+          app.story.map.controls.marker.toggle( false, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -822,9 +880,15 @@ let app = {
 
           let city = app.variables.result.neighboring_city
 
+          app.story.map.controls.marker.toggle( false, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -843,9 +907,15 @@ let app = {
         },
         "Cities that would have vanished" : function() {
 
+          app.story.map.controls.marker.toggle( false, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -862,9 +932,15 @@ let app = {
         },
         "Cities vanished" : function() {
 
+          app.story.map.controls.marker.toggle( false, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -888,10 +964,16 @@ let app = {
             true
           )
 
+          app.story.map.controls.marker.toggle( false, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( true, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
-          app.story.map.controls.people.toggle( true )
+          app.story.map.controls.people.toggle( false )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
           app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
@@ -915,9 +997,15 @@ let app = {
           //   zoom   : 14
           // } )
 
+          app.story.map.controls.marker.toggle( false, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( true, 1 )
+          app.story.map.controls.marker.toggleLabel( true, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -947,11 +1035,16 @@ let app = {
           //   zoom   : 15
           // } )
 
+          app.story.map.controls.marker.toggle( false, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( true, 2 )
+          app.story.map.controls.marker.toggleLabel( true, 2 )
+
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.user.marker()
           app.story.map.controls.people.toggle( true )
-
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
           app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
@@ -1131,6 +1224,58 @@ let app = {
 
       controls : {
 
+        marker : {
+
+          list : [],
+
+          toggle : function( option, index ) {
+
+            let opacity = option ? 1 : 0;
+
+            let marker = app.story.map.controls.marker.list[ index ]
+
+            if ( marker )
+              marker.style.opacity = opacity
+
+          },
+
+          toggleLabel : function( option, index ) {
+
+            let marker = app.story.map.controls.marker.list[ index ]
+
+            console.log( marker )
+
+            if ( marker )
+              marker.dataset.label = option
+
+          },
+
+          initialize : function( center, index, label = '' ) {
+
+            if ( app.story.map.controls.marker.list[ index ] )
+              return false
+
+            let marker = document.createElement( 'div' )
+            marker.classList.add( 'marker' )
+            marker.dataset.labelIndex = index
+            marker.dataset.labelContent = label
+            marker.dataset.label = false
+
+            new mapboxgl.Marker(
+              {
+                element : marker,
+                anchor: index === 0 ? 'center' : 'bottom'
+              }
+            )
+            .setLngLat( center )
+            .addTo( map )
+
+            app.story.map.controls.marker.list[ index ] = marker
+
+          }
+
+        },
+
         labels : {
 
           element : document.querySelector( '[name="labels"][type="checkbox"]' ),
@@ -1278,32 +1423,6 @@ let app = {
             )
 
           }
-
-        },
-
-        user : {
-
-          center : undefined,
-
-          marker : function( center, label = '' ) {
-
-            center = center || app.story.map.user
-
-            if ( app.story.map.controls.user.center !== center ) {
-
-              let marker = document.createElement( 'div' )
-              marker.classList.add( 'marker' )
-              marker.setAttribute( 'data-label', label )
-
-              app.story.map.controls.user.instance = new mapboxgl.Marker( marker )
-                .setLngLat( center )
-                .addTo( map )
-
-              app.story.map.controls.user.center = center
-
-            }
-
-          },
 
         },
 

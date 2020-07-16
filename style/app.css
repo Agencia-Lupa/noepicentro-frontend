@@ -737,50 +737,73 @@ button {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  width: 1.2rem;
-  height: 1.2rem;
-  background: var(--dark-100);
-  border-radius: 50%;
-  border: .3rem solid var(--highlight);
-  box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 );
+  width: 0px;
+  height: 0px;
+  /* opacity: 0; */
+  /* box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 ); */
   /* animation: pulse 1.6s infinite; */
 }
 
-@keyframes pulse {
+/* @keyframes pulse {
 	0% {
 		box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 )
 	}
 	100% {
 		box-shadow: 0 0 0 3.2rem rgba( var(--highlight-rgb ), 0 )
 	}
-}
+} */
 
-.marker[data-label]:not([data-label=""])::before {
-  content: attr(data-label);
+.marker::before {
+  content: attr(data-label-content);
   position: absolute;
   display: inline-flex;
   flex-shrink: 0;
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  margin-top: -3.2rem;
   padding: .4rem .8rem;
   border-radius: .8rem;
   line-height: 1.5;
   font-size: 1.4rem;
   background: var(--light-100);
   color: var(--dark-50);
+  opacity: 0;
+  margin-top: -1.6rem;
 }
 
-.marker[data-label]:not([data-label=""])::after {
+.marker::after {
   content: '';
   position: absolute;
   width: 0;
   height: 0;
   border-style: solid;
   border-width: .8rem .8rem 0 .8rem;
-  margin-top: calc( -2.4rem - .1rem );
   border-color: var(--light-100) transparent transparent transparent;
+  opacity: 0;
+  margin-top: calc( -.8rem + -.1rem );
+}
+
+.marker[data-label="true"]::before,
+.marker[data-label="true"]::after {
+  opacity: 1;
+}
+
+.marker[data-label-index="0"] {
+  width: 1.2rem;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  min-height: 1.2rem;
+  background: var(--dark-100);
+  border-radius: 50%;
+  border: .3rem solid var(--highlight);
+}
+
+.marker[data-label-index="0"]::before {
+  margin-top: -3.2rem;
+}
+
+.marker[data-label-index="0"]::after {
+  margin-top: calc( -2.4rem - .1rem );
 }
 
 #user {
