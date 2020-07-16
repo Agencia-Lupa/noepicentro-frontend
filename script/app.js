@@ -645,7 +645,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
-          app.story.map.controls.user.marker()
+          app.story.map.controls.user.marker( undefined, 'Você está aqui' )
 
           delete app.story.map.monitoring
 
@@ -722,6 +722,8 @@ let app = {
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.location.highlight( false )
           app.story.map.controls.location.vanishAllBelow( false )
+
+          // app.story.map.controls.tooltip( app.story.map.user, 0 )
 
         },
         "Following deaths" : function() {
@@ -1280,7 +1282,7 @@ let app = {
 
           center : undefined,
 
-          marker : function( center, options ) {
+          marker : function( center, label = '' ) {
 
             center = center || app.story.map.user
 
@@ -1288,6 +1290,7 @@ let app = {
 
               let marker = document.createElement( 'div' )
               marker.classList.add( 'marker' )
+              marker.setAttribute( 'data-label', label )
 
               app.story.map.controls.user.instance = new mapboxgl.Marker( marker )
                 .setLngLat( center )
