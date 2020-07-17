@@ -405,7 +405,7 @@ let app = {
           fetch( url )
             .then( response => response.json() )
             .then( data => app.search.suggestions.handle( data ) )
-            .catch( error => app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )( error ) )
+            .catch( error => console.error( error ) )
 
         }
 
@@ -1108,10 +1108,31 @@ let app = {
 
       reset : function() {
 
-        if ( map )
+        if ( map ) {
+
+          let layers = [
+            'first-death',
+            'first-deaths',
+            'mask0',
+            'mask1',
+            'mask2',
+            'circle0',
+            'circle1',
+            'circle2',
+          ]
+
+          for ( let layer of layers ) {
+
+            if ( map.getLayer(  layer ) ) map.removeLayer(  layer )
+            if ( map.getSource( layer ) ) map.removeSource( layer )
+
+          }
+
+          first_47 = undefined
+
           map.remove()
-          // app.story.map.controls.circle.reset()
-          // app.story.map.controls.people.highlight.insideCircle.reset()
+
+        }
 
       },
 
@@ -1242,8 +1263,6 @@ let app = {
           toggleLabel : function( option, index ) {
 
             let marker = app.story.map.controls.marker.list[ index ]
-
-            console.log( marker )
 
             if ( marker )
               marker.dataset.label = option
