@@ -640,7 +640,8 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 15
+            zoom   : 13,
+            pitch  : 0
           } )
 
           app.poster.button.toggle( false )
@@ -685,7 +686,7 @@ let app = {
               (function() {
 
                 app.story.map.controls.people.initialize()
-                app.story.map.controls.people.toggle( { opacity: 1, radius: 2, color: '#555' } )
+                app.story.map.controls.people.toggle( { opacity: 1, radius: 1.5, color: '#555' } )
                 app.story.map.controls.people.highlight.someInsideCircle.initialize( 1, 'first-death' )
                 app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
                 app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
@@ -733,7 +734,8 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 17.5,
+            zoom   : 17,
+            pitch  : 60,
           } )
 
           app.story.map.controls.marker.toggle( true, 0 )
@@ -755,7 +757,7 @@ let app = {
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
 
           // app.story.map.controls.tooltip( app.story.map.user, 0 )
 
@@ -765,7 +767,8 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 17.25
+            zoom   : 16.75,
+            pitch  : 60
           } )
 
           app.story.map.controls.marker.toggle( true, 0 )
@@ -787,7 +790,7 @@ let app = {
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "All deaths" : function() {
@@ -810,9 +813,9 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.circle.fitOnScreen( 0 )
+          app.story.map.controls.circle.fitOnScreen( 0, 60 )
           app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "All deaths with outline" : function() {
@@ -837,7 +840,7 @@ let app = {
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.circle.fitOnScreen( 0 )
           app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "City that would have vanished" : function() {
@@ -872,7 +875,7 @@ let app = {
             city.code_muni,
             true
           )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // // app.story.map.controls.location.vanishAllBelow( false )
           // app.story.map.controls.location.highlight( '' )
 
         },
@@ -889,7 +892,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
           app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
@@ -901,8 +904,8 @@ let app = {
           app.story.map.controls.location.fitOnScreen(
             city.bbox
           )
-          app.story.map.controls.location.vanish()
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanish()
+          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
 
@@ -929,7 +932,7 @@ let app = {
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
           app.story.map.controls.location.fitOnScreen( 'br' )
 
         },
@@ -961,6 +964,32 @@ let app = {
 
         */
 
+        "Real distribution" : function() {
+
+          app.story.map.controls.marker.toggle( false, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
+          app.poster.button.toggle( false )
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 1 )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 2 )
+          app.story.map.controls.circle.toggle( false, 0 )
+          app.story.map.controls.circle.toggle( false, 1 )
+          app.story.map.controls.circle.toggle( false, 2 )
+          app.story.map.controls.location.highlight( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
+          app.story.map.controls.location.fitOnScreen( 'br' )
+
+        },
+
         "Featured city 1" : function() {
 
           let city = app.variables.result.capitals_to_highlight[ 0 ]
@@ -989,7 +1018,7 @@ let app = {
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "Featured city 1 location" : function() {
@@ -1021,9 +1050,9 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( true, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.circle.fitOnScreen( 1 )
+          app.story.map.controls.circle.fitOnScreen( 1, 60 )
           app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
 
@@ -1065,7 +1094,7 @@ let app = {
           app.story.map.controls.circle.fitOnScreen( 2 )
 
           app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
 
@@ -1439,7 +1468,7 @@ let app = {
 
           },
 
-          fitOnScreen : function( index ) {
+          fitOnScreen : function( index, pitch = 0 ) {
 
             let circle = app.story.map.controls.circle.list[ index ]
           	let bbox = turf.bbox( circle )
@@ -1448,7 +1477,8 @@ let app = {
               bbox,
               {
                 padding: app.story.map.padding(),
-                duration: 6000
+                duration: 6000,
+                pitch: pitch
           	  }
             )
 
@@ -1709,9 +1739,9 @@ let app = {
 
           },
 
-          centerHighlightAndFit : function( bbox, code, animate ) {
+          centerHighlightAndFit : function( bbox, code, animation ) {
 
-            app.story.map.controls.location.fitOnScreen( bbox, animate )
+            app.story.map.controls.location.fitOnScreen( bbox, animation )
 
             app.story.map.controls.location.highlight( code )
 
@@ -1721,9 +1751,7 @@ let app = {
 
           },
 
-          fitOnScreen : function( bbox, animate ) {
-
-            animate = animate ? true : false
+          fitOnScreen : function( bbox, animation = true ) {
 
             if ( bbox == 'br' ) {
 
@@ -1734,10 +1762,11 @@ let app = {
 
               map.fitBounds(
                 br, {
-                  animation: false,
+                  animation: animation,
                   linear: false, // false means the map transitions using map.flyTo()
                   speed: 1,
-                  padding: app.story.map.padding()
+                  padding: app.story.map.padding(),
+                  pitch: 0
                 });
 
             } else {
@@ -1755,10 +1784,11 @@ let app = {
 
               map.fitBounds(
                 bbox, {
-                  animate: animate,
+                  animate: animation,
                   linear: false, // false means the map transitions using map.flyTo()
                   speed: 1,
-                  padding: app.story.map.padding()
+                  padding: app.story.map.padding(),
+                  pitch: 0
                 });
 
             }
@@ -1808,6 +1838,8 @@ let app = {
             	]);
 
           },
+
+          /*
 
           vanish : function(code) {
 
@@ -1870,6 +1902,8 @@ let app = {
             	]);
 
           }
+
+          */
 
         }
 
