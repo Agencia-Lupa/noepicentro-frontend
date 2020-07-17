@@ -1,6 +1,8 @@
 let map;
 let first_47; // temp
 
+
+
 let app = {
 
   api : 'https://caco.app/', // https://api.noepicentro.com/
@@ -29,6 +31,14 @@ let app = {
         let deaths = app.variables.initial.deaths
         deaths = new Intl.NumberFormat( 'pt-BR' ).format( deaths )
         return deaths
+
+      },
+
+      "Death count rounded" : function() {
+
+        let deaths = app.variables.initial.deaths
+        let value = Math.round( deaths / 1000 )
+        return value + ' mil'
 
       },
 
@@ -1309,7 +1319,7 @@ let app = {
 
           initialize : function() {
 
-            if ( map.getLayer( 'actual_deaths' ) )
+            if ( map.getLayer( 'actual_deaths' ) || map.getSource( 'mun_deaths' ) )
               return false
 
             fetch("data/deaths.geojson")
@@ -1324,34 +1334,41 @@ let app = {
             				current_value
             			);
 
+                if ( !map.getSource( 'mun_deaths' ) ) {
 
-            		map.addSource('mun_deaths', {
-            			'type': 'geojson',
-            			'data': data_deaths_centroids
-            		});
+              		map.addSource('mun_deaths', {
+              			'type': 'geojson',
+              			'data': data_deaths_centroids
+              		});
 
-            		map.addLayer({
-            			'id': 'actual_deaths',
-            			'type': 'circle',
-            			'source': 'mun_deaths',
-            			'paint': {
-            				'circle-color': app.color( 'light-100' ),
-            				'circle-opacity': 0,
-            				'circle-radius': [
-            					'let',
-            					'sqrt_deaths',
-            					['sqrt', ['get', 'deaths']],
+                }
 
-            					[
-            						'interpolate',
-            						['linear'],
-            						['var', 'sqrt_deaths'],
-            						1, 1,
-            						Math.sqrt(max_deaths), 20,
-            					]
-            				]
-            			}
-            		})
+                if ( !map.getLayer( 'actual_deaths' ) ) {
+
+              		map.addLayer({
+              			'id': 'actual_deaths',
+              			'type': 'circle',
+              			'source': 'mun_deaths',
+              			'paint': {
+              				'circle-color': app.color( 'light-100' ),
+              				'circle-opacity': 0,
+              				'circle-radius': [
+              					'let',
+              					'sqrt_deaths',
+              					['sqrt', ['get', 'deaths']],
+
+              					[
+              						'interpolate',
+              						['linear'],
+              						['var', 'sqrt_deaths'],
+              						1, 1,
+              						Math.sqrt(max_deaths), 20,
+              					]
+              				]
+              			}
+              		})
+                }
+                
             	});
           }
 
