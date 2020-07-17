@@ -1430,30 +1430,33 @@ let app = {
 
             let opacity = option ? 1 : 0
 
-            if ( map.isStyleLoaded() ) {
+            for ( layer of layers ) {
 
-              for ( layer of layers )
+              if ( map.getLayer( layer ) )
                 map.setPaintProperty( layer, 'text-opacity', opacity )
-
-              map.setPaintProperty( 'airport-label', 'icon-opacity', opacity )
 
             }
 
+            map.setPaintProperty( 'airport-label', 'icon-opacity', opacity )
+
           },
 
-          toggle : function( boolean ) {
+          toggle : function( option ) {
 
-            let input = app.story.map.controls.labels.element
+            app.story.map.controls.labels.element.checked = option
+            app.story.map.controls.labels.opacity( option )
 
-            if ( boolean === input.checked )
-              return false
-
-            if ( boolean === undefined )
-              input.checked = !input.checked
-            else
-              input.checked = boolean
-
-            input.dispatchEvent( new Event( 'change' ) )
+            // let input = app.story.map.controls.labels.element
+            //
+            // if ( boolean === input.checked )
+            //   return false
+            //
+            // if ( boolean === undefined )
+            //   input.checked = !input.checked
+            // else
+            //   input.checked = boolean
+            //
+            // input.dispatchEvent( new Event( 'change' ) )
 
           },
 
