@@ -640,7 +640,7 @@ let app = {
           map.flyTo( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 13,
+            zoom   : 15.5,
             pitch  : 0
           } )
 
@@ -2178,6 +2178,13 @@ let app = {
         } )
 
       }
+
+      document.querySelector( '.next' ).addEventListener( 'click', function() {
+
+        if ( this.classList.contains( 'swiper-button-disabled' ) )
+          app.pages.open('poster')
+
+      } )
 
     }
 
