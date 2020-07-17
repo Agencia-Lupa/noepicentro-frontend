@@ -1829,6 +1829,23 @@ let app = {
 
             }
 
+            if ( !map.getLayer ( 'municipalities' ) ) {
+
+              map.addLayer({
+                  'id': 'municipalities',
+                  'type': 'fill',
+                  'source': 'mun',
+                  'source-layer': 'municipalities', //
+                  'paint': {
+                      'fill-opacity' : 0,
+                      'fill-outline-color' : 'transparent',
+                      'fill-color' : 'transparent'
+                  }
+              },
+              'road-label');
+
+            }
+
           },
 
           centerHighlightAndFit : function( bbox, code, animation ) {
@@ -1927,7 +1944,45 @@ let app = {
             		'==',
             		['get', 'code_muni'],
             		code
-            	]);
+              ]);
+
+            // mask map beyond city boundaries
+            map.once('idle', function() {
+
+              let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
+    
+              let features = municipalities.filter(d => d.properties.code_muni == code)
+              //console.log("Features da cidade: ", features);
+          
+              let city_polygon = turf.union(...features);
+             
+              let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
+          
+              let city_mask = turf.mask(city_polygon, bbox_br);
+
+              if (!map.getSource('city-mask')) {
+                map.addSource('city-mask', {
+                    'type': 'geojson',
+                    'data': city_mask
+                });
+            
+                map.addLayer({
+                    'id': 'city-mask',
+                    'type': 'fill',
+                    'source': 'city-mask',
+                    'paint': {
+                        'fill-color': 'black',
+                        'fill-opacity': 0.55,
+                        'fill-outline-color': 'transparent'
+                    }
+                },
+                'highlighted_city');
+              } else {
+                  // if a city-mask is already loaded, no need to remove, just update its data to the new city_mask polygon
+                  map.getSource('city-mask').setData(city_mask);
+              }
+
+            })
 
           },
 
