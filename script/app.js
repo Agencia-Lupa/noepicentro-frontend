@@ -646,6 +646,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.bubble.toggle( false )
 
 
           for ( let index of Array( 3 ).keys() ) {
@@ -747,6 +748,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -780,6 +782,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( true, 'first-deaths' )
@@ -804,6 +807,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -829,6 +833,7 @@ let app = {
 
           app.poster.button.toggle( true )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -861,6 +866,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -892,6 +898,8 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.initialize()
+          app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -975,6 +983,8 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.initialize()
+          app.story.map.controls.bubble.toggle( true )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -987,6 +997,7 @@ let app = {
           app.story.map.controls.location.highlight( false )
           // app.story.map.controls.location.vanishAllBelow( false )
           app.story.map.controls.location.fitOnScreen( 'br' )
+          app.story.map.controls.bubble.initialize()
 
         },
 
@@ -1284,6 +1295,67 @@ let app = {
       },
 
       controls : {
+
+        bubble : {
+
+          toggle : function( option ) {
+
+            let opacity = option ? .8 : 0;
+
+            if ( map.getLayer( 'actual_deaths' ) )
+              map.setPaintProperty( 'actual_deaths', 'circle-opacity', opacity )
+
+          },
+
+          initialize : function() {
+
+            if ( map.getLayer( 'actual_deaths' ) )
+              return false
+
+            fetch("data/deaths.geojson")
+            	.then(response => response.json())
+            	.then(function(data_deaths_centroids) {
+
+            		let max_deaths = data_deaths_centroids.features
+            			.map(d => d.properties.deaths)
+            			.reduce((max, current_value) =>
+            				max >= current_value ?
+            				max :
+            				current_value
+            			);
+
+
+            		map.addSource('mun_deaths', {
+            			'type': 'geojson',
+            			'data': data_deaths_centroids
+            		});
+
+            		map.addLayer({
+            			'id': 'actual_deaths',
+            			'type': 'circle',
+            			'source': 'mun_deaths',
+            			'paint': {
+            				'circle-color': app.color( 'light-100' ),
+            				'circle-opacity': 0,
+            				'circle-radius': [
+            					'let',
+            					'sqrt_deaths',
+            					['sqrt', ['get', 'deaths']],
+
+            					[
+            						'interpolate',
+            						['linear'],
+            						['var', 'sqrt_deaths'],
+            						1, 1,
+            						Math.sqrt(max_deaths), 20,
+            					]
+            				]
+            			}
+            		})
+            	});
+          }
+
+        },
 
         marker : {
 
