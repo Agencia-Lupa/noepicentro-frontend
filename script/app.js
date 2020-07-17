@@ -982,10 +982,10 @@ let app = {
           app.story.map.controls.marker.toggleLabel( false, 2 )
 
           app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.labels.toggle( true )
           app.story.map.controls.bubble.initialize()
           app.story.map.controls.bubble.toggle( true )
-          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
+          app.story.map.controls.people.toggle( { opacity: 0, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
           app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
