@@ -741,19 +741,7 @@ button {
   align-items: flex-end;
   width: 0px;
   height: 0px;
-  /* opacity: 0; */
-  /* box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 ); */
-  /* animation: pulse 1.6s infinite; */
 }
-
-/* @keyframes pulse {
-	0% {
-		box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 )
-	}
-	100% {
-		box-shadow: 0 0 0 3.2rem rgba( var(--highlight-rgb ), 0 )
-	}
-} */
 
 .marker::before {
   content: attr(data-label-content);
@@ -954,7 +942,6 @@ button {
   background: var(--light-100);
   box-shadow: 0 .2rem 1.2rem var( --dark-25);
   z-index: 1;
-  overflow: hidden;
 }
 
 .arrows button {
@@ -979,6 +966,14 @@ button {
   border-right: .1rem solid var(--dark-10);
 }
 
+.prev {
+  border-radius: 2.4rem 0 0 2.4rem;
+}
+
+.next {
+  border-radius: 0 2.4rem 2.4rem 0;
+}
+
 .next.swiper-button-disabled {
   background: var(--highlight);
 }
@@ -986,6 +981,22 @@ button {
 .next.swiper-button-disabled:hover {
   background: var(--highlight-shade);
 }
+
+.prev.swiper-button-disabled + .next .material-icons {
+  box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 );
+  animation: pulse 1.6s infinite;
+  border-radius: 1.2rem;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 )
+  }
+  100% {
+    box-shadow: 0 0 0 4.8rem rgba( var(--highlight-rgb ), 0 )
+  }
+}
+
 
 .next .material-icons:nth-child(2),
 .next.swiper-button-disabled .material-icons:nth-child(1) {
