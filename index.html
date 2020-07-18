@@ -83,7 +83,10 @@
           <p>Essas mortes estão espalhadas por mais da metade das cidades brasileiras, em todos os estados.</p>
           <p>E se elas tivessem acontecido perto de você?</p>
           <p>Como os surtos de Covid&#8209;19 no país se concentram em algumas regiões metropolitanas, muitos não enxergam o efeito da doença.</p>
-          <p>Esta simulação mostra como a pandemia afetaria sua vizinhança, “apagando” do mapa áreas que você conhece bem.</p>
+          <p>Para tornar a dimensão dessas perdas mais palpável, esta simulação mostra o que aconteceria caso todas as mortes registradas no país acontecessem ao redor do seu endereço.</p>
+          <p>Ao prosseguir, você vai ver um círulo ser desenhado ao redor do seu local: todas as pessoas que moram nessa área deixariam de existir.</p> 
+          <p>Até onde iria a devastação?</p>
+
 
           <footer>
             <p>
@@ -306,19 +309,19 @@
 
                   <div data-step="You are here" class="swiper-slide">
                     <p>
-                      Essa é sua vizinhança no dia 16 de março. Neste dia, foi confirmada a primeira morte pelo novo coronavírus no Brasil
+                      Essa é a <strong>sua vizinhança</strong> no dia 16 de março. Nessa data, foi confirmada a primeira morte pelo novo coronavírus no Brasil.
                     </p>
                   </div>
 
                   <div data-step="First death" class="swiper-slide">
                     <p>
-                      A vítima foi um  homem de 62 anos que vivia na cidade de São Paulo. No mapa, simulamos que essa morte aconteceu no seu bairro
+                      A vítima foi um  homem de 62 anos que vivia na cidade de São Paulo. No mapa, porém, <strong>simulamos</strong> que quem morreu foi <strong>um de seus vizinhos.</strong>
                     </p>
                   </div>
 
                   <div data-step="Following deaths" class="swiper-slide">
                     <p>
-                      Uma semana depois, no dia 24 de março, mais 46 pessoas haviam morrido por Covid&#8209;19 no Brasil. De novo, simulamos que elas viviam na sua vizinhança
+                      Uma semana depois, no dia 24 de março, mais 46 pessoas haviam morrido por Covid&#8209;19 no Brasil. De novo, <strong>vamos fingir</strong> que elas viviam <strong>na sua vizinhança</strong>.
                     </p>
                   </div>
 
@@ -326,26 +329,24 @@
                     <p>
                       Hoje,
                       <em data-var="Time since first death"></em>
-                      após a confirmação da primeira morte, o número total de óbitos causados pelo novo coronavírus no Brasil chega a
-                      <em data-var="Death count">61.314</em>
+                      após a confirmação da primeira morte, o número total de óbitos causados pelo novo coronavírus no país chega a <strong>
+                      <em data-var="Death count">61.314</em></strong>, ao todo.
                     </p>
                   </div>
 
                   <div data-step="All deaths with outline" class="swiper-slide">
                     <p>
-                      É como se todo mundo que vive dentro desse círculo, desenhado com raio de
-                      <em data-var="User radius"></em>
-                      ao redor da sua casa, tivesse morrido
+                      Vamos <strong>imaginar</strong> que <strong>todos eles moravam ao seu redor</strong>: todo mundo que vive dentro desse círculo teria morrido. É um raio de <strong><em data-var="User radius"></em></strong>
+                      ao redor do seu local.
                     </p>
                   </div>
 
                   <div data-step="City that would have vanished" class="swiper-slide">
                     <p data-would-vanish="false">
-                      Tantas mortes são suficientes para riscar do mapa uma cidade aí perto, da qual você já deve ter ouvido falar:
-                      <em data-var="Vanished city"></em>
+                      <strong><em data-var="Death count">61.314</em> mortes</strong> seriam o bastante para apagar do mapa uma cidade aí perto, caso todas elas acontecessem dentro das fronteiras do município: <strong><em data-var="Vanished city"></em></strong>.
                     </p>
                     <p data-would-vanish="true">
-                      Tantas mortes são suficientes para riscar a sua cidade do mapa. Consegue imaginar todas as pessoas que você conhece desaparecendo?
+                      <strong><em data-var="Death count">61.314</em></strong> mortes seriam o bastante para <strong>apagar a sua cidade do mapa</strong>. Se todas as mortes acontecessem <strong>dentro das fronteiras do município</strong>, não sobraria ninguém vivo.
                     </p>
                   </div>
 
@@ -355,14 +356,14 @@
                       <em data-var="Vanished city population"></em>
                       pessoas,
                       <em data-var="Vanished city population difference"></em>
-                      a menos que o total de óbitos registrados
+                      a <strong>menos que o total de óbitos</strong> registrados no Brasil.
                     </p>
                     <p data-would-vanish="true">
                       Moram aí, de acordo com estimativas do IBGE para 2019, aproximadamente
                       <em data-var="Vanished city population"></em>
                       pessoas,
                       <em data-var="Vanished city population difference"></em>
-                      a menos que o total de óbitos registrados
+                      a <strong>menos que o total de óbitos</strong> registrados em todo o Brasil.
                     </p>
                   </div>
 
@@ -389,22 +390,13 @@
 
                   <div data-step="Featured city 1" class="swiper-slide">
                     <p>
-                      Mortes nessa escala também teriam impacto nos grandes centros urbanos, <em data-var="Featured city 1"></em>.
+                      Agora vamos ver qual seria o raio dessa devastação em um grande centro urbano que não fica muito longe do seu local: <strong><em data-var="Featured city 1"></em></strong>.
                     </p>
                   </div>
 
                   <div data-step="Featured city 1 location" class="swiper-slide">
                     <p>
-                      Veja como ficaria
-                      <em data-var="Featured city 1"></em>,
-                      caso todas as mortes no país se concentrassem ao redor
-                      <em data-var="Featured city 1 location"></em>,
-                      <em data-var="Featured city 1 location description"></em>
-                      <span class="screen-reader">
-                        . Todos num raio de
-                        <em data-var="Featured city 1 radius"></em>
-                        haveriam morrido
-                      </span>
+                      Veja como ficaria a <strong>área ao redor do <em data-var="Featured city 1 location"></em></strong>, <em data-var="Featured city 1 location description"></em>, caso todas as mortes se concentrassem ali. Todos em um raio de <strong><em data-var="Featured city 1 radius"></em></strong> teriam morrido.
                     </p>
                   </div>
 
@@ -427,11 +419,11 @@
                   -->
 
                   <div data-step="Real distribution" class="swiper-slide">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim.</p>
+                    <p>Na vida real, é claro que as mortes não aconteceram todas em um só lugar. Agora, o mapa mostra onde esses <strong><em data-var="Death count">61.314</em> brasileiros mortos</strong> moravam de verdade.</p>
                   </div>
 
                   <div data-step="All deaths with outline" class="swiper-slide">
-                    <p>Na vida real, os mortos pela Covid&#8209;19 não estão todos próximos a você. Porém, mesmo que você não os veja de perto, eles existem. E são muitos.</p>
+                    <p>Como nem todos moravam ao seu redor, é possível que você <strong>não veja</strong> a dimensão dessa perda no cotidiano. Porém, <strong>mesmo despercebidas, essas mortes aconteceram</strong>.</p>
                   </div>
 
                 </div>
