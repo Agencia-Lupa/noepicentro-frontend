@@ -300,9 +300,6 @@ let app = {
 
     locations : [
     	{
-    		"code_muni":"431490",
-    		"complement":"ponto turístico da capital gaúcha",
-    		"display_text":"da Usina do Gasômetro",
     		"center":[
     			-30.0341319,
     			-51.2432707
@@ -311,9 +308,6 @@ let app = {
     		"name_state":"RS"
     	},
     	{
-    		"code_muni":"410690",
-    		"complement":"parque no centro da cidade",
-    		"display_text":"do Passeio Público",
     		"center":[
     			-25.4251957,
     			-49.2675855
@@ -322,9 +316,6 @@ let app = {
     		"name_state":"PR"
     	},
     	{
-    		"code_muni":"355030",
-    		"complement":"museu mais famoso da metrópole",
-    		"display_text":"do MASP",
     		"center":[
     			-23.5628876,
     			-46.6504141
@@ -333,9 +324,6 @@ let app = {
     		"name_state":"SP"
     	},
     	{
-    		"code_muni":"330455",
-    		"complement":"maior estádio do país",
-    		"display_text":"do Maracanã",
     		"center":[
     			-22.9120302,
     			-43.2319878
@@ -344,9 +332,6 @@ let app = {
     		"name_state":"RJ"
     	},
     	{
-    		"code_muni":"530010",
-    		"complement":"projetada por Oscar Niemeyer",
-    		"display_text":"da Catedral Metropolitana",
     		"center":[
     			-15.7986852,
     			-47.8757942
@@ -355,9 +340,6 @@ let app = {
     		"name_state":"DF"
     	},
     	{
-    		"code_muni":"520870",
-    		"complement":"no setor central do município",
-    		"display_text":"do Monumento às Três Raças",
     		"center":[
     			-16.6798512,
     			-49.2558648
@@ -366,9 +348,6 @@ let app = {
     		"name_state":"GO"
     	},
     	{
-    		"code_muni":"292740",
-    		"complement":"cartão postal da região",
-    		"display_text":"do Elevador Lacerda",
     		"center":[
     			-12.9744658,
     			-38.5131887
@@ -377,9 +356,6 @@ let app = {
     		"name_state":"BA"
     	},
     	{
-    		"code_muni":"230440",
-    		"complement":"conhecida como \"coração da cidade\"",
-    		"display_text":"da Praça do Ferreira",
     		"center":[
     			-3.7277894,
     			-38.5276207
@@ -388,9 +364,6 @@ let app = {
     		"name_state":"CE"
     	},
     	{
-    		"code_muni":"130260",
-    		"complement":"centro cultural de fama internacional",
-    		"display_text":"do Teatro Amazonas",
     		"center":[
     			-3.1301977,
     			-60.0232912
@@ -399,9 +372,6 @@ let app = {
     		"name_state":"AM"
     	},
     	{
-    		"code_muni":"150140",
-    		"complement":"na margem da Baía do Guajará",
-    		"display_text":"do Mercado Ver-o-Peso",
     		"center":[
     			-1.4525862,
     			-48.5038115
