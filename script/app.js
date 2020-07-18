@@ -1242,6 +1242,33 @@ let app = {
 
         */
 
+        "Share me" : function() {
+
+          app.story.map.controls.marker.toggle( true, 0 )
+          app.story.map.controls.marker.toggleLabel( true, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
+          app.poster.button.toggle( true )
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( true, 0 )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 1 )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 2 )
+          app.story.map.controls.circle.toggle( true, 0 )
+          app.story.map.controls.circle.toggle( false, 1 )
+          app.story.map.controls.circle.toggle( false, 2 )
+          app.story.map.controls.circle.fitOnScreen( 0 )
+          app.story.map.controls.location.highlight( false )
+          // app.story.map.controls.location.vanishAllBelow( false )
+
+        },
+
       },
 
       handle : function() {
