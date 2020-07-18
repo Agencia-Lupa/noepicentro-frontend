@@ -296,7 +296,128 @@ let app = {
 
   cover : {
 
+    element : document.querySelector( '.cover' ),
+
+    locations : [
+    	{
+    		"code_muni":"431490",
+    		"complement":"ponto turístico da capital gaúcha",
+    		"display_text":"da Usina do Gasômetro",
+    		"center":[
+    			-30.0341319,
+    			-51.2432707
+    		],
+    		"name_muni":"Porto Alegre",
+    		"name_state":"RS"
+    	},
+    	{
+    		"code_muni":"410690",
+    		"complement":"parque no centro da cidade",
+    		"display_text":"do Passeio Público",
+    		"center":[
+    			-25.4251957,
+    			-49.2675855
+    		],
+    		"name_muni":"Curitiba",
+    		"name_state":"PR"
+    	},
+    	{
+    		"code_muni":"355030",
+    		"complement":"museu mais famoso da metrópole",
+    		"display_text":"do MASP",
+    		"center":[
+    			-23.5628876,
+    			-46.6504141
+    		],
+    		"name_muni":"São Paulo",
+    		"name_state":"SP"
+    	},
+    	{
+    		"code_muni":"330455",
+    		"complement":"maior estádio do país",
+    		"display_text":"do Maracanã",
+    		"center":[
+    			-22.9120302,
+    			-43.2319878
+    		],
+    		"name_muni":"Rio de Janeiro",
+    		"name_state":"RJ"
+    	},
+    	{
+    		"code_muni":"530010",
+    		"complement":"projetada por Oscar Niemeyer",
+    		"display_text":"da Catedral Metropolitana",
+    		"center":[
+    			-15.7986852,
+    			-47.8757942
+    		],
+    		"name_muni":"Brasília",
+    		"name_state":"DF"
+    	},
+    	{
+    		"code_muni":"520870",
+    		"complement":"no setor central do município",
+    		"display_text":"do Monumento às Três Raças",
+    		"center":[
+    			-16.6798512,
+    			-49.2558648
+    		],
+    		"name_muni":"Goiânia",
+    		"name_state":"GO"
+    	},
+    	{
+    		"code_muni":"292740",
+    		"complement":"cartão postal da região",
+    		"display_text":"do Elevador Lacerda",
+    		"center":[
+    			-12.9744658,
+    			-38.5131887
+    		],
+    		"name_muni":"Salvador",
+    		"name_state":"BA"
+    	},
+    	{
+    		"code_muni":"230440",
+    		"complement":"conhecida como \"coração da cidade\"",
+    		"display_text":"da Praça do Ferreira",
+    		"center":[
+    			-3.7277894,
+    			-38.5276207
+    		],
+    		"name_muni":"Fortaleza",
+    		"name_state":"CE"
+    	},
+    	{
+    		"code_muni":"130260",
+    		"complement":"centro cultural de fama internacional",
+    		"display_text":"do Teatro Amazonas",
+    		"center":[
+    			-3.1301977,
+    			-60.0232912
+    		],
+    		"name_muni":"Manaus",
+    		"name_state":"AM"
+    	},
+    	{
+    		"code_muni":"150140",
+    		"complement":"na margem da Baía do Guajará",
+    		"display_text":"do Mercado Ver-o-Peso",
+    		"center":[
+    			-1.4525862,
+    			-48.5038115
+    		],
+    		"name_muni":"Belém",
+    		"name_state":"PA"
+    	}
+    ],
+
     initialize : function() {
+
+      for ( let location of app.cover.locations ) {
+
+        console.log( location.center )
+
+      }
 
     }
 
@@ -1368,7 +1489,7 @@ let app = {
               			}
               		})
                 }
-                
+
             	});
           }
 
@@ -1950,14 +2071,14 @@ let app = {
             map.once('idle', function() {
 
               let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
-    
+
               let features = municipalities.filter(d => d.properties.code_muni == code)
               //console.log("Features da cidade: ", features);
-          
+
               let city_polygon = turf.union(...features);
-             
+
               let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
-          
+
               let city_mask = turf.mask(city_polygon, bbox_br);
 
               if (!map.getSource('city-mask')) {
@@ -1965,7 +2086,7 @@ let app = {
                     'type': 'geojson',
                     'data': city_mask
                 });
-            
+
                 map.addLayer({
                     'id': 'city-mask',
                     'type': 'fill',
