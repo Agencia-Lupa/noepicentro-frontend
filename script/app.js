@@ -2339,8 +2339,8 @@ let app = {
           }
       ]
 
-      // generates the static map url
-      let url = 'https://api.mapbox.com/styles/v1/tiagombp/ckbz4zcsb2x3w1iqyc3y2eilr/static/'
+      // generates the static map url (with labelless style)
+      let url = 'https://api.mapbox.com/styles/v1/tiagombp/ckcqo5hn702i31ipcs9f53lve/static/'
 
       url += 'geojson(' + overlay + ')'
       url += '/auto/'
