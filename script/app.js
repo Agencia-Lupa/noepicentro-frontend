@@ -84,7 +84,7 @@ let app = {
       "Featured city 1 location" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 0 ]
-        return city.display_text
+        return city.display_text.preffix + ' ' + city.display_text.place
 
       },
 
@@ -122,7 +122,7 @@ let app = {
       "Featured city 2 location" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 1 ]
-        return city.display_text
+        return city.display_text.preffix + ' ' + city.display_text.place
 
       },
 
@@ -793,7 +793,7 @@ let app = {
 
               location = app.variables.result.capitals_to_highlight[ index - 1 ]
               center = location.radius.inner_point
-              label = location.display_text.replace( /^(da |de |do )/, '' )
+              label = location.display_text.place
 
             }
 
@@ -1294,6 +1294,15 @@ let app = {
       token : 'pk.eyJ1IjoidGlhZ29tYnAiLCJhIjoiY2thdjJmajYzMHR1YzJ5b2huM2pscjdreCJ9.oT7nAiasQnIMjhUB-VFvmw',
       user : undefined,
       element : document.getElementById( 'map' ),
+
+      bbox : {
+
+        br : [
+          [ -73.9872354804, -33.7683777809 ],
+          [ -34.7299934555,  5.24448639569 ]
+        ]
+
+      },
 
       radius : function( inner, outer ) {
 
@@ -2010,45 +2019,14 @@ let app = {
 
           fitOnScreen : function( bbox, animation = true ) {
 
-            if ( bbox == 'br' ) {
-
-              let br = [
-                [ -73.9872354804, -33.7683777809 ],
-                [ -34.7299934555,  5.24448639569 ]
-              ]
-
-              map.fitBounds(
-                br, {
-                  animation: animation,
-                  linear: false, // false means the map transitions using map.flyTo()
-                  speed: 1,
-                  padding: app.story.map.padding(),
-                  pitch: 0
-                });
-
-            } else {
-
-              // let municipalities = map.querySourceFeatures('mun', {
-              //   sourceLayer: 'municipalities'
-              // });
-              //
-              // let highlighted = municipalities.filter(d => d.properties.code_muni == code)[0]
-              //
-              // let bbox_highlighted = [
-              //   [highlighted.properties.xmin, highlighted.properties.ymin],
-              //   [highlighted.properties.xmax, highlighted.properties.ymax]
-              // ];
-
-              map.fitBounds(
-                bbox, {
-                  animate: animation,
-                  linear: false, // false means the map transitions using map.flyTo()
-                  speed: 1,
-                  padding: app.story.map.padding(),
-                  pitch: 0
-                });
-
-            }
+            map.fitBounds(
+              bbox, {
+                animate: animation,
+                linear: false, // false means the map transitions using map.flyTo()
+                speed: 1,
+                padding: app.story.map.padding(),
+                pitch: 0
+              });
 
           },
 
@@ -2056,6 +2034,8 @@ let app = {
 
             if ( map.getLayer(  'highlighted_city' ) ) map.removeLayer(  'highlighted_city' )
             if ( map.getSource( 'highlighted_city' ) ) map.removeSource( 'highlighted_city' )
+            if ( map.getLayer( 'city-mask' ) ) map.removeLayer( 'city-mask' )
+            if ( map.getSource( 'city-mask' ) ) map.removeSource( 'city-mask' )
 
           },
 
@@ -2100,13 +2080,10 @@ let app = {
               let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
 
               let features = municipalities.filter(d => d.properties.code_muni == code)
-              //console.log("Features da cidade: ", features);
 
               let city_polygon = turf.union(...features);
 
-              let bbox_br = turf.bboxPolygon([-73.9872354804, -33.7683777809, -34.7299934555, 5.24448639569])
-
-              let city_mask = turf.mask(city_polygon, bbox_br);
+              let city_mask = turf.mask( city_polygon );
 
               if (!map.getSource('city-mask')) {
                 map.addSource('city-mask', {
