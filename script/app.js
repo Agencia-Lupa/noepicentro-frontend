@@ -1127,7 +1127,7 @@ let app = {
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.location.highlight( false )
           // app.story.map.controls.location.vanishAllBelow( false )
-          app.story.map.controls.location.fitOnScreen( 'br' )
+          app.story.map.controls.location.fitOnScreen( app.story.map.bbox.br )
           app.story.map.controls.bubble.initialize()
 
         },
