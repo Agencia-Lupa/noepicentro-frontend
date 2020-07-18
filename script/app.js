@@ -783,7 +783,7 @@ let app = {
 
           app.story.map.monitoring = setInterval( function() {
 
-            if ( map.isStyleLoaded() /* && app.variables.result */ ) {
+            if ( map.isStyleLoaded() && app.variables.result ) {
 
               (function() {
 
@@ -818,6 +818,8 @@ let app = {
                 }
 
                 app.story.map.controls.location.highlight( false )
+                setTimeout( app.story.map.controls.bubble.initialize, 1000 )
+
 
                 app.element.dataset.loaded = true
                 clearInterval( app.story.map.monitoring )
@@ -999,7 +1001,6 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.bubble.initialize()
           app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
@@ -1084,7 +1085,6 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
-          app.story.map.controls.bubble.initialize()
           app.story.map.controls.bubble.toggle( true )
           app.story.map.controls.people.toggle( { opacity: 0, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
@@ -1098,7 +1098,6 @@ let app = {
           app.story.map.controls.location.highlight( false )
           // app.story.map.controls.location.vanishAllBelow( false )
           app.story.map.controls.location.fitOnScreen( app.story.map.bbox.br )
-          app.story.map.controls.bubble.initialize()
 
         },
 
@@ -1120,6 +1119,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
@@ -1153,6 +1153,7 @@ let app = {
 
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
