@@ -758,7 +758,7 @@ button {
   background: var(--highlight);
   color: var(--light-100);
   opacity: 0;
-  margin-top: -1.6rem;
+  bottom: 1.6rem;
 }
 
 .marker::after {
@@ -770,7 +770,7 @@ button {
   border-width: .8rem .8rem 0 .8rem;
   border-color: var(--highlight) transparent transparent transparent;
   opacity: 0;
-  margin-top: calc( -.8rem + -.1rem );
+  bottom: calc( .8rem + .1rem );
 }
 
 .marker[data-label="true"]::before,
@@ -789,11 +789,11 @@ button {
 }
 
 .marker[data-label-index="0"]::before {
-  margin-top: -3.2rem;
+  bottom: 3.2rem;
 }
 
 .marker[data-label-index="0"]::after {
-  margin-top: calc( -2.4rem - .1rem );
+  bottom: calc( 2.4rem + .1rem );
 }
 
 #user {
