@@ -112,6 +112,8 @@ let app = {
 
       },
 
+      /*
+
       "Featured city 2" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 1 ]
@@ -150,6 +152,8 @@ let app = {
 
       },
 
+      */
+
       "Vanished city" : function() {
 
         let city = app.variables.result.neighboring_city
@@ -181,6 +185,8 @@ let app = {
 
       },
 
+      /*
+
       "Vanished cities" : function() {
 
         let value = app.variables.initial.vanishing_cities
@@ -188,6 +194,8 @@ let app = {
         return value
 
       },
+
+      */
 
       "Update" : function() {
 
@@ -385,7 +393,7 @@ let app = {
 
       for ( let location of app.cover.locations ) {
 
-        console.log( location.center )
+        // location.center
 
       }
 
@@ -1315,6 +1323,8 @@ let app = {
 
           first_47 = undefined
 
+          app.story.map.controls.marker.reset()
+
           map.remove()
 
         }
@@ -1502,6 +1512,15 @@ let app = {
 
           list : [],
 
+          reset : function() {
+
+            for ( let marker of document.querySelectorAll( '.marker' ) )
+              marker.remove()
+
+            app.story.map.controls.marker.list = []
+
+          },
+
           toggle : function( option, index ) {
 
             let opacity = option ? 1 : 0;
@@ -1624,8 +1643,7 @@ let app = {
             for ( let index of list.keys() )
               app.story.map.controls.circle.toggle( false, index )
 
-            // if ( map.getLayer(  'circle' ) ) map.removeLayer(  'circle' )
-            // if ( map.getSource( 'circle' ) ) map.removeSource( 'circle' )
+            list = []
 
           },
 
