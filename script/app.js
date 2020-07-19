@@ -953,11 +953,6 @@ let app = {
         },
         "City that would have vanished" : function() {
 
-          // centerHighlightAndFit
-          // fitOnScreen
-          // highlight
-          // fill
-
           let city = app.variables.result.neighboring_city
 
           app.story.map.controls.marker.toggle( false, 0 )
@@ -970,7 +965,7 @@ let app = {
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
           app.story.map.controls.bubble.toggle( false )
-          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#333' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
           app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
@@ -979,11 +974,9 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.centerHighlightAndFit(
-            city.bbox,
-            city.code_muni,
-            true
-          )
+          app.story.map.controls.location.fitOnScreen( city.bbox )
+          app.story.map.controls.location.highlight( city.code_muni )
+
           // // app.story.map.controls.location.vanishAllBelow( false )
           // app.story.map.controls.location.highlight( '' )
 
@@ -1002,7 +995,7 @@ let app = {
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.bubble.toggle( false )
-          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
           app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
@@ -1011,9 +1004,12 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.fitOnScreen(
-            city.bbox
-          )
+          app.story.map.controls.location.fitOnScreen( city.bbox )
+          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.mask( city.code_muni )
+
+          // app.story.map.controls.location.reset()
+
           // app.story.map.controls.location.vanish()
           // app.story.map.controls.location.vanishAllBelow( false )
 
@@ -1769,7 +1765,7 @@ let app = {
 
               toggle : function( option, index ) {
 
-                let opacity = option ? .66 : 0
+                let opacity = option ? .75 : 0
                 let name = 'mask' + index
 
                 if ( map.getLayer( name ) )
@@ -1922,8 +1918,8 @@ let app = {
               			'type': 'circle',
               			'source': name,
               			'paint': {
-              				'circle-radius': amount === 1 ? 5 : 3,
-              				'circle-color': 'white',
+              				'circle-radius': 3,
+              				'circle-color': app.color( 'light-100' ),
                       'circle-opacity': 0
               			}
               		});
@@ -1976,18 +1972,6 @@ let app = {
 
           },
 
-          centerHighlightAndFit : function( bbox, code, animation ) {
-
-            app.story.map.controls.location.fitOnScreen( bbox, animation )
-
-            app.story.map.controls.location.highlight( code )
-
-            // map.once('idle', function() { // makes sure there's no more camera movement and that all tilesets are loaded
-            // 	app.story.map.controls.location.fitOnScreen(code)
-            // })
-
-          },
-
           fitOnScreen : function( bbox, animation = true ) {
 
             map.fitBounds(
@@ -2010,7 +1994,9 @@ let app = {
 
           },
 
-          highlight : function(code) {
+
+
+          highlight : function( code ) {
 
             app.story.map.controls.location.reset()
 
@@ -2045,6 +2031,15 @@ let app = {
             		code
               ]);
 
+          },
+
+          mask : function( code ) {
+
+            app.story.map.controls.location.reset()
+
+            if ( !code )
+              return false
+
             // mask map beyond city boundaries
             map.once('idle', function() {
 
@@ -2057,6 +2052,7 @@ let app = {
               let city_mask = turf.mask( city_polygon );
 
               if (!map.getSource('city-mask')) {
+
                 map.addSource('city-mask', {
                     'type': 'geojson',
                     'data': city_mask
@@ -2067,12 +2063,13 @@ let app = {
                     'type': 'fill',
                     'source': 'city-mask',
                     'paint': {
-                        'fill-color': 'black',
-                        'fill-opacity': 0.55,
-                        'fill-outline-color': 'transparent'
+                        'fill-color': app.color( 'dark-100' ),
+                        'fill-opacity': 0.75,
+                        'fill-outline-color': app.color( 'highlight' )
                     }
                 },
-                'highlighted_city');
+                'road-label');
+
               } else {
                   // if a city-mask is already loaded, no need to remove, just update its data to the new city_mask polygon
                   map.getSource('city-mask').setData(city_mask);
@@ -2080,7 +2077,8 @@ let app = {
 
             })
 
-          },
+          }
+
 
           /*
 
@@ -2321,8 +2319,8 @@ let app = {
 
       mask.properties = {
       	'fill': 'black',
-      	'fill-opacity': 0.66,
-      	'fill-outline-color': '%23d7a565'
+      	'fill-opacity': 0.75,
+      	'fill-outline-color': app.color( 'highlight' )
       }
 
       let overlay = JSON.stringify( mask )
