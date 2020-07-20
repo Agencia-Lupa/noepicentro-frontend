@@ -1131,7 +1131,8 @@ input[type="checkbox"]:checked + div .switch::before {
   opacity: 1;
 }
 
-[data-step="All deaths"] .hint:nth-of-type(3) {
+[data-step="All deaths"] .hint:nth-of-type(3),
+[data-step="Featured city 1 location"] .hint:nth-of-type(3) {
   /* display: flex; */
   transform: translateY( 0 );
   opacity: 1;
