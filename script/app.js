@@ -283,6 +283,11 @@ let app = {
       // if name == poster || main
         // disable swiper keyboard controls
 
+      gtag('event', 'view_page', {
+        'event_category': 'engagement',
+        'event_label': name,
+      });
+
     },
 
     close : function() {
@@ -518,6 +523,11 @@ let app = {
 
         }
 
+        gtag('event', 'search', {
+          'event_category': 'engagement',
+          'event_label': address,
+        });
+
       },
 
       initialize : function() {
@@ -685,9 +695,21 @@ let app = {
 
         }
 
+        gtag('event', 'search', {
+          'event_category': 'engagement',
+          'event_label': 'geolocation',
+          'value': 1
+        });
+
       },
 
       error : function( error ) {
+
+        gtag('event', 'search', {
+          'event_category': 'engagement',
+          'event_label': 'geolocation',
+          'value': 0
+        });
 
         console.error( error.code, error.message )
 
@@ -1263,6 +1285,11 @@ let app = {
 
         app.element.dataset.step = step
         app.story.steps.show[ step ]()
+
+        gtag('event', 'view_item', {
+          'event_category': 'engagement',
+          'event_label': step,
+        });
 
       }
 
@@ -2232,6 +2259,11 @@ let app = {
       app.story.carousel.instance.update()
       app.story.carousel.instance.keyboard.enable()
 
+      gtag('event', 'view_search_results', {
+        'event_category': 'engagement',
+        'event_label': JSON.stringify( center ),
+      });
+
     },
 
     carousel : {
@@ -2353,6 +2385,19 @@ let app = {
 
         option = option !== undefined ? option : false
         app.element.dataset.poster = option
+
+      },
+
+      initialize : function() {
+
+        app.poster.button.element.addEventListener( 'click', function() {
+
+          gtag('event', 'share', {
+            'event_category': 'engagement',
+            'event_label': 'image',
+          });
+
+        } )
 
       }
 
