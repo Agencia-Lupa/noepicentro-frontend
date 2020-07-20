@@ -56,6 +56,13 @@ let app = {
 
       },
 
+      "User city" : function() {
+
+        let city = app.variables.result.user_city
+        return city.name_muni /* + ' (' + city.name_state + ')' */
+
+      },
+
       "User radius" : function() {
 
         let city = app.variables.result
@@ -112,6 +119,8 @@ let app = {
 
       },
 
+      /*
+
       "Featured city 2" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 1 ]
@@ -150,6 +159,8 @@ let app = {
 
       },
 
+      */
+
       "Vanished city" : function() {
 
         let city = app.variables.result.neighboring_city
@@ -181,6 +192,8 @@ let app = {
 
       },
 
+      /*
+
       "Vanished cities" : function() {
 
         let value = app.variables.initial.vanishing_cities
@@ -188,6 +201,8 @@ let app = {
         return value
 
       },
+
+      */
 
       "Update" : function() {
 
@@ -274,6 +289,11 @@ let app = {
 
       // if name == poster || main
         // disable swiper keyboard controls
+
+      gtag('event', 'view_page', {
+        'event_category': 'engagement',
+        'event_label': name,
+      });
 
     },
 
@@ -385,7 +405,7 @@ let app = {
 
       for ( let location of app.cover.locations ) {
 
-        console.log( location.center )
+        // location.center
 
       }
 
@@ -509,6 +529,11 @@ let app = {
             .catch( error => console.error( error ) )
 
         }
+
+        gtag('event', 'search', {
+          'event_category': 'engagement',
+          'event_label': address,
+        });
 
       },
 
@@ -677,9 +702,21 @@ let app = {
 
         }
 
+        gtag('event', 'search', {
+          'event_category': 'engagement',
+          'event_label': 'geolocation',
+          'value': 1
+        });
+
       },
 
       error : function( error ) {
+
+        gtag('event', 'search', {
+          'event_category': 'engagement',
+          'event_label': 'geolocation',
+          'value': 0
+        });
 
         console.error( error.code, error.message )
 
@@ -750,7 +787,7 @@ let app = {
           app.story.map.controls.bubble.toggle( false )
 
 
-          for ( let index of Array( 3 ).keys() ) {
+          for ( let index of Array( 2 ).keys() ) {
 
             let location, center, label;
 
@@ -794,7 +831,7 @@ let app = {
                 app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
                 app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
 
-                for ( let index of Array( 3 ).keys() ) {
+                for ( let index of Array( 2 ).keys() ) {
 
                   let radius = app.variables.result.radius
 
@@ -817,7 +854,10 @@ let app = {
 
                 }
 
-                app.story.map.controls.location.highlight( false )
+                app.story.map.controls.location.initialize( app.variables.result.neighboring_city.code_muni )
+                app.story.map.controls.location.toggle.highlight( false )
+                app.story.map.controls.location.toggle.mask( false )
+
                 setTimeout( app.story.map.controls.bubble.initialize, 1000 )
 
 
@@ -861,10 +901,8 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.highlight( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
-
-          // app.story.map.controls.tooltip( app.story.map.user, 0 )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
 
         },
         "Following deaths" : function() {
@@ -895,8 +933,8 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.highlight( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
 
         },
         "All deaths" : function() {
@@ -921,8 +959,8 @@ let app = {
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.circle.fitOnScreen( 0, 60 )
-          app.story.map.controls.location.highlight( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
 
         },
         "All deaths with outline" : function() {
@@ -947,16 +985,11 @@ let app = {
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.circle.fitOnScreen( 0 )
-          app.story.map.controls.location.highlight( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
 
         },
         "City that would have vanished" : function() {
-
-          // centerHighlightAndFit
-          // fitOnScreen
-          // highlight
-          // fill
 
           let city = app.variables.result.neighboring_city
 
@@ -970,7 +1003,7 @@ let app = {
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( true )
           app.story.map.controls.bubble.toggle( false )
-          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#333' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
           app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
@@ -979,11 +1012,10 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.centerHighlightAndFit(
-            city.bbox,
-            city.code_muni,
-            true
-          )
+          app.story.map.controls.location.fitOnScreen( city.bbox )
+          app.story.map.controls.location.toggle.highlight( true )
+          app.story.map.controls.location.toggle.mask( false )
+
           // // app.story.map.controls.location.vanishAllBelow( false )
           // app.story.map.controls.location.highlight( '' )
 
@@ -1002,7 +1034,7 @@ let app = {
           app.poster.button.toggle( false )
           app.story.map.controls.labels.toggle( false )
           app.story.map.controls.bubble.toggle( false )
-          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
           app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
@@ -1011,9 +1043,12 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.fitOnScreen(
-            city.bbox
-          )
+          app.story.map.controls.location.fitOnScreen( city.bbox )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( true )
+
+          // app.story.map.controls.location.reset()
+
           // app.story.map.controls.location.vanish()
           // app.story.map.controls.location.vanishAllBelow( false )
 
@@ -1095,7 +1130,8 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
           // app.story.map.controls.location.vanishAllBelow( false )
           app.story.map.controls.location.fitOnScreen( app.story.map.bbox.br )
 
@@ -1129,7 +1165,8 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
           // app.story.map.controls.location.vanishAllBelow( false )
 
         },
@@ -1164,7 +1201,8 @@ let app = {
           app.story.map.controls.circle.toggle( true, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.circle.fitOnScreen( 1, 60 )
-          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
           // app.story.map.controls.location.vanishAllBelow( false )
 
         },
@@ -1235,7 +1273,8 @@ let app = {
           app.story.map.controls.circle.toggle( false, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.circle.fitOnScreen( 0 )
-          app.story.map.controls.location.highlight( false )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
           // app.story.map.controls.location.vanishAllBelow( false )
 
         },
@@ -1253,6 +1292,11 @@ let app = {
 
         app.element.dataset.step = step
         app.story.steps.show[ step ]()
+
+        gtag('event', 'view_item', {
+          'event_category': 'engagement',
+          'event_label': step,
+        });
 
       }
 
@@ -1319,6 +1363,8 @@ let app = {
 
           first_47 = undefined
 
+          app.story.map.controls.marker.reset()
+
           map.remove()
 
         }
@@ -1333,7 +1379,6 @@ let app = {
         let multiplier = width / base
         let pad        = distance * multiplier
         let nav        = document.querySelector( '.story nav' ).offsetHeight
-
 
         return {
           top:    Math.max( pad, nav ) + app.story.map.offset.value,
@@ -1489,6 +1534,7 @@ let app = {
               						'interpolate',
               						['linear'],
               						['var', 'sqrt_deaths'],
+                          0, 0,
               						1, 1,
               						Math.sqrt(max_deaths), 20,
               					]
@@ -1505,6 +1551,15 @@ let app = {
         marker : {
 
           list : [],
+
+          reset : function() {
+
+            for ( let marker of document.querySelectorAll( '.marker' ) )
+              marker.remove()
+
+            app.story.map.controls.marker.list = []
+
+          },
 
           toggle : function( option, index ) {
 
@@ -1628,8 +1683,7 @@ let app = {
             for ( let index of list.keys() )
               app.story.map.controls.circle.toggle( false, index )
 
-            // if ( map.getLayer(  'circle' ) ) map.removeLayer(  'circle' )
-            // if ( map.getSource( 'circle' ) ) map.removeSource( 'circle' )
+            list = []
 
           },
 
@@ -1769,7 +1823,7 @@ let app = {
 
               toggle : function( option, index ) {
 
-                let opacity = option ? .66 : 0
+                let opacity = option ? .75 : 0
                 let name = 'mask' + index
 
                 if ( map.getLayer( name ) )
@@ -1922,8 +1976,8 @@ let app = {
               			'type': 'circle',
               			'source': name,
               			'paint': {
-              				'circle-radius': amount === 1 ? 5 : 3,
-              				'circle-color': 'white',
+              				'circle-radius': 3,
+              				'circle-color': app.color( 'light-100' ),
                       'circle-opacity': 0
               			}
               		});
@@ -1976,18 +2030,6 @@ let app = {
 
           },
 
-          centerHighlightAndFit : function( bbox, code, animation ) {
-
-            app.story.map.controls.location.fitOnScreen( bbox, animation )
-
-            app.story.map.controls.location.highlight( code )
-
-            // map.once('idle', function() { // makes sure there's no more camera movement and that all tilesets are loaded
-            // 	app.story.map.controls.location.fitOnScreen(code)
-            // })
-
-          },
-
           fitOnScreen : function( bbox, animation = true ) {
 
             map.fitBounds(
@@ -1999,86 +2041,140 @@ let app = {
                 pitch: 0
               });
 
+            map.once( 'idle', function() {
+
+              app.story.map.controls.location.mask()
+
+            } )
+
+          },
+
+          toggle : {
+
+            highlight : function( option ) {
+
+              let opacity = option ? .33 : 0;
+
+              if ( map.getLayer( 'location_highlight' ) )
+                map.setPaintProperty( 'location_highlight', 'fill-opacity', opacity )
+
+            },
+
+            mask : function( option ) {
+
+              app.story.map.controls.location.visibility.mask = option ? true : false
+
+              let opacity = option ? .75 : 0;
+
+              if ( map.getLayer( 'location-mask' ) )
+                map.setPaintProperty( 'location-mask', 'fill-opacity', opacity )
+
+            },
+
+          },
+
+          visibility : {
+
+            mask : false,
+
           },
 
           reset : function() {
 
-            if ( map.getLayer(  'highlighted_city' ) ) map.removeLayer(  'highlighted_city' )
-            if ( map.getSource( 'highlighted_city' ) ) map.removeSource( 'highlighted_city' )
-            if ( map.getLayer( 'city-mask' ) ) map.removeLayer( 'city-mask' )
-            if ( map.getSource( 'city-mask' ) ) map.removeSource( 'city-mask' )
+            if ( map.getLayer(  'location_highlight' ) ) map.removeLayer(  'location_highlight' )
+            if ( map.getSource( 'location_highlight' ) ) map.removeSource( 'location_highlight' )
+            if ( map.getLayer( 'location-mask' ) ) map.removeLayer( 'location-mask' )
+            if ( map.getSource( 'location-mask' ) ) map.removeSource( 'location-mask' )
 
           },
 
-          highlight : function(code) {
-
-            app.story.map.controls.location.reset()
-
-            if ( !code )
-              return false
-
-            // pass city code to highlight, or
-            // "" to remove any existing highlights
-            // color is hard-coded in 'fill-outline-color'
-
-            app.story.map.controls.location.load()
+          highlight : function( code ) {
 
           	map.addLayer( {
-          			'id': 'highlighted_city',
+          			'id': 'location_highlight',
           			'type': 'fill',
           			'source': 'mun', //'composite',
           			'source-layer': 'municipalities', //
           			'paint': {
-          				'fill-opacity': .33,
-          				// 'fill-outline-color': app.color( 'highlight' ),
+          				'fill-opacity': 0,
           				'fill-color': app.color( 'highlight' )
           			},
           			'filter': ['==', 'code_muni', '']
           		},
           		'road-label');
 
-
             map.setFilter(
-            	'highlighted_city', [
+            	'location_highlight', [
             		'==',
             		['get', 'code_muni'],
             		code
               ]);
 
-            // mask map beyond city boundaries
-            map.once('idle', function() {
+          },
+
+          mask : function( code ) {
+
+            code = code || app.story.map.controls.location.code
+
+            delete app.story.map.controls.location.monitoring
+
+            app.story.map.controls.location.monitoring = setInterval( function() {
 
               let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
-
               let features = municipalities.filter(d => d.properties.code_muni == code)
 
-              let city_polygon = turf.union(...features);
+              if ( features.length ) {
 
-              let city_mask = turf.mask( city_polygon );
+                console.log( 'Found the city’s polygon' )
 
-              if (!map.getSource('city-mask')) {
-                map.addSource('city-mask', {
-                    'type': 'geojson',
-                    'data': city_mask
-                });
+                if (!map.getSource('location-mask')) {
 
-                map.addLayer({
-                    'id': 'city-mask',
-                    'type': 'fill',
-                    'source': 'city-mask',
-                    'paint': {
-                        'fill-color': 'black',
-                        'fill-opacity': 0.55,
-                        'fill-outline-color': 'transparent'
-                    }
-                },
-                'highlighted_city');
-              } else {
-                  // if a city-mask is already loaded, no need to remove, just update its data to the new city_mask polygon
-                  map.getSource('city-mask').setData(city_mask);
+                  let polygon = turf.union(...features);
+                  let mask = turf.mask( polygon );
+
+                  map.addSource('location-mask', {
+                      'type': 'geojson',
+                      'data': mask
+                  });
+
+                  map.addLayer({
+                      'id': 'location-mask',
+                      'type': 'fill',
+                      'source': 'location-mask',
+                      'paint': {
+                          'fill-color': app.color( 'dark-100' ),
+                          'fill-opacity': 0,
+                          'fill-outline-color': app.color( 'highlight' )
+                      }
+                  },
+                  'road-label');
+
+                  app.story.map.controls.location.toggle.mask(
+                    app.story.map.controls.location.visibility.mask
+                  )
+
+                }
+
+                // else {
+                //     map.getSource('location-mask').setData(mask);
+                // }
+
+                clearInterval( app.story.map.controls.location.monitoring )
+
               }
 
-            })
+            }, 200 )
+
+          },
+
+          initialize : function( code ) {
+
+            app.story.map.controls.location.code = code
+
+            app.story.map.controls.location.reset()
+            app.story.map.controls.location.load()
+            app.story.map.controls.location.highlight( code )
+            // app.story.map.controls.location.mask( code )
 
           },
 
@@ -2087,13 +2183,13 @@ let app = {
           vanish : function(code) {
 
             map.setPaintProperty(
-            	'highlighted_city',
+            	'location_highlight',
             	'fill-color',
             	app.color( 'dark-100' )
             )
 
             map.setPaintProperty(
-            	'highlighted_city',
+            	'location_highlight',
             	'fill-opacity',
             	1
             )
@@ -2115,7 +2211,7 @@ let app = {
 
             app.story.map.controls.location.load()
 
-            if (map.getLayer("highlighted_city")) map.removeLayer("highlighted_city");
+            if (map.getLayer("location_highlight")) map.removeLayer("location_highlight");
             // if (map.getLayer("other_cities")) map.removeLayer("other_cities");
 
             if (!map.getLayer("vanishable")) {
@@ -2170,6 +2266,11 @@ let app = {
 
       app.story.carousel.instance.update()
       app.story.carousel.instance.keyboard.enable()
+
+      gtag('event', 'view_search_results', {
+        'event_category': 'engagement',
+        'event_label': JSON.stringify( center ),
+      });
 
     },
 
@@ -2228,11 +2329,15 @@ let app = {
 
   poster : {
 
+    element : document.querySelector( '.poster-canvas' ),
+
+    atelie : document.querySelector( '.poster-atelie' ),
+
     image : {
 
-      size : 800,
+      size : 1280,
 
-      element : document.getElementById( 'poster' ),
+      element : document.querySelector( '.poster-map' ),
 
       type : 'image/jpeg',
 
@@ -2252,7 +2357,7 @@ let app = {
           return canvas.toDataURL( app.poster.image.type )
 
         },
-
+        /*
         blob : function ( b64Data, contentType='', sliceSize=512 ) {
 
           let prefix = 'data:image/jpeg;base64,'
@@ -2279,6 +2384,7 @@ let app = {
           return blob;
 
         }
+        */
 
       }
 
@@ -2292,6 +2398,19 @@ let app = {
 
         option = option !== undefined ? option : false
         app.element.dataset.poster = option
+
+      },
+
+      initialize : function() {
+
+        app.poster.button.element.addEventListener( 'click', function() {
+
+          gtag('event', 'share', {
+            'event_category': 'engagement',
+            'event_label': 'image',
+          });
+
+        } )
 
       }
 
@@ -2311,21 +2430,18 @@ let app = {
 
       let offset = turf.circle(
         radius.center,
-        radius.km * 1.2
+        radius.km // * 1.2
       )
 
       let bbox = turf.bbox( offset )
       let bounds = turf.bboxPolygon( bbox )
 
-      let mask = turf.mask( circle, bounds )
-
-      mask.properties = {
-      	'fill': 'black',
-      	'fill-opacity': 0.66,
-      	'fill-outline-color': '%23d7a565'
+      bounds.properties = {
+        'fill': 'transparent',
+        'stroke-width': 0
       }
 
-      let overlay = JSON.stringify( mask )
+      let overlay = JSON.stringify( bounds )
 
       let layers = [
         {
@@ -2334,9 +2450,10 @@ let app = {
           "source" : "composite",
           "source-layer" : "people",
           "paint": {
-            "circle-color" :"white",
-            "circle-radius" :1 }
+            "circle-color" : "white",
+            "circle-radius" : 2
           }
+        }
       ]
 
       // generates the static map url (with labelless style)
@@ -2348,15 +2465,14 @@ let app = {
       url += '?'
       url += 'access_token=' + app.story.map.token
       url += '&'
-      url += 'addlayer=' + encodeURI( JSON.stringify( layers[ 0 ] ) )
+      url += 'addlayer=' + JSON.stringify( layers[ 0 ] )
       url += '&'
       url += 'before_layer=national-park'
 
       url = encodeURI( url )
 
       app.poster.image.element.crossOrigin = 'anonymous';
-      app.poster.image.element.src = url;
-
+      // app.poster.image.element.src = url; temp
 
       // promise and async function to wait for the image to load, and then convert it to dataurl
       function retrieveData() {
@@ -2365,16 +2481,29 @@ let app = {
 
       		app.poster.image.element.addEventListener( 'load', function( event ) {
 
-            const blob = app.poster.image.get.blob(
-              app.poster.image.get.url( event.currentTarget ),
-              app.poster.image.type
-            )
+            // let data = app.poster.image.get.url( event.currentTarget )
 
-            console.log( blob )
+            // app.poster.image.element.src = data
 
-            app.poster.button.element.href = URL.createObjectURL( blob )
+            // html2canvas( app.poster.element )
+            //   .then( canvas => {
+            //     app.poster.atelie.appendChild( canvas )
+            //   });
 
-            console.log( URL.createObjectURL( blob ) )
+
+
+            // app.poster.button.element.href = data
+
+            // const blob = app.poster.image.get.blob(
+            //   app.poster.image.get.url( event.currentTarget ),
+            //   app.poster.image.type
+            // )
+
+            // console.log( blob )
+
+            // app.poster.button.element.href = URL.createObjectURL( blob )
+
+            // console.log( URL.createObjectURL( blob ) )
 
           } )
 
@@ -2395,8 +2524,14 @@ let app = {
 
     initialize : function( inner, outer ) {
 
+      /* temp
+
       if ( !app.poster.image.url )
         app.poster.create( inner, outer )
+
+      app.poster.button.initialize()
+
+      */
 
     }
 

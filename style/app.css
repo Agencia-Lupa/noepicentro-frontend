@@ -1060,21 +1060,34 @@ input[type="checkbox"]:checked + div .switch::before {
 }
 
 .hints {
-  position: absolute;
-  top: 2.4rem;
-  right: 6.4rem;
+  position: fixed;
+  /* top: 0; */
+  right: 2rem;
+  left: 6.4rem;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 0;
   flex-direction: column;
   height: 6.4rem;
+  padding: 2.4rem 0;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 800px) {
+  .hints {
+    right: 6.4rem;
+    padding: 2.4rem 0;
+    box-sizing: content-box;
+    align-items: center;
+  }
 }
 
 .hint {
-  position: relative;
-  /* top: 0;
-  right: 0; */
+  position: absolute;
+  /* top: 0; */
+  right: auto;
+  left: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1086,8 +1099,10 @@ input[type="checkbox"]:checked + div .switch::before {
   max-width: 25.6rem;
   user-select: none;
   /* opacity: 0; */
-  /* transform: translateY( -1.6rem ); */
-  display: none;
+  transform: translateY( -8rem );
+  opacity: 0;
+  transition: transform .6s ease-in-out, opacity .6s ease-in-out;
+  /* display: none; */
 }
 
 .hint img {
@@ -1105,20 +1120,28 @@ input[type="checkbox"]:checked + div .switch::before {
 }
 
 [data-step="You are here"] .hint:nth-of-type(1) {
-  display: flex;
+  /* display: flex; */
+  transform: translateY( 0 );
+  opacity: 1;
 }
 
 [data-step="First death"] .hint:nth-of-type(2),
 [data-step="Following deaths"] .hint:nth-of-type(2) {
-  display: flex;
+  /* display: flex; */
+  transform: translateY( 0 );
+  opacity: 1;
 }
 
 [data-step="All deaths"] .hint:nth-of-type(3) {
-  display: flex;
+  /* display: flex; */
+  transform: translateY( 0 );
+  opacity: 1;
 }
 
 [data-step="Real distribution"] .hint:nth-of-type(4) {
-  display: flex;
+  /* display: flex; */
+  transform: translateY( 0 );
+  opacity: 1;
 }
 
 @media (min-width: 800px) {
@@ -1252,22 +1275,23 @@ input[type="checkbox"]:checked + div .switch::before {
   width: 100%;
 }
 
-.poster figure .canvas {
+.poster figure .poster-canvas {
   position: relative;
   width: 100%;
   margin: 0 0 2.4rem 0;
+  background: var(--dark-100);
   box-shadow: 0 2.4rem 4.8rem var(--highlight-shade);
 }
 
-.poster figure .canvas::before {
+.poster figure .poster-canvas::before {
   content: '';
   display: block;
   position: relative;
   width: 100%;
-  padding-top: 100%;
+  padding-top: 150%;
 }
 
-.poster figure .canvas::after {
+.poster figure .poster-canvas::after {
   content: '';
   display: flex;
   width: 4.8rem;
@@ -1293,7 +1317,7 @@ input[type="checkbox"]:checked + div .switch::before {
   }
 }
 
-.poster figure .canvas img {
+.poster figure .poster-preview {
   position: absolute;
   top: 0;
   right: 0;
@@ -1305,6 +1329,11 @@ input[type="checkbox"]:checked + div .switch::before {
   z-index: 1;
 }
 
+.poster figure .poster-content {
+  position: relative;
+  z-index: 2;
+}
+
 .poster .scroll .button {
   background: var(--dark-100);
   border-radius: 999rem;
@@ -1314,6 +1343,16 @@ input[type="checkbox"]:checked + div .switch::before {
 
 .poster .scroll > * {
   flex-shrink: 0;
+}
+
+.atelie {
+  position: absolute;
+  top: -9999px;
+  left: 0;
+  width: calc( 720px * 2 );
+  height: 1280px;
+  background: var(--dark-100);
+  z-index: 999;
 }
 
 @media (min-width: 800px) {
@@ -1338,11 +1377,12 @@ input[type="checkbox"]:checked + div .switch::before {
   }
 
   .poster figure {
-    max-width: calc( 32rem + 9.6rem );
+    /* max-width: calc( 32rem + 9.6rem ); */
+    max-width: calc( 14rem + 9.6rem );
     padding: 0 3.2rem 0 0;
   }
 
-  .poster figure .canvas {
+  .poster figure .poster-canvas {
     margin: 0;
   }
 
