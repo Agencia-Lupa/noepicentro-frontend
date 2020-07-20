@@ -1060,21 +1060,34 @@ input[type="checkbox"]:checked + div .switch::before {
 }
 
 .hints {
-  position: absolute;
-  top: 2.4rem;
-  right: 6.4rem;
+  position: fixed;
+  /* top: 0; */
+  right: 2rem;
+  left: 6.4rem;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  padding: 0;
   flex-direction: column;
   height: 6.4rem;
+  padding: 2.4rem 0;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+@media (min-width: 800px) {
+  .hints {
+    right: 6.4rem;
+    padding: 2.4rem 0;
+    box-sizing: content-box;
+    align-items: center;
+  }
 }
 
 .hint {
-  position: relative;
-  /* top: 0;
-  right: 0; */
+  position: absolute;
+  /* top: 0; */
+  right: auto;
+  left: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1086,8 +1099,10 @@ input[type="checkbox"]:checked + div .switch::before {
   max-width: 25.6rem;
   user-select: none;
   /* opacity: 0; */
-  /* transform: translateY( -1.6rem ); */
-  display: none;
+  transform: translateY( -8rem );
+  opacity: 0;
+  transition: transform .6s ease-in-out, opacity .6s ease-in-out;
+  /* display: none; */
 }
 
 .hint img {
@@ -1105,20 +1120,28 @@ input[type="checkbox"]:checked + div .switch::before {
 }
 
 [data-step="You are here"] .hint:nth-of-type(1) {
-  display: flex;
+  /* display: flex; */
+  transform: translateY( 0 );
+  opacity: 1;
 }
 
 [data-step="First death"] .hint:nth-of-type(2),
 [data-step="Following deaths"] .hint:nth-of-type(2) {
-  display: flex;
+  /* display: flex; */
+  transform: translateY( 0 );
+  opacity: 1;
 }
 
 [data-step="All deaths"] .hint:nth-of-type(3) {
-  display: flex;
+  /* display: flex; */
+  transform: translateY( 0 );
+  opacity: 1;
 }
 
 [data-step="Real distribution"] .hint:nth-of-type(4) {
-  display: flex;
+  /* display: flex; */
+  transform: translateY( 0 );
+  opacity: 1;
 }
 
 @media (min-width: 800px) {
