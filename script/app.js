@@ -9,10 +9,20 @@ let app = {
 
   element : document.querySelector( '.app' ),
 
-  color : function( name ) {
+  color : function( name, encoded = false ) {
 
     let style = getComputedStyle( document.documentElement )
     let value = style.getPropertyValue( '--' + name )
+
+    if ( encoded ) {
+
+      value = value.replace( /\s+/g, '' )
+      value = encodeURIComponent( value )
+      value = value.replace( /\(/g, '%28' )
+      value = value.replace( /\)/g, '%29' )
+
+    }
+
     return value
 
   },
@@ -2119,10 +2129,10 @@ let app = {
 
                 console.log( 'Found the city’s polygon' )
 
-                let polygon = turf.union(...features);
-                let mask = turf.mask( polygon );
-
                 if (!map.getSource('location-mask')) {
+
+                  let polygon = turf.union(...features);
+                  let mask = turf.mask( polygon );
 
                   map.addSource('location-mask', {
                       'type': 'geojson',
@@ -2141,15 +2151,15 @@ let app = {
                   },
                   'road-label');
 
+                  app.story.map.controls.location.toggle.mask(
+                    app.story.map.controls.location.visibility.mask
+                  )
+
                 }
 
                 // else {
                 //     map.getSource('location-mask').setData(mask);
                 // }
-
-                app.story.map.controls.location.toggle.mask(
-                  app.story.map.controls.location.visibility.mask
-                )
 
                 clearInterval( app.story.map.controls.location.monitoring )
 
@@ -2323,7 +2333,7 @@ let app = {
 
     image : {
 
-      size : 800,
+      size : 960,
 
       element : document.getElementById( 'poster' ),
 
@@ -2426,9 +2436,12 @@ let app = {
       let mask = turf.mask( circle, bounds )
 
       mask.properties = {
-      	'fill': 'black',
-      	'fill-opacity': 0.75,
-      	'fill-outline-color': app.color( 'highlight' )
+      	'fill': app.color( 'dark-100', 'encoded' ),
+      	// 'fill-opacity': 0.75,
+        'fill-opacity': 1,
+        // 'fill-outline-color': 'transparent',
+      	// 'fill-outline-color': encodeURIComponent('#') + app.color( 'highlight-hex' )
+        'fill-outline-color': app.color( 'dark-100', 'encoded' )
       }
 
       let overlay = JSON.stringify( mask )
@@ -2440,8 +2453,8 @@ let app = {
           "source" : "composite",
           "source-layer" : "people",
           "paint": {
-            "circle-color" :"white",
-            "circle-radius" :1 }
+            "circle-color" : app.color( 'light-100', 'encoded' ),
+            "circle-radius" : 1 }
           }
       ]
 
@@ -2454,7 +2467,7 @@ let app = {
       url += '?'
       url += 'access_token=' + app.story.map.token
       url += '&'
-      url += 'addlayer=' + encodeURI( JSON.stringify( layers[ 0 ] ) )
+      url += 'addlayer=' + JSON.stringify( layers[ 0 ] )
       url += '&'
       url += 'before_layer=national-park'
 
@@ -2503,6 +2516,8 @@ let app = {
 
       if ( !app.poster.image.url )
         app.poster.create( inner, outer )
+
+      app.poster.button.initialize()
 
     }
 
