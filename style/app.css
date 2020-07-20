@@ -1252,22 +1252,23 @@ input[type="checkbox"]:checked + div .switch::before {
   width: 100%;
 }
 
-.poster figure .canvas {
+.poster figure .poster-canvas {
   position: relative;
   width: 100%;
   margin: 0 0 2.4rem 0;
+  background: var(--dark-100);
   box-shadow: 0 2.4rem 4.8rem var(--highlight-shade);
 }
 
-.poster figure .canvas::before {
+.poster figure .poster-canvas::before {
   content: '';
   display: block;
   position: relative;
   width: 100%;
-  padding-top: 100%;
+  padding-top: 150%;
 }
 
-.poster figure .canvas::after {
+.poster figure .poster-canvas::after {
   content: '';
   display: flex;
   width: 4.8rem;
@@ -1293,7 +1294,7 @@ input[type="checkbox"]:checked + div .switch::before {
   }
 }
 
-.poster figure .canvas img {
+.poster figure .poster-preview {
   position: absolute;
   top: 0;
   right: 0;
@@ -1305,6 +1306,11 @@ input[type="checkbox"]:checked + div .switch::before {
   z-index: 1;
 }
 
+.poster figure .poster-content {
+  position: relative;
+  z-index: 2;
+}
+
 .poster .scroll .button {
   background: var(--dark-100);
   border-radius: 999rem;
@@ -1314,6 +1320,16 @@ input[type="checkbox"]:checked + div .switch::before {
 
 .poster .scroll > * {
   flex-shrink: 0;
+}
+
+.atelie {
+  position: absolute;
+  top: -9999px;
+  left: 0;
+  width: calc( 720px * 2 );
+  height: 1280px;
+  background: var(--dark-100);
+  z-index: 999;
 }
 
 @media (min-width: 800px) {
@@ -1338,11 +1354,12 @@ input[type="checkbox"]:checked + div .switch::before {
   }
 
   .poster figure {
-    max-width: calc( 32rem + 9.6rem );
+    /* max-width: calc( 32rem + 9.6rem ); */
+    max-width: calc( 14rem + 9.6rem );
     padding: 0 3.2rem 0 0;
   }
 
-  .poster figure .canvas {
+  .poster figure .poster-canvas {
     margin: 0;
   }
 

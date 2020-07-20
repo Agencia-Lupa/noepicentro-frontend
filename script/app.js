@@ -56,6 +56,13 @@ let app = {
 
       },
 
+      "User city" : function() {
+
+        let city = app.variables.result.user_city
+        return city.name_muni /* + ' (' + city.name_state + ')' */
+
+      },
+
       "User radius" : function() {
 
         let city = app.variables.result
@@ -2322,11 +2329,15 @@ let app = {
 
   poster : {
 
+    element : document.querySelector( '.poster-canvas' ),
+
+    atelie : document.querySelector( '.poster-atelie' ),
+
     image : {
 
       size : 1280,
 
-      element : document.getElementById( 'poster' ),
+      element : document.querySelector( '.poster-map' ),
 
       type : 'image/jpeg',
 
@@ -2440,7 +2451,7 @@ let app = {
           "source-layer" : "people",
           "paint": {
             "circle-color" : "white",
-            "circle-radius" : 1
+            "circle-radius" : 2
           }
         }
       ]
@@ -2461,8 +2472,7 @@ let app = {
       url = encodeURI( url )
 
       app.poster.image.element.crossOrigin = 'anonymous';
-      app.poster.image.element.src = url;
-
+      // app.poster.image.element.src = url; temp
 
       // promise and async function to wait for the image to load, and then convert it to dataurl
       function retrieveData() {
@@ -2471,10 +2481,18 @@ let app = {
 
       		app.poster.image.element.addEventListener( 'load', function( event ) {
 
-            let data = app.poster.image.get.url( event.currentTarget )
+            // let data = app.poster.image.get.url( event.currentTarget )
 
-            app.poster.image.element.src = data
-            app.poster.button.element.href = data
+            // app.poster.image.element.src = data
+
+            // html2canvas( app.poster.element )
+            //   .then( canvas => {
+            //     app.poster.atelie.appendChild( canvas )
+            //   });
+
+
+
+            // app.poster.button.element.href = data
 
             // const blob = app.poster.image.get.blob(
             //   app.poster.image.get.url( event.currentTarget ),
@@ -2506,10 +2524,14 @@ let app = {
 
     initialize : function( inner, outer ) {
 
+      /* temp
+
       if ( !app.poster.image.url )
         app.poster.create( inner, outer )
 
       app.poster.button.initialize()
+
+      */
 
     }
 

@@ -464,6 +464,18 @@
 
       <div class="poster">
 
+        <div class="atelie" aria-hidden="true">
+          <div class="poster-html">
+            <img class="poster-map" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+            <div class="poster-content">
+              <em data-var="User city"></em>
+            </div>
+          </div>
+          <div class="poster-canvas">
+
+          </div>
+        </div>
+
         <article>
 
           <div class="header-container">
@@ -488,14 +500,14 @@
           <div class="scroll">
 
             <figure>
-              <div class="canvas">
-                <img id="poster" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=">
+              <div class="poster-canvas">
+                <img class="poster-preview" src="media/no-epicentro.png">
               </div>
             </figure>
 
             <div>
 
-              <a id="download" class="button" download="no-epicentro.jpg">
+              <a id="download" class="button" download="no-epicentro.png" href="media/no-epicentro.png">
                 <span class="material-icons" aria-hidden="true">save_alt</span>
                 <span>Salvar imagem</span>
               </a>
@@ -524,6 +536,7 @@
     <script src="script/app.js"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
+    <script src="script/html2canvas.min.js" async></script>
 
   </body>
 </html>
