@@ -9,20 +9,10 @@ let app = {
 
   element : document.querySelector( '.app' ),
 
-  color : function( name, encoded = false ) {
+  color : function( name ) {
 
     let style = getComputedStyle( document.documentElement )
     let value = style.getPropertyValue( '--' + name )
-
-    if ( encoded ) {
-
-      value = value.replace( /\s+/g, '' )
-      value = encodeURIComponent( value )
-      value = value.replace( /\(/g, '%28' )
-      value = value.replace( /\)/g, '%29' )
-
-    }
-
     return value
 
   },
@@ -2333,7 +2323,7 @@ let app = {
 
     image : {
 
-      size : 960,
+      size : 1280,
 
       element : document.getElementById( 'poster' ),
 
@@ -2355,7 +2345,7 @@ let app = {
           return canvas.toDataURL( app.poster.image.type )
 
         },
-
+        /*
         blob : function ( b64Data, contentType='', sliceSize=512 ) {
 
           let prefix = 'data:image/jpeg;base64,'
@@ -2382,6 +2372,7 @@ let app = {
           return blob;
 
         }
+        */
 
       }
 
@@ -2427,24 +2418,18 @@ let app = {
 
       let offset = turf.circle(
         radius.center,
-        radius.km * 1.2
+        radius.km // * 1.2
       )
 
       let bbox = turf.bbox( offset )
       let bounds = turf.bboxPolygon( bbox )
 
-      let mask = turf.mask( circle, bounds )
-
-      mask.properties = {
-      	'fill': app.color( 'dark-100', 'encoded' ),
-      	// 'fill-opacity': 0.75,
-        'fill-opacity': 1,
-        // 'fill-outline-color': 'transparent',
-      	// 'fill-outline-color': encodeURIComponent('#') + app.color( 'highlight-hex' )
-        'fill-outline-color': app.color( 'dark-100', 'encoded' )
+      bounds.properties = {
+        'fill': 'transparent',
+        'stroke-width': 0
       }
 
-      let overlay = JSON.stringify( mask )
+      let overlay = JSON.stringify( bounds )
 
       let layers = [
         {
@@ -2453,9 +2438,10 @@ let app = {
           "source" : "composite",
           "source-layer" : "people",
           "paint": {
-            "circle-color" : app.color( 'light-100', 'encoded' ),
-            "circle-radius" : 1 }
+            "circle-color" : "white",
+            "circle-radius" : 1
           }
+        }
       ]
 
       // generates the static map url (with labelless style)
@@ -2484,16 +2470,21 @@ let app = {
 
       		app.poster.image.element.addEventListener( 'load', function( event ) {
 
-            const blob = app.poster.image.get.blob(
-              app.poster.image.get.url( event.currentTarget ),
-              app.poster.image.type
-            )
+            let data = app.poster.image.get.url( event.currentTarget )
 
-            console.log( blob )
+            app.poster.image.element.src = data
+            app.poster.button.element.href = data
 
-            app.poster.button.element.href = URL.createObjectURL( blob )
+            // const blob = app.poster.image.get.blob(
+            //   app.poster.image.get.url( event.currentTarget ),
+            //   app.poster.image.type
+            // )
 
-            console.log( URL.createObjectURL( blob ) )
+            // console.log( blob )
+
+            // app.poster.button.element.href = URL.createObjectURL( blob )
+
+            // console.log( URL.createObjectURL( blob ) )
 
           } )
 
