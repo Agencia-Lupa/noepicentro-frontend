@@ -1527,6 +1527,7 @@ let app = {
               						'interpolate',
               						['linear'],
               						['var', 'sqrt_deaths'],
+                          0, 0,
               						1, 1,
               						Math.sqrt(max_deaths), 20,
               					]
