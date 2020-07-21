@@ -1200,7 +1200,7 @@ let app = {
           app.story.map.controls.circle.toggle( false, 0 )
           app.story.map.controls.circle.toggle( true, 1 )
           app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.circle.fitOnScreen( 1, 60 )
+          app.story.map.controls.circle.fitOnScreen( 1, 60, -38 )
           app.story.map.controls.location.toggle.highlight( false )
           app.story.map.controls.location.toggle.mask( false )
           // app.story.map.controls.location.vanishAllBelow( false )
@@ -1742,7 +1742,7 @@ let app = {
 
           },
 
-          fitOnScreen : function( index, pitch = 0 ) {
+          fitOnScreen : function( index, pitch = 0, bearing = 0 ) {
 
             let circle = app.story.map.controls.circle.list[ index ]
           	let bbox = turf.bbox( circle )
@@ -1752,7 +1752,8 @@ let app = {
               {
                 padding: app.story.map.padding(),
                 duration: 6000,
-                pitch: pitch
+                pitch: pitch,
+                bearing: bearing
           	  }
             )
 
