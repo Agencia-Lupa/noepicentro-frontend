@@ -2133,7 +2133,10 @@ let app = {
                 if (!map.getSource('location-mask')) {
 
                   let polygon = turf.union(...features);
-                  let mask = turf.mask( polygon );
+                  let world_bbox = turf.bboxPolygon( [ -180, -90, 180, 90 ] );
+                  //let mask = turf.mask( polygon );
+                  let mask = turf.difference(world_bbox, polygon);
+                  
 
                   map.addSource('location-mask', {
                       'type': 'geojson',
