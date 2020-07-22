@@ -1106,7 +1106,6 @@ input[type="checkbox"]:checked + div .switch::before {
 }
 
 .hint img {
-  border: 1px solid var(--light-10);
   height: 4.8rem;
   width: 4.8rem;
   flex-shrink: 0;
@@ -1132,7 +1131,8 @@ input[type="checkbox"]:checked + div .switch::before {
   opacity: 1;
 }
 
-[data-step="All deaths"] .hint:nth-of-type(3) {
+[data-step="All deaths"] .hint:nth-of-type(3),
+[data-step="Featured city 1 location"] .hint:nth-of-type(3) {
   /* display: flex; */
   transform: translateY( 0 );
   opacity: 1;
