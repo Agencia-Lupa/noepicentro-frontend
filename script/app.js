@@ -700,12 +700,12 @@ let app = {
 
           app.story.begin( center )
 
-        }
+          gtag('event', 'geolocation', {
+            'event_category': 'engagement',
+            'event_label': JSON.stringify( center )
+          });
 
-        gtag('event', 'geolocation', {
-          'event_category': 'engagement',
-          'event_label': JSON.stringify( center )
-        });
+        }
 
       },
 
