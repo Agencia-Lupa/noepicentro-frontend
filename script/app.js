@@ -2117,12 +2117,14 @@ let app = {
 
             code = code || app.story.map.controls.location.code
 
-            delete app.story.map.controls.location.monitoring
+            //delete app.story.map.controls.location.monitoring
 
-            app.story.map.controls.location.monitoring = setInterval( function() {
+            //app.story.map.controls.location.monitoring = setInterval( function() {
 
               let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
               let features = municipalities.filter(d => d.properties.code_muni == code)
+
+              console.log("Quantas features?", features.length);
 
               if ( features.length ) {
 
@@ -2131,7 +2133,10 @@ let app = {
                 if (!map.getSource('location-mask')) {
 
                   let polygon = turf.union(...features);
-                  let mask = turf.mask( polygon );
+                  let world_bbox = turf.bboxPolygon( [ -180, -90, 180, 90 ] );
+                  //let mask = turf.mask( polygon );
+                  let mask = turf.difference(world_bbox, polygon);
+                  
 
                   map.addSource('location-mask', {
                       'type': 'geojson',
@@ -2160,11 +2165,11 @@ let app = {
                 //     map.getSource('location-mask').setData(mask);
                 // }
 
-                clearInterval( app.story.map.controls.location.monitoring )
+                //clearInterval( app.story.map.controls.location.monitoring )
 
               }
 
-            }, 200 )
+            //}, 200 )
 
           },
 
