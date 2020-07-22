@@ -532,7 +532,7 @@ let app = {
 
         gtag('event', 'search', {
           'event_category': 'engagement',
-          'event_label': address,
+          'event_label': app.search.input.sanitized(),
         });
 
       },
@@ -702,20 +702,19 @@ let app = {
 
         }
 
-        gtag('event', 'search', {
+        gtag('event', 'geolocation', {
           'event_category': 'engagement',
-          'event_label': 'geolocation',
-          'value': 1
+          'event_label': JSON.stringify( center )
         });
 
       },
 
       error : function( error ) {
 
-        gtag('event', 'search', {
+        gtag('event', 'geolocation', {
           'event_category': 'engagement',
-          'event_label': 'geolocation',
-          'value': 0
+          'event_label': 'error',
+          'value': error.code
         });
 
         console.error( error.code, error.message )
@@ -2136,7 +2135,7 @@ let app = {
                   let world_bbox = turf.bboxPolygon( [ -180, -90, 180, 90 ] );
                   //let mask = turf.mask( polygon );
                   let mask = turf.difference(world_bbox, polygon);
-                  
+
 
                   map.addSource('location-mask', {
                       'type': 'geojson',
