@@ -2282,6 +2282,8 @@ let app = {
       app.story.carousel.instance.update()
       app.story.carousel.instance.keyboard.enable()
 
+      app.poster.reset()
+
       gtag('event', 'view_search_results', {
         'event_category': 'engagement',
         'event_label': JSON.stringify( center ),
@@ -2346,6 +2348,8 @@ let app = {
 
     element : document.querySelector( '.poster' ),
 
+    placeholder : 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+
     atelie : {
 
       element : document.querySelector( '.atelie' ),
@@ -2386,14 +2390,19 @@ let app = {
 
           element : document.querySelector( '.poster-map' ),
 
+          reset : function() {
+
+            let map = app.poster.atelie.html.map.element
+            map.src = app.poster.placeholder
+
+          },
+
           update : function( url ) {
 
             let map = app.poster.atelie.html.map.element
 
-            console.log( '***', url )
-
             map.crossOrigin = 'Anonymous'
-            map.addEventListener( 'load', app.poster.atelie.convert )
+            map.addEventListener( 'load', app.poster.atelie.convert, { once : true } )
             map.src = url
 
           }
@@ -2404,7 +2413,14 @@ let app = {
 
       canvas : {
 
-        element : document.querySelector( '.atelie .canvas' ),
+        reset : function() {
+
+          let canvas = document.querySelector( '.atelie canvas' )
+
+          if ( canvas )
+            canvas.remove()
+
+        },
 
       }
 
@@ -2413,6 +2429,12 @@ let app = {
     preview : {
 
       element : document.querySelector( '.poster-preview' ),
+
+      reset : function() {
+
+        app.poster.preview.update( app.poster.placeholder )
+
+      },
 
       update : function( url ) {
 
@@ -2564,6 +2586,12 @@ let app = {
 
       },
 
+      reset : function() {
+
+        app.poster.button.element.removeAttribute( 'href' )
+
+      },
+
       update : function( url ) {
 
         app.poster.button.element.addEventListener( 'click', function() {
@@ -2579,6 +2607,15 @@ let app = {
         app.poster.element.dataset.current = app.poster.element.dataset.loading
 
       }
+
+    },
+
+    reset : function() {
+
+      app.poster.preview.reset()
+      app.poster.atelie.html.map.reset()
+      app.poster.atelie.canvas.reset()
+      app.poster.button.reset()
 
     },
 
