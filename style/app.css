@@ -278,6 +278,10 @@ h1 .kicker {
   left: 0;
 }
 
+.cover figure {
+  background: #202020;
+}
+
 /*
 .cover figure img {
   width: 100%;
