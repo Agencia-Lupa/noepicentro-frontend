@@ -696,7 +696,8 @@ button {
   left: 0;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  /* align-items: flex-end; */
+  align-items: center;
   pointer-events: none;
   z-index: 2;
   padding: 0 1.2rem;
@@ -856,7 +857,7 @@ button {
   form {
     max-width: 37.5rem;
     border-radius: 1.6rem;
-    margin-bottom: 6.4rem;
+    /* margin-bottom: 6.4rem; */
   }
 
 }
