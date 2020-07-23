@@ -317,11 +317,11 @@ h1 .kicker {
 
 .cover figure img {
   max-width: initial;
-  transform: scale(.5) translate3d( 0, 0, 0 );
+  transform: scale(.5) translate3d( -6%, 6%, 0 );
   animation-direction: alternate;
-  animation: move 48s infinite;
+  animation: move 72s infinite;
   transform-origin: center center;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: ease;
 }
 
 [data-page]:not([data-page="main"]) .cover figure img {
@@ -330,13 +330,13 @@ h1 .kicker {
 
 @keyframes move {
   0% {
-    transform: scale(.5) translate3d( 0, 0, 0 )
+    transform: scale(.5) translate3d( -12%, 12%, 0 )
   }
   50% {
     transform: scale(.5) translate3d( 12%, -12%, 0 )
   }
   100% {
-    transform: scale(.5) translate3d( 0%, 0, 0 )
+    transform: scale(.5) translate3d( -12%, 12%, 0 )
   }
 }
 
@@ -349,18 +349,18 @@ h1 .kicker {
   }
 
   .cover figure img {
-    transform: translate3d( 0, 0, 0 );
+    transform: scale(.95) translate3d( -12%, 12%, 0 )
   }
 
   @keyframes move {
     0% {
-      transform: translate3d( 0, 0, 0 )
+      transform: scale(.95) translate3d( -12%, 12%, 0 )
     }
     50% {
-      transform: translate3d( 12%, -12%, 0 )
+      transform: scale(.95) translate3d( 12%, -12%, 0 )
     }
     100% {
-      transform: translate3d( 0%, 0, 0 )
+      transform: scale(.95) translate3d( -12%, 12%, 0 )
     }
   }
 
