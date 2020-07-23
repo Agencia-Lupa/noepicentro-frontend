@@ -1416,6 +1416,7 @@ input[type="checkbox"]:checked + div .switch::before {
   left: 0;
   z-index: 1;
   border-radius: 320px;
+  border: 1px solid var(--highlight);
 }
 
 .atelie .poster-figure figcaption {
