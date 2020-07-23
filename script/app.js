@@ -221,6 +221,16 @@ let app = {
 
         return markup
 
+      },
+
+      "Update short" : function() {
+
+        let timestamp = app.variables.initial.date
+        let noon = 'T12:00:00-03:00'
+        let date =  new Date( timestamp + noon )
+
+        return date.toLocaleDateString( 'pt-BR' )
+
       }
 
     },
@@ -2342,7 +2352,11 @@ let app = {
 
       convert : function() {
 
-        html2canvas( app.poster.atelie.html.element )
+        let options = {
+          backgroundColor : app.color( 'dark-100' )
+        }
+
+        html2canvas( app.poster.atelie.html.element, options )
           .then( canvas => {
 
             console.log( canvas )

@@ -1361,6 +1361,10 @@ input[type="checkbox"]:checked + div .switch::before {
   height: 1080px;
 }
 
+.atelie canvas {
+  background: var(--dark-100);
+}
+
 @media (min-width: 800px) {
 
   .poster .header-container {
