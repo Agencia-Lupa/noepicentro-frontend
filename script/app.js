@@ -1563,7 +1563,7 @@ let app = {
 
           reset : function() {
 
-            for ( let marker of document.querySelectorAll( '.marker' ) )
+            for ( let marker of document.querySelectorAll( '.story .marker' ) )
               marker.remove()
 
             app.story.map.controls.marker.list = []
