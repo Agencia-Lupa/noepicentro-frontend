@@ -1,5 +1,5 @@
 let map;
-let first_47; // temp
+//let first_47; // temp
 
 
 
@@ -835,8 +835,8 @@ let app = {
 
                 app.story.map.controls.people.initialize()
                 app.story.map.controls.people.toggle( { opacity: 1, radius: 1.5, color: '#555' } )
-                app.story.map.controls.people.highlight.someInsideCircle.initialize( 1, 'first-death' )
-                app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
+                app.story.map.controls.people.highlight.someInsideCircle.initialize( 47 )
+                //app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
                 app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
                 app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
 
@@ -1882,30 +1882,6 @@ let app = {
 
             someInsideCircle : {
 
-              zoomToHighlight : function( center ) {
-
-                center = center || app.story.map.user
-
-              	// map.zoomTo(18);
-
-              	let center_pt = turf.point(center);
-              	// spreading the first deaths in a 100m radius around user location
-              	let mini_circle = turf.circle(center_pt, .1);
-              	let mini_circle_bbox = turf.bbox(mini_circle);
-
-              	// map.fitBounds(
-              	// 	mini_circle_bbox, {
-              	// 		padding: {
-              	// 			top: 0,
-              	// 			left: 0,
-              	// 			right: 0,
-              	// 			bottom: 0 // 200
-              	// 		}
-              	// 	});
-
-              	return mini_circle;
-              },
-
               // remove :  function() {
               // 	if (map.getLayer('first-deaths')) {
               // 		// this will sort of make a small shrinking transition, before removing
@@ -1926,77 +1902,126 @@ let app = {
 
               },
 
-              initialize : function( amount, name ) {
+              initialize : function( amount ) {
 
                 if ( map.getLayer( name ) )
                   return false
 
-                let circle = app.story.map.controls.people.highlight.someInsideCircle.zoomToHighlight()
+                let first_47;
+                let first_47_len = 0;
 
-              	let features_to_avoid = map.queryRenderedFeatures({
+                let center = app.story.map.user;
+                let center_pt = turf.point(center);
+
+                let tries = 0;
+                let radiuses = [0.075, 0.1, 0.15, 0.2, 0.25, 0.5, 1, 2.5];
+
+                let features_to_avoid = map.queryRenderedFeatures({
               		layers: ["water", "landuse", "national-park"]
               	});
 
-              	let circle_livable;
+                while (first_47_len < amount) {
+                
+                  // defines the circle for this iteration
+                  let radius = radiuses[tries];
 
-              	if (features_to_avoid.length > 1) {
-              		let poly_features_to_avoid = turf.union(...features_to_avoid);
-              		circle_livable = turf.difference(circle, poly_features_to_avoid);
-              	} else circle_livable = circle;
+                  console.log("looping, try: ", tries, ", radius: ", radius);
 
-              	let bboxCircle = turf.bbox(circle);
+                  let circle = turf.circle(center_pt, radius);
+                  let bboxCircle = turf.bbox(circle);
 
-              	let random_points = turf.randomPoint(amount, {
-              		bbox: bboxCircle
-              	});
+                  let livable_circle;
 
-              	let inside_points = turf.pointsWithinPolygon(random_points, circle_livable);
+                  if (features_to_avoid.length > 1) {
 
-              	if (inside_points) {
-              		if (first_47) {
-              			first_47.features = [...first_47.features, ...inside_points.features]
-              		} else first_47 = inside_points;
-              	}
-              	let nof_inside_points = first_47.features.length;
-              	let tries = 0;
+                    let features_to_avoid_pol = turf.union(...features_to_avoid);
+                    livable_circle = turf.difference(circle, features_to_avoid_pol);
+                    if (!livable_circle) {
+                      // in this case, all the circle area is unlivable, so increase de radius
+                      // and jump to the next iteration
+                      tries ++
+                      continue
+                    }; 
 
-              	//test if points are inside livable area of circle
-              	while (nof_inside_points < amount) {
-              		let extra_point = turf.randomPoint(1, {
-              			bbox: bboxCircle
-              		});
-              		let extra_point_within = turf.pointsWithinPolygon(extra_point, circle_livable);
-              		if (extra_point_within) {
-              			if (first_47) first_47.features = [...first_47.features, ...extra_point_within.features];
-              			else first_47 = extra_point_within;
-              			nof_inside_points++;
-              		}
-              		tries++
-              		if (tries >= 10000) break;
-              	};
+                  } else livable_circle = circle;
 
-              	if (!map.getLayer( name )) {
-              		map.addSource( name , {
-              			'type': 'geojson',
-              			'data': first_47
-              		});
+                  // generates points in the iteration's circle bbox
+                  let random_points = turf.randomPoint(100, {
+                    bbox: bboxCircle
+                  });
 
-              		map.addLayer({
-              			'id': name,
-              			'type': 'circle',
-              			'source': name,
-              			'paint': {
-              				'circle-radius': 3,
-              				'circle-color': app.color( 'light-100' ),
-                      'circle-opacity': 0
-              			}
-              		});
+                  // get points inside of livable circle
+                  let inside_points = turf.pointsWithinPolygon(random_points, livable_circle);
 
-                  map.moveLayer(name, 'road-label')
+                  // test if there were any, and updates the points collected so far
+                  if (inside_points) {
+                    if (first_47) {
+                      first_47.features = [...first_47.features, ...inside_points.features]
+                    } else first_47 = inside_points;
+                  }
 
-              	} else {
-              		map.getSource(name).setData(first_47);
-              	}
+                  first_47_len = first_47.features.length;
+
+                  console.log("Quantidade até agora ", first_47_len, first_47);
+
+                  // test if we got the amount needed, then break. else, increase circle radius and repeat.
+                  if (first_47_len >= amount) {
+                    first_47.features = [...first_47.features].slice(0,47);
+                    console.log("Opa, chegou. ", first_47);
+                    break
+                  }
+
+                  tries ++
+
+                  // edge cases scenario: if couldn't generate 47 points in liveable areas in
+                  // a 2.5km radius, just place the rest anywhere, regardless if in liveable area or not
+                  if (tries > radiuses.length - 1) {
+                    console.log("Não deu, vai em qq lugar.")
+                    let any_random_points = turf.randomPoint(amount - first_47_len, {bbox: bboxCircle});
+                    first_47.features = [...first_47.features, ...any_random_points.features];
+                    break;
+                  }
+                }
+
+                // build first death object from the first 47 deaths object
+
+                let first = { ... first_47 };
+                first.features = [...first_47.features].slice(0,1);
+
+                let data = {
+                  'first-death' : first,
+                  'first-deaths': first_47
+                }
+
+                console.log(data);
+
+                for (name of ['first-death', 'first-deaths']) {
+                  if (!map.getLayer( name )) {
+                    map.addSource( name , {
+                      'type': 'geojson',
+                      'data': data[name]
+                    });
+  
+                    map.addLayer({
+                      'id': name,
+                      'type': 'circle',
+                      'source': name,
+                      'paint': {
+                        'circle-radius': 3,
+                        'circle-color': app.color( 'light-100' ),
+                        'circle-opacity': 0
+                      }
+                    },
+                    'road-label');
+                  } else {
+                    
+                    map.getSource(name).setData(data[name]);
+                  }
+                }
+                 // map.moveLayer(name, 'road-label')
+
+              	 
+              	
               }
 
             }
