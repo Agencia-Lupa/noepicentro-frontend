@@ -380,7 +380,8 @@ h1.kicker {
   border: none;
 }
 
-.brands a + a::before {
+/* .brands a + a::before, */
+.pipe {
   content: '';
   display: flex;
   height: 3.2rem;
@@ -388,6 +389,7 @@ h1.kicker {
   margin: 0 1.6rem;
   background: var(--light-50);
 }
+
 
 .brands a:first-child img {
   width: 8rem;
@@ -1486,6 +1488,7 @@ input[type="checkbox"]:checked + div .switch::before {
   position: absolute;
   bottom: 0;
   left: 0;
+  height: 18px;
 }
 
 .atelie canvas {
