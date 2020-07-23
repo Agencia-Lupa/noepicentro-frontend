@@ -192,9 +192,16 @@ button {
   user-select: auto;
 }
 
-h1.kicker {
+h1.kicker,
+h1 .kicker {
   padding-left: 0;
   padding-right: 0;
+}
+
+h1 .kicker {
+  display: flex;
+  justify-content: flex-start;
+  color: var(--highlight);
 }
 
 .button.filler {
@@ -367,8 +374,96 @@ h1.kicker {
   z-index: 2;
 }
 
-.brands {
-  margin-top: 28.8rem;
+.above-the-fold {
+  display: flex;
+  flex-direction: column;
+}
+
+.intro {
+  margin-top: 10vh;
+}
+
+.intro h1 {
+  max-width: 36rem;
+}
+
+.dates {
+  opacity: .66;
+  margin-bottom: 4.8rem;
+}
+
+.dates small.notes {
+  color: var(--light-33);
+}
+
+.lead,
+.button.scroll-down {
+  display: none;
+}
+
+.brands-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 6.4rem;
+  margin: 1.6rem 0;
+}
+
+@media (min-width: 800px) and (min-height: 640px) {
+
+  .above-the-fold {
+    height: 100vh;
+    justify-content: space-between;
+    margin-bottom: 4.8rem;
+  }
+
+  .above-the-fold::after {
+    content: '';
+    display: flex;
+    width: 100%;
+    height: 6.4rem;
+    margin-bottom: 4.8rem;
+    flex-shrink: 0;
+  }
+
+  .intro {
+    margin-top: 0;
+  }
+
+  .lead {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button.scroll-down {
+    display: flex;
+    padding-right: 0;
+    padding-left: 0;
+    color: var(--light-33);
+  }
+
+  .dates {
+    margin-bottom: 0;
+  }
+
+  .brands-wrapper {
+    margin: 4.8rem 0 0;
+  }
+
+}
+
+@media (min-width: 800px) and (min-height: 800px) {
+
+  .above-the-fold,
+  .above-the-fold::after {
+    margin-bottom: 9.6rem;
+  }
+
+  .brands-wrapper {
+    margin-top: 9.6rem 0 0;
+  }
+
 }
 
 .brands,
@@ -380,7 +475,6 @@ h1.kicker {
   border: none;
 }
 
-/* .brands a + a::before, */
 .pipe {
   content: '';
   display: flex;
@@ -389,7 +483,6 @@ h1.kicker {
   margin: 0 1.6rem;
   background: var(--light-50);
 }
-
 
 .brands a:first-child img {
   width: 8rem;
@@ -436,10 +529,14 @@ dt {
   cursor: default;
 }
 
+.main .lead .material-icons {
+  color: var(--light-50);
+}
+
 @media( min-width: 800px ) {
 
   .brands {
-    margin-top: 19.6rem;
+    /* margin-top: 19.6rem; */
   }
 
   .main {
