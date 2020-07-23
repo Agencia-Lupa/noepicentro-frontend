@@ -2334,35 +2334,97 @@ let app = {
 
   poster : {
 
-    element : document.querySelector( '.poster-canvas' ),
+    element : document.querySelector( '.poster' ),
 
-    atelie : document.querySelector( '.poster-atelie' ),
+    atelie : {
+
+      element : document.querySelector( '.atelie' ),
+
+      convert : function() {
+
+        html2canvas( app.poster.atelie.html.element )
+          .then( canvas => {
+
+            console.log( canvas )
+
+            app.poster.atelie.element.appendChild( canvas )
+
+            let url = canvas.toDataURL( app.poster.map.type )
+            // let blob = app.poster.image.get.blob( url, app.poster.map.type )
+
+            // app.poster.preview.update( blob )
+            // app.poster.button.update( blob )
+
+            app.poster.preview.update( url )
+            app.poster.button.update( url )
+
+
+
+          } )
+
+      },
+
+      html : {
+
+        element : document.querySelector( '.poster-html' ),
+
+        map : {
+
+          element : document.querySelector( '.poster-map' ),
+
+          update : function( url ) {
+
+            let map = app.poster.atelie.html.map.element
+
+            console.log( '***', url )
+
+            map.crossOrigin = 'Anonymous'
+            map.addEventListener( 'load', app.poster.atelie.convert )
+            map.src = url
+
+          }
+
+        }
+
+      },
+
+      canvas : {
+
+        element : document.querySelector( '.atelie .canvas' ),
+
+      }
+
+    },
+
+    preview : {
+
+      element : document.querySelector( '.poster-preview' ),
+
+      update : function( url ) {
+
+        app.poster.preview.element.src = url
+
+      }
+
+    },
 
     image : {
 
-      size : 1280,
-
-      element : document.querySelector( '.poster-map' ),
-
-      type : 'image/jpeg',
-
-      url : undefined,
-
       get : {
 
-        url : function ( img ) {
+        url : function ( image ) {
 
           const canvas = document.createElement( 'canvas' )
           const ctx = canvas.getContext( '2d' )
 
-          canvas.width = app.poster.image.size
-          canvas.height = app.poster.image.size
+          canvas.width = app.poster.map.size
+          canvas.height = app.poster.map.size
 
-          ctx.drawImage( img, 0, 0 )
-          return canvas.toDataURL( app.poster.image.type )
+          ctx.drawImage( image, 0, 0 )
+          return canvas.toDataURL( app.poster.map.type )
 
         },
-        /*
+
         blob : function ( b64Data, contentType='', sliceSize=512 ) {
 
           let prefix = 'data:image/jpeg;base64,'
@@ -2389,7 +2451,89 @@ let app = {
           return blob;
 
         }
-        */
+
+      }
+
+    },
+
+    map : {
+
+      element : document.querySelector( '.poster-map' ),
+
+      type : 'image/jpeg',
+      size : 640,
+
+      handle : function() {
+
+        console.log( this )
+
+        let url = app.poster.image.get.url( this )
+
+        app.poster.atelie.html.map.update( url )
+
+      },
+
+      initialize : function( inner, outer ) {
+
+        let radius = app.story.map.radius(
+          inner,
+          outer
+        )
+
+        let circle = turf.circle(
+          radius.center,
+          radius.km
+        )
+
+        let offset = turf.circle(
+          radius.center,
+          radius.km
+        )
+
+        let bbox = turf.bbox( offset )
+        let bounds = turf.bboxPolygon( bbox )
+
+        bounds.properties = {
+          'fill': 'transparent',
+          'stroke-width': 0
+        }
+
+        let overlay = JSON.stringify( bounds )
+
+        let layers = [
+          {
+            "id" : "people-overlay",
+            "type" : "circle",
+            "source" : "composite",
+            "source-layer" : "people",
+            "paint": {
+              "circle-color" : "white",
+              "circle-radius" : 1
+            }
+          }
+        ]
+
+        let url = 'https://api.mapbox.com/styles/v1/tiagombp/ckcqo5hn702i31ipcs9f53lve/static/'
+
+        url += 'geojson(' + overlay + ')'
+        url += '/auto/'
+        url += app.poster.map.size + 'x' + app.poster.map.size
+        url += '?'
+        url += 'access_token=' + app.story.map.token
+        url += '&'
+        url += 'addlayer=' + JSON.stringify( layers[ 0 ] )
+        url += '&'
+        url += 'before_layer=national-park'
+
+        url = encodeURI( url )
+
+        let map = new Image
+
+        map.crossOrigin = 'Anonymous'
+        map.addEventListener( 'load', app.poster.map.handle )
+        map.src = url;
+
+        console.log( url )
 
       }
 
@@ -2406,7 +2550,7 @@ let app = {
 
       },
 
-      initialize : function() {
+      update : function( url ) {
 
         app.poster.button.element.addEventListener( 'click', function() {
 
@@ -2417,126 +2561,23 @@ let app = {
 
         } )
 
-      }
-
-    },
-
-    create : function( inner, outer ) {
-
-      let radius = app.story.map.radius(
-        inner,
-        outer
-      )
-
-      let circle = turf.circle(
-        radius.center,
-        radius.km
-      )
-
-      let offset = turf.circle(
-        radius.center,
-        radius.km // * 1.2
-      )
-
-      let bbox = turf.bbox( offset )
-      let bounds = turf.bboxPolygon( bbox )
-
-      bounds.properties = {
-        'fill': 'transparent',
-        'stroke-width': 0
-      }
-
-      let overlay = JSON.stringify( bounds )
-
-      let layers = [
-        {
-          "id" : "people-overlay",
-          "type" : "circle",
-          "source" : "composite",
-          "source-layer" : "people",
-          "paint": {
-            "circle-color" : "white",
-            "circle-radius" : 2
-          }
-        }
-      ]
-
-      // generates the static map url (with labelless style)
-      let url = 'https://api.mapbox.com/styles/v1/tiagombp/ckcqo5hn702i31ipcs9f53lve/static/'
-
-      url += 'geojson(' + overlay + ')'
-      url += '/auto/'
-      url += app.poster.image.size + 'x' + app.poster.image.size
-      url += '?'
-      url += 'access_token=' + app.story.map.token
-      url += '&'
-      url += 'addlayer=' + JSON.stringify( layers[ 0 ] )
-      url += '&'
-      url += 'before_layer=national-park'
-
-      url = encodeURI( url )
-
-      app.poster.image.element.crossOrigin = 'anonymous';
-      // app.poster.image.element.src = url; temp
-
-      // promise and async function to wait for the image to load, and then convert it to dataurl
-      function retrieveData() {
-
-      	return new Promise( resolve => {
-
-      		app.poster.image.element.addEventListener( 'load', function( event ) {
-
-            // let data = app.poster.image.get.url( event.currentTarget )
-
-            // app.poster.image.element.src = data
-
-            // html2canvas( app.poster.element )
-            //   .then( canvas => {
-            //     app.poster.atelie.appendChild( canvas )
-            //   });
-
-
-
-            // app.poster.button.element.href = data
-
-            // const blob = app.poster.image.get.blob(
-            //   app.poster.image.get.url( event.currentTarget ),
-            //   app.poster.image.type
-            // )
-
-            // console.log( blob )
-
-            // app.poster.button.element.href = URL.createObjectURL( blob )
-
-            // console.log( URL.createObjectURL( blob ) )
-
-          } )
-
-      		resolve()
-
-      	})
+        app.poster.button.element.href = url
+        app.poster.element.dataset.current = app.poster.element.dataset.loading
 
       }
-
-      async function asyncExport() {
-      	await retrieveData()
-      	return ( app.poster.img )
-      }
-
-      return ( asyncExport() )
 
     },
 
     initialize : function( inner, outer ) {
 
-      /* temp
+      if ( app.poster.element.dataset.current == JSON.stringify( inner ) )
+        return false
+      else
+        app.poster.element.dataset.loading = JSON.stringify( inner )
 
-      if ( !app.poster.image.url )
-        app.poster.create( inner, outer )
+      // load html2canvas script here
 
-      app.poster.button.initialize()
-
-      */
+      app.poster.map.initialize( inner, outer )
 
     }
 

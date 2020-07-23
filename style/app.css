@@ -1350,9 +1350,15 @@ input[type="checkbox"]:checked + div .switch::before {
   top: -9999px;
   left: 0;
   width: calc( 720px * 2 );
-  height: 1280px;
+  height: 1080px;
   background: var(--dark-100);
   z-index: 999;
+}
+
+.atelie > * {
+  position: relative;
+  width: 720px;
+  height: 1080px;
 }
 
 @media (min-width: 800px) {
