@@ -383,6 +383,21 @@ h1 .kicker {
 
 /* main */
 
+.main,
+.cover,
+.search {
+  display: none;
+}
+
+[data-page="main"] .main {
+  display: block;
+}
+
+[data-page="main"] .cover,
+[data-page="main"] .search {
+  display: flex;
+}
+
 .main {
   position: absolute;
   top: 0;
