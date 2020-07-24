@@ -1194,12 +1194,31 @@ button {
   }
 }
 
+.next .spinner {
+  animation: spin 1.2s infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
+
 [data-loaded="true"] .prev.swiper-button-disabled + .next .pulse {
   opacity: 1;
 }
 
 [data-loaded="true"] .prev.swiper-button-disabled + .next .pulse::before {
   animation: pulse 1.6s infinite;
+}
+
+[data-loaded="false"] .next .material-icons:nth-child(1),
+[data-loaded="true"] .next .spinner {
+  display: none;
 }
 
 .next .material-icons:nth-child(2),
