@@ -141,8 +141,8 @@ small {
 }
 
 small a {
-  border: none;
-  color: inherit
+  /* border: none; */
+  /* color: inherit */
 }
 
 em {
@@ -446,11 +446,14 @@ h1 .kicker {
 }
 
 .dates {
-  opacity: .66;
   margin-bottom: 4.8rem;
 }
 
-.dates small.notes {
+small {
+  opacity: .66;
+}
+
+.dates small {
   color: var(--light-33);
 }
 
