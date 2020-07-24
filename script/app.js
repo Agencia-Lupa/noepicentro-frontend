@@ -14,6 +14,14 @@ let app = {
 
   },
 
+  browser : {
+
+    iOS : function() {
+      return navigator.userAgent.match(/(iPod|iPhone|iPad)/) && navigator.userAgent.match(/AppleWebKit/)
+    }
+
+  },
+
   variables : {
 
     elements : document.querySelectorAll( '[data-var]' ),
@@ -240,7 +248,12 @@ let app = {
         )
       }
 
-        // disable swiper keyboard controls
+      if ( name == 'poster' || name == 'main' )
+        app.story.carousel.instance.keyboard.disable()
+
+      if ( name == 'story' && app.pages.previous == 'poster' )
+        app.story.carousel.instance.keyboard.enable()
+
 
       gtag('event', 'view_page', {
         'event_category': 'engagement',
@@ -258,9 +271,6 @@ let app = {
     initialize : function() {
 
       app.element.dataset.page = 'main'
-
-      // if name == poster || main
-        // disable swiper keyboard controls
 
     }
 
@@ -619,7 +629,7 @@ let app = {
 
         "You are here" : function() {
 
-          map.flyTo( {
+          map[ app.story.map.transition() ]( {
             center : app.story.map.user,
             speed  : .1,
             zoom   : 15.5,
@@ -704,6 +714,8 @@ let app = {
                 setTimeout( app.story.map.controls.bubble.initialize, 1000 )
 
                 app.element.dataset.loaded = true
+                app.story.carousel.instance.keyboard.enable()
+
                 clearInterval( app.story.map.monitoring )
 
               })()
@@ -715,7 +727,7 @@ let app = {
         },
         "First death" : function() {
 
-          map.flyTo( {
+          map[ app.story.map.transition() ]( {
             center : app.story.map.user,
             speed  : .1,
             zoom   : 17,
@@ -747,7 +759,7 @@ let app = {
         },
         "Following deaths" : function() {
 
-          map.flyTo( {
+          map[ app.story.map.transition() ]( {
             center : app.story.map.user,
             speed  : .1,
             zoom   : 16.75,
@@ -1041,6 +1053,10 @@ let app = {
 
       },
 
+      transition : function() {
+        return app.browser.iOS() ? 'jumpTo' : 'flyTo'
+      },
+
       radius : function( inner, outer ) {
 
         let feature = {}
@@ -1062,6 +1078,8 @@ let app = {
       },
 
       reset : function() {
+
+        app.story.carousel.instance.keyboard.disable()
 
         app.element.dataset.step   = false
         app.element.dataset.loaded = false
@@ -1170,6 +1188,7 @@ let app = {
           center:    app.story.map.user,
           zoom:      19,
           pitch:     0,
+          interactive: app.browser.iOS() ? false : true
           // preserveDrawingBuffer: true
         } )
 
@@ -1466,6 +1485,7 @@ let app = {
           	map.fitBounds(
               bbox,
               {
+                animate: app.browser.iOS() ? false : true,
                 padding: app.story.map.padding(),
                 duration: 6000,
                 pitch: pitch,
@@ -1747,11 +1767,11 @@ let app = {
 
           },
 
-          fitOnScreen : function( bbox, animation = true ) {
+          fitOnScreen : function( bbox, ) {
 
             map.fitBounds(
               bbox, {
-                animate: animation,
+                animate: app.browser.iOS() ? false : true,
                 linear: false,
                 speed: 1,
                 padding: app.story.map.padding(),
@@ -1909,7 +1929,6 @@ let app = {
       app.search.input.element.blur()
 
       app.story.carousel.instance.update()
-      app.story.carousel.instance.keyboard.enable()
 
       app.poster.reset()
 
