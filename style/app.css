@@ -1194,11 +1194,11 @@ button {
   }
 }
 
-.prev.swiper-button-disabled + .next .pulse {
+[data-loaded="true"] .prev.swiper-button-disabled + .next .pulse {
   opacity: 1;
 }
 
-.prev.swiper-button-disabled + .next .pulse::before {
+[data-loaded="true"] .prev.swiper-button-disabled + .next .pulse::before {
   animation: pulse 1.6s infinite;
 }
 
