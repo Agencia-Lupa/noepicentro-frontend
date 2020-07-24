@@ -384,10 +384,10 @@ let app = {
 
         }
 
-        gtag('event', 'search', {
-          'event_category': 'engagement',
-          'event_label': app.search.input.sanitized(),
-        });
+        // gtag('event', 'search', {
+        //   'event_category': 'engagement',
+        //   'event_label': app.search.input.sanitized(),
+        // });
 
       },
 
@@ -548,7 +548,7 @@ let app = {
 
           gtag('event', 'geolocation', {
             'event_category': 'engagement',
-            'event_label': JSON.stringify( center )
+            'event_label': 'success' // JSON.stringify( center )
           });
 
         }
@@ -1909,10 +1909,10 @@ let app = {
 
       app.poster.reset()
 
-      gtag('event', 'view_search_results', {
-        'event_category': 'engagement',
-        'event_label': JSON.stringify( center ),
-      });
+      // gtag('event', 'view_search_results', {
+      //   'event_category': 'engagement',
+      //   'event_label': JSON.stringify( center ),
+      // });
 
     },
 
