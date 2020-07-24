@@ -1117,6 +1117,11 @@ button {
   cursor: pointer;
 }
 
+.arrows .material-icons {
+  position: relative;
+  z-index: 2;
+}
+
 .arrows button.swiper-button-disabled {
   color: var(--dark-25);
 }
@@ -1145,19 +1150,56 @@ button {
   background: var(--highlight-shade);
 }
 
-.prev.swiper-button-disabled + .next .material-icons {
-  box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 );
-  animation: pulse 1.6s infinite;
+.pulse {
+  position: absolute;
+  width: 2.4rem;
+  height: 2.4rem;
+  opacity: 0;
+  z-index: 1;
+}
+
+.pulse::before,
+.pulse::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   border-radius: 1.2rem;
+}
+
+.pulse::after {
+  background: var(--light-100);
+}
+
+.pulse::before {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 6rem;
+  margin-top: calc( -6rem + 1.2rem );
+  margin-left: calc( -6rem + 1.2rem );
+  transform: scale(.2);
+  background: var( --highlight );
 }
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba( var(--highlight-rgb ), 1 )
+    transform: scale(.2);
+    opacity: 1;
   }
   100% {
-    box-shadow: 0 0 0 4.8rem rgba( var(--highlight-rgb ), 0 )
+    transform: scale(1);
+    opacity: 0;
   }
+}
+
+.prev.swiper-button-disabled + .next .pulse {
+  opacity: 1;
+}
+
+.prev.swiper-button-disabled + .next .pulse::before {
+  animation: pulse 1.6s infinite;
 }
 
 .next .material-icons:nth-child(2),

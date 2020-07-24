@@ -1064,8 +1064,9 @@ let app = {
 
       reset : function() {
 
-        app.element.dataset.step = ''
+        app.element.dataset.step   = false
         app.element.dataset.loaded = false
+        app.element.dataset.poster = false
 
         if ( app.variables.result )
           delete app.variables.result
