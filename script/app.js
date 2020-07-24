@@ -1283,7 +1283,7 @@ let app = {
               						['var', 'sqrt_deaths'],
                           0, 0,
               						1, 1,
-              						Math.sqrt(max_deaths), 20,
+              						Math.sqrt(max_deaths), Math.min( ( window.innerWidth / 50 ), 20 )
               					]
               				]
               			}
