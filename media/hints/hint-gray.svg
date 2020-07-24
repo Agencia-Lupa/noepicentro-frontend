@@ -1,26 +1,26 @@
 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<ellipse cx="24" cy="24" rx="2" ry="2" transform="rotate(180 24 24)" fill="#808080"/>
-<ellipse cx="25" cy="18" rx="2" ry="2" transform="rotate(180 25 18)" fill="#808080"/>
-<ellipse cx="30" cy="12" rx="2" ry="2" transform="rotate(180 30 12)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="20" cy="9" rx="2" ry="2" transform="rotate(180 20 9)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="33" cy="8" rx="2" ry="2" transform="rotate(180 33 8)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="19" cy="22" rx="2" ry="2" transform="rotate(180 19 22)" fill="#808080"/>
-<ellipse cx="19" cy="16" rx="2" ry="2" transform="rotate(180 19 16)" fill="#808080"/>
-<ellipse cx="15" cy="26" rx="2" ry="2" transform="rotate(180 15 26)" fill="#808080"/>
-<ellipse cx="25" cy="32" rx="2" ry="2" transform="rotate(180 25 32)" fill="#808080"/>
-<ellipse cx="24" cy="39" rx="2" ry="2" transform="rotate(180 24 39)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="19" cy="39" rx="2" ry="2" transform="rotate(180 19 39)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="30" cy="37" rx="2" ry="2" transform="rotate(180 30 37)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="12" cy="34" rx="2" ry="2" transform="rotate(180 12 34)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="13" cy="13" rx="2" ry="2" transform="rotate(180 13 13)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="9" cy="28" rx="2" ry="2" transform="rotate(180 9 28)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="9" cy="18" rx="2" ry="2" transform="rotate(180 9 18)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="38" cy="16" rx="2" ry="2" transform="rotate(180 38 16)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="39" cy="27" rx="2" ry="2" transform="rotate(180 39 27)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="37" cy="36" rx="2" ry="2" transform="rotate(180 37 36)" fill="white" fill-opacity="0.25"/>
-<ellipse cx="33" cy="22" rx="2" ry="2" transform="rotate(180 33 22)" fill="#808080"/>
-<ellipse cx="30" cy="30" rx="2" ry="2" transform="rotate(180 30 30)" fill="#808080"/>
-<ellipse cx="30" cy="18" rx="2" ry="2" transform="rotate(180 30 18)" fill="#808080"/>
-<ellipse cx="29" cy="24" rx="2" ry="2" transform="rotate(180 29 24)" fill="#808080"/>
-<ellipse cx="20" cy="29" rx="2" ry="2" transform="rotate(180 20 29)" fill="#808080"/>
+<path d="M24 22C22.8954 22 22 22.8954 22 24C22 25.1046 22.8954 26 24 26C25.1046 26 26 25.1046 26 24C26 22.8954 25.1046 22 24 22Z" fill="white" fill-opacity="0.25"/>
+<path d="M25 16C23.8954 16 23 16.8954 23 18C23 19.1046 23.8954 20 25 20C26.1046 20 27 19.1046 27 18C27 16.8954 26.1046 16 25 16Z" fill="white" fill-opacity="0.25"/>
+<path d="M30 10C28.8954 10 28 10.8954 28 12C28 13.1046 28.8954 14 30 14C31.1046 14 32 13.1046 32 12C32 10.8954 31.1046 10 30 10Z" fill="white" fill-opacity="0.25"/>
+<path d="M20 7C18.8954 7 18 7.89543 18 9C18 10.1046 18.8954 11 20 11C21.1046 11 22 10.1046 22 9C22 7.89543 21.1046 7 20 7Z" fill="white" fill-opacity="0.25"/>
+<path d="M33 6C31.8954 6 31 6.89543 31 8C31 9.10457 31.8954 10 33 10C34.1046 10 35 9.10457 35 8C35 6.89543 34.1046 6 33 6Z" fill="white" fill-opacity="0.25"/>
+<path d="M19 20C17.8954 20 17 20.8954 17 22C17 23.1046 17.8954 24 19 24C20.1046 24 21 23.1046 21 22C21 20.8954 20.1046 20 19 20Z" fill="white" fill-opacity="0.25"/>
+<path d="M19 14C17.8954 14 17 14.8954 17 16C17 17.1046 17.8954 18 19 18C20.1046 18 21 17.1046 21 16C21 14.8954 20.1046 14 19 14Z" fill="white" fill-opacity="0.25"/>
+<path d="M15 24C13.8954 24 13 24.8954 13 26C13 27.1046 13.8954 28 15 28C16.1046 28 17 27.1046 17 26C17 24.8954 16.1046 24 15 24Z" fill="white" fill-opacity="0.25"/>
+<path d="M25 30C23.8954 30 23 30.8954 23 32C23 33.1046 23.8954 34 25 34C26.1046 34 27 33.1046 27 32C27 30.8954 26.1046 30 25 30Z" fill="white" fill-opacity="0.25"/>
+<path d="M24 37C22.8954 37 22 37.8954 22 39C22 40.1046 22.8954 41 24 41C25.1046 41 26 40.1046 26 39C26 37.8954 25.1046 37 24 37Z" fill="white" fill-opacity="0.25"/>
+<path d="M19 37C17.8954 37 17 37.8954 17 39C17 40.1046 17.8954 41 19 41C20.1046 41 21 40.1046 21 39C21 37.8954 20.1046 37 19 37Z" fill="white" fill-opacity="0.25"/>
+<path d="M30 35C28.8954 35 28 35.8954 28 37C28 38.1046 28.8954 39 30 39C31.1046 39 32 38.1046 32 37C32 35.8954 31.1046 35 30 35Z" fill="white" fill-opacity="0.25"/>
+<path d="M12 32C10.8954 32 10 32.8954 10 34C10 35.1046 10.8954 36 12 36C13.1046 36 14 35.1046 14 34C14 32.8954 13.1046 32 12 32Z" fill="white" fill-opacity="0.25"/>
+<path d="M13 11C11.8954 11 11 11.8954 11 13C11 14.1046 11.8954 15 13 15C14.1046 15 15 14.1046 15 13C15 11.8954 14.1046 11 13 11Z" fill="white" fill-opacity="0.25"/>
+<path d="M9 26C7.89543 26 7 26.8954 7 28C7 29.1046 7.89543 30 9 30C10.1046 30 11 29.1046 11 28C11 26.8954 10.1046 26 9 26Z" fill="white" fill-opacity="0.25"/>
+<path d="M9 16C7.89543 16 7 16.8954 7 18C7 19.1046 7.89543 20 9 20C10.1046 20 11 19.1046 11 18C11 16.8954 10.1046 16 9 16Z" fill="white" fill-opacity="0.25"/>
+<path d="M38 14C36.8954 14 36 14.8954 36 16C36 17.1046 36.8954 18 38 18C39.1046 18 40 17.1046 40 16C40 14.8954 39.1046 14 38 14Z" fill="white" fill-opacity="0.25"/>
+<path d="M39 25C37.8954 25 37 25.8954 37 27C37 28.1046 37.8954 29 39 29C40.1046 29 41 28.1046 41 27C41 25.8954 40.1046 25 39 25Z" fill="white" fill-opacity="0.25"/>
+<path d="M37 34C35.8954 34 35 34.8954 35 36C35 37.1046 35.8954 38 37 38C38.1046 38 39 37.1046 39 36C39 34.8954 38.1046 34 37 34Z" fill="white" fill-opacity="0.25"/>
+<path d="M33 20C31.8954 20 31 20.8954 31 22C31 23.1046 31.8954 24 33 24C34.1046 24 35 23.1046 35 22C35 20.8954 34.1046 20 33 20Z" fill="white" fill-opacity="0.25"/>
+<path d="M30 28C28.8954 28 28 28.8954 28 30C28 31.1046 28.8954 32 30 32C31.1046 32 32 31.1046 32 30C32 28.8954 31.1046 28 30 28Z" fill="white" fill-opacity="0.25"/>
+<path d="M30 16C28.8954 16 28 16.8954 28 18C28 19.1046 28.8954 20 30 20C31.1046 20 32 19.1046 32 18C32 16.8954 31.1046 16 30 16Z" fill="white" fill-opacity="0.25"/>
+<path d="M29 22C27.8954 22 27 22.8954 27 24C27 25.1046 27.8954 26 29 26C30.1046 26 31 25.1046 31 24C31 22.8954 30.1046 22 29 22Z" fill="white" fill-opacity="0.25"/>
+<path d="M20 27C18.8954 27 18 27.8954 18 29C18 30.1046 18.8954 31 20 31C21.1046 31 22 30.1046 22 29C22 27.8954 21.1046 27 20 27Z" fill="white" fill-opacity="0.25"/>
 </svg>
