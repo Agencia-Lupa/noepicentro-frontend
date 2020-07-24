@@ -317,6 +317,8 @@ h1 .kicker {
 
 .cover figure img {
   max-width: initial;
+  width: 1920px;
+  height: 1920px;
   transform: scale(.5) translate3d( -6%, 6%, 0 );
   animation-direction: alternate;
   animation: move 72s infinite;
