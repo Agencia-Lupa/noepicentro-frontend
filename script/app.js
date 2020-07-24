@@ -1188,7 +1188,7 @@ let app = {
           center:    app.story.map.user,
           zoom:      19,
           pitch:     0,
-          interactive: app.browser.iOS() ? false : true
+          // interactive: app.browser.iOS() ? false : true
           // preserveDrawingBuffer: true
         } )
 
