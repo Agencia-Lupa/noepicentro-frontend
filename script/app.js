@@ -240,7 +240,6 @@ let app = {
         )
       }
 
-      // if name == poster || main
         // disable swiper keyboard controls
 
       gtag('event', 'view_page', {
