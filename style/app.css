@@ -996,6 +996,23 @@ button {
   z-index: 1;
 }
 
+#map::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #202020; /*var(--dark-75);*/
+  opacity: .66;
+  transition: opacity .6s;
+}
+
+[data-loaded="true"] #map::after {
+  pointer-events: none;
+  opacity: 0;
+}
+
 .story nav {
   position: relative;
   display: flex;
