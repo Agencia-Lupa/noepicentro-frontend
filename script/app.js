@@ -1,7 +1,4 @@
 let map;
-//let first_47; // temp
-
-
 
 let app = {
 
@@ -119,48 +116,6 @@ let app = {
 
       },
 
-      /*
-
-      "Featured city 2" : function() {
-
-        let city = app.variables.result.capitals_to_highlight[ 1 ]
-        return city.name_muni + ' (' + city.name_state + ')'
-
-      },
-
-      "Featured city 2 location" : function() {
-
-        let city = app.variables.result.capitals_to_highlight[ 1 ]
-        return city.display_text.preffix + ' ' + city.display_text.place
-
-      },
-
-      "Featured city 2 location description" : function() {
-
-        let city = app.variables.result.capitals_to_highlight[ 1 ]
-        return city.complement || ''
-
-      },
-
-      "Featured city 2 radius" : function() {
-
-        let city = app.variables.result.capitals_to_highlight[ 1 ]
-        let km = turf.distance(
-          turf.point( city.radius.inner_point ),
-          turf.point( city.radius.outer_point )
-        )
-
-        if ( km < 1 )
-          return Math.round( km * 1000 ) + ' m'
-
-        let value = Math.round( km * 10 ) / 10
-        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
-        return  value + ' km'
-
-      },
-
-      */
-
       "Vanished city" : function() {
 
         let city = app.variables.result.neighboring_city
@@ -191,18 +146,6 @@ let app = {
         return value + ' mil'
 
       },
-
-      /*
-
-      "Vanished cities" : function() {
-
-        let value = app.variables.initial.vanishing_cities
-        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
-        return value
-
-      },
-
-      */
 
       "Update" : function() {
 
@@ -319,105 +262,6 @@ let app = {
 
       // if name == poster || main
         // disable swiper keyboard controls
-
-    }
-
-  },
-
-  cover : {
-
-    element : document.querySelector( '.cover' ),
-
-    locations : [
-    	{
-    		"center":[
-    			-30.0341319,
-    			-51.2432707
-    		],
-    		"name_muni":"Porto Alegre",
-    		"name_state":"RS"
-    	},
-    	{
-    		"center":[
-    			-25.4251957,
-    			-49.2675855
-    		],
-    		"name_muni":"Curitiba",
-    		"name_state":"PR"
-    	},
-    	{
-    		"center":[
-    			-23.5628876,
-    			-46.6504141
-    		],
-    		"name_muni":"São Paulo",
-    		"name_state":"SP"
-    	},
-    	{
-    		"center":[
-    			-22.9120302,
-    			-43.2319878
-    		],
-    		"name_muni":"Rio de Janeiro",
-    		"name_state":"RJ"
-    	},
-    	{
-    		"center":[
-    			-15.7986852,
-    			-47.8757942
-    		],
-    		"name_muni":"Brasília",
-    		"name_state":"DF"
-    	},
-    	{
-    		"center":[
-    			-16.6798512,
-    			-49.2558648
-    		],
-    		"name_muni":"Goiânia",
-    		"name_state":"GO"
-    	},
-    	{
-    		"center":[
-    			-12.9744658,
-    			-38.5131887
-    		],
-    		"name_muni":"Salvador",
-    		"name_state":"BA"
-    	},
-    	{
-    		"center":[
-    			-3.7277894,
-    			-38.5276207
-    		],
-    		"name_muni":"Fortaleza",
-    		"name_state":"CE"
-    	},
-    	{
-    		"center":[
-    			-3.1301977,
-    			-60.0232912
-    		],
-    		"name_muni":"Manaus",
-    		"name_state":"AM"
-    	},
-    	{
-    		"center":[
-    			-1.4525862,
-    			-48.5038115
-    		],
-    		"name_muni":"Belém",
-    		"name_state":"PA"
-    	}
-    ],
-
-    initialize : function() {
-
-      for ( let location of app.cover.locations ) {
-
-        // location.center
-
-      }
 
     }
 
@@ -540,10 +384,10 @@ let app = {
 
         }
 
-        gtag('event', 'search', {
-          'event_category': 'engagement',
-          'event_label': app.search.input.sanitized(),
-        });
+        // gtag('event', 'search', {
+        //   'event_category': 'engagement',
+        //   'event_label': app.search.input.sanitized(),
+        // });
 
       },
 
@@ -577,14 +421,6 @@ let app = {
     },
 
     suggestions : {
-
-      // show : function() {
-      //
-      // },
-
-      // hide : function() {
-      //  app.element.dataset.search = 'blur'
-      // },
 
       handle : function( data ) {
 
@@ -712,7 +548,7 @@ let app = {
 
           gtag('event', 'geolocation', {
             'event_category': 'engagement',
-            'event_label': JSON.stringify( center )
+            'event_label': 'success' // JSON.stringify( center )
           });
 
         }
@@ -836,7 +672,6 @@ let app = {
                 app.story.map.controls.people.initialize()
                 app.story.map.controls.people.toggle( { opacity: 1, radius: 1.5, color: '#555' } )
                 app.story.map.controls.people.highlight.someInsideCircle.initialize( 47 )
-                //app.story.map.controls.people.highlight.someInsideCircle.initialize( 46, 'first-deaths' )
                 app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
                 app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
 
@@ -872,8 +707,6 @@ let app = {
 
                 app.element.dataset.loaded = true
                 clearInterval( app.story.map.monitoring )
-
-                // delete app.story.map.monitoring
 
               })()
 
@@ -1025,9 +858,6 @@ let app = {
           app.story.map.controls.location.toggle.highlight( true )
           app.story.map.controls.location.toggle.mask( false )
 
-          // // app.story.map.controls.location.vanishAllBelow( false )
-          // app.story.map.controls.location.highlight( '' )
-
         },
         "City vanished" : function() {
 
@@ -1056,67 +886,7 @@ let app = {
           app.story.map.controls.location.toggle.highlight( false )
           app.story.map.controls.location.toggle.mask( true )
 
-          // app.story.map.controls.location.reset()
-
-          // app.story.map.controls.location.vanish()
-          // app.story.map.controls.location.vanishAllBelow( false )
-
         },
-
-        /*
-
-        "Cities that would have vanished" : function() {
-
-          app.story.map.controls.marker.toggle( false, 0 )
-          app.story.map.controls.marker.toggleLabel( false, 0 )
-          app.story.map.controls.marker.toggle( false, 1 )
-          app.story.map.controls.marker.toggleLabel( false, 1 )
-          app.story.map.controls.marker.toggle( false, 2 )
-          app.story.map.controls.marker.toggleLabel( false, 2 )
-
-          app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.people.toggle( true )
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false, 1 )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false, 2 )
-          app.story.map.controls.circle.toggle( false, 0 )
-          app.story.map.controls.circle.toggle( false, 1 )
-          app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.highlight( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
-          app.story.map.controls.location.fitOnScreen( 'br' )
-
-        },
-        "Cities vanished" : function() {
-
-          app.story.map.controls.marker.toggle( false, 0 )
-          app.story.map.controls.marker.toggleLabel( false, 0 )
-          app.story.map.controls.marker.toggle( false, 1 )
-          app.story.map.controls.marker.toggleLabel( false, 1 )
-          app.story.map.controls.marker.toggle( false, 2 )
-          app.story.map.controls.marker.toggleLabel( false, 2 )
-
-          app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.people.toggle( true )
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false, 1 )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false, 2 )
-          app.story.map.controls.circle.toggle( false, 0 )
-          app.story.map.controls.circle.toggle( false, 1 )
-          app.story.map.controls.circle.toggle( false, 2 )
-          app.story.map.controls.location.highlight( false )
-          app.story.map.controls.location.vanishAllBelow( app.variables.initial.deaths )
-          app.story.map.controls.location.fitOnScreen( 'br' )
-
-        },
-
-        */
 
         "Real distribution" : function() {
 
@@ -1141,7 +911,6 @@ let app = {
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.location.toggle.highlight( false )
           app.story.map.controls.location.toggle.mask( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
           app.story.map.controls.location.fitOnScreen( app.story.map.bbox.br )
 
         },
@@ -1176,19 +945,11 @@ let app = {
           app.story.map.controls.circle.toggle( false, 2 )
           app.story.map.controls.location.toggle.highlight( false )
           app.story.map.controls.location.toggle.mask( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
         "Featured city 1 location" : function() {
 
           let city = app.variables.result.capitals_to_highlight[ 0 ]
-
-          // // draw circle around area
-          // map.flyTo( {
-          //   center : city.radius.inner_point,
-          //   speed  : .4,
-          //   zoom   : 14
-          // } )
 
           app.story.map.controls.marker.toggle( false, 0 )
           app.story.map.controls.marker.toggleLabel( false, 0 )
@@ -1212,53 +973,8 @@ let app = {
           app.story.map.controls.circle.fitOnScreen( 1, 60, -38 )
           app.story.map.controls.location.toggle.highlight( false )
           app.story.map.controls.location.toggle.mask( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
-
-        /*
-
-        "Featured city 2" : function() {
-
-
-        },
-        "Featured city 2 location" : function() {
-
-          let city = app.variables.result.capitals_to_highlight[ 1 ]
-
-          // draw circle around area
-          // map.flyTo( {
-          //   center : city.radius.inner_point,
-          //   speed  : .4,
-          //   zoom   : 15
-          // } )
-
-          app.story.map.controls.marker.toggle( false, 0 )
-          app.story.map.controls.marker.toggleLabel( false, 0 )
-          app.story.map.controls.marker.toggle( false, 1 )
-          app.story.map.controls.marker.toggleLabel( false, 1 )
-          app.story.map.controls.marker.toggle( true, 2 )
-          app.story.map.controls.marker.toggleLabel( true, 2 )
-
-          app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( false )
-          app.story.map.controls.people.toggle( true )
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
-          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false, 0 )
-          app.story.map.controls.people.highlight.insideCircle.toggle( false, 1 )
-          app.story.map.controls.people.highlight.insideCircle.toggle( true, 2 )
-          app.story.map.controls.circle.toggle( false, 0 )
-          app.story.map.controls.circle.toggle( false, 1 )
-          app.story.map.controls.circle.toggle( true, 2 )
-          app.story.map.controls.circle.fitOnScreen( 2 )
-
-          app.story.map.controls.location.highlight( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
-
-        },
-
-        */
 
         "Share me" : function() {
 
@@ -1284,7 +1000,6 @@ let app = {
           app.story.map.controls.circle.fitOnScreen( 0 )
           app.story.map.controls.location.toggle.highlight( false )
           app.story.map.controls.location.toggle.mask( false )
-          // app.story.map.controls.location.vanishAllBelow( false )
 
         },
 
@@ -1655,18 +1370,6 @@ let app = {
             app.story.map.controls.labels.element.checked = option
             app.story.map.controls.labels.opacity( option )
 
-            // let input = app.story.map.controls.labels.element
-            //
-            // if ( boolean === input.checked )
-            //   return false
-            //
-            // if ( boolean === undefined )
-            //   input.checked = !input.checked
-            // else
-            //   input.checked = boolean
-            //
-            // input.dispatchEvent( new Event( 'change' ) )
-
           },
 
           initialize : function() {
@@ -1820,15 +1523,6 @@ let app = {
                 for ( let index of list.keys() )
                   app.story.map.controls.people.highlight.insideCircle.toggle( false, index )
 
-                // if (map.getLayer('mask0')) map.removeLayer('mask0');
-                // if (map.getSource('mask0')) map.removeSource('mask0');
-                //
-                // if (map.getLayer('mask1')) map.removeLayer('mask1');
-                // if (map.getSource('mask1')) map.removeSource('mask1');
-                //
-                // if (map.getLayer('mask2')) map.removeLayer('mask2');
-                // if (map.getSource('mask2')) map.removeSource('mask2');
-
               },
 
               toggle : function( option, index ) {
@@ -1882,23 +1576,10 @@ let app = {
 
             someInsideCircle : {
 
-              // remove :  function() {
-              // 	if (map.getLayer('first-deaths')) {
-              // 		// this will sort of make a small shrinking transition, before removing
-              // 		map.setPaintProperty('first-deaths', 'circle-radius', 0);
-              // 		map.removeLayer('first-deaths');
-              // 		map.removeSource('first-deaths');
-              // 		first_47 = undefined; // resets first_47
-              // 	}
-              // },
-
               toggle : function( option, name ) {
 
                 let opacity = option ? 1 : 0;
                 map.setPaintProperty( name, 'circle-opacity', opacity );
-
-
-                // map.getLayer( name )
 
               },
 
@@ -1921,11 +1602,11 @@ let app = {
               	});
 
                 while (first_47_len < amount) {
-                
+
                   // defines the circle for this iteration
                   let radius = radiuses[tries];
 
-                  console.log("looping, try: ", tries, ", radius: ", radius);
+                  // console.log("looping, try: ", tries, ", radius: ", radius);
 
                   let circle = turf.circle(center_pt, radius);
                   let bboxCircle = turf.bbox(circle);
@@ -1941,7 +1622,7 @@ let app = {
                       // and jump to the next iteration
                       tries ++
                       continue
-                    }; 
+                    };
 
                   } else livable_circle = circle;
 
@@ -1962,12 +1643,12 @@ let app = {
 
                   first_47_len = first_47.features.length;
 
-                  console.log("Quantidade até agora ", first_47_len, first_47);
+                  // console.log("Quantidade até agora ", first_47_len, first_47);
 
                   // test if we got the amount needed, then break. else, increase circle radius and repeat.
                   if (first_47_len >= amount) {
                     first_47.features = [...first_47.features].slice(0,47);
-                    console.log("Opa, chegou. ", first_47);
+                    // console.log("Opa, chegou. ", first_47);
                     break
                   }
 
@@ -2001,7 +1682,7 @@ let app = {
                       'type': 'geojson',
                       'data': data[name]
                     });
-  
+
                     map.addLayer({
                       'id': name,
                       'type': 'circle',
@@ -2014,14 +1695,11 @@ let app = {
                     },
                     'road-label');
                   } else {
-                    
+
                     map.getSource(name).setData(data[name]);
                   }
                 }
-                 // map.moveLayer(name, 'road-label')
 
-              	 
-              	
               }
 
             }
@@ -2052,7 +1730,7 @@ let app = {
                   'id': 'municipalities',
                   'type': 'fill',
                   'source': 'mun',
-                  'source-layer': 'municipalities', //
+                  'source-layer': 'municipalities',
                   'paint': {
                       'fill-opacity' : 0,
                       'fill-outline-color' : 'transparent',
@@ -2070,7 +1748,7 @@ let app = {
             map.fitBounds(
               bbox, {
                 animate: animation,
-                linear: false, // false means the map transitions using map.flyTo()
+                linear: false,
                 speed: 1,
                 padding: app.story.map.padding(),
                 pitch: 0
@@ -2151,59 +1829,47 @@ let app = {
 
             code = code || app.story.map.controls.location.code
 
-            //delete app.story.map.controls.location.monitoring
+            let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
+            let features = municipalities.filter(d => d.properties.code_muni == code)
 
-            //app.story.map.controls.location.monitoring = setInterval( function() {
+            console.log("Quantas features?", features.length);
 
-              let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
-              let features = municipalities.filter(d => d.properties.code_muni == code)
+            if ( features.length ) {
 
-              console.log("Quantas features?", features.length);
+              console.log( 'Found the city’s polygon' )
 
-              if ( features.length ) {
+              if (!map.getSource('location-mask')) {
 
-                console.log( 'Found the city’s polygon' )
-
-                if (!map.getSource('location-mask')) {
-
-                  let polygon = turf.union(...features);
-                  let world_bbox = turf.bboxPolygon( [ -180, -90, 180, 90 ] );
-                  //let mask = turf.mask( polygon );
-                  let mask = turf.difference(world_bbox, polygon);
+                let polygon = turf.union(...features);
+                let world_bbox = turf.bboxPolygon( [ -180, -90, 180, 90 ] );
+                //let mask = turf.mask( polygon );
+                let mask = turf.difference(world_bbox, polygon);
 
 
-                  map.addSource('location-mask', {
-                      'type': 'geojson',
-                      'data': mask
-                  });
+                map.addSource('location-mask', {
+                    'type': 'geojson',
+                    'data': mask
+                });
 
-                  map.addLayer({
-                      'id': 'location-mask',
-                      'type': 'fill',
-                      'source': 'location-mask',
-                      'paint': {
-                          'fill-color': app.color( 'dark-100' ),
-                          'fill-opacity': 0,
-                          'fill-outline-color': app.color( 'highlight' )
-                      }
-                  },
-                  'road-label');
+                map.addLayer({
+                    'id': 'location-mask',
+                    'type': 'fill',
+                    'source': 'location-mask',
+                    'paint': {
+                        'fill-color': app.color( 'dark-100' ),
+                        'fill-opacity': 0,
+                        'fill-outline-color': app.color( 'highlight' )
+                    }
+                },
+                'road-label');
 
-                  app.story.map.controls.location.toggle.mask(
-                    app.story.map.controls.location.visibility.mask
-                  )
-
-                }
-
-                // else {
-                //     map.getSource('location-mask').setData(mask);
-                // }
-
-                //clearInterval( app.story.map.controls.location.monitoring )
+                app.story.map.controls.location.toggle.mask(
+                  app.story.map.controls.location.visibility.mask
+                )
 
               }
 
-            //}, 200 )
+            }
 
           },
 
@@ -2217,72 +1883,6 @@ let app = {
             // app.story.map.controls.location.mask( code )
 
           },
-
-          /*
-
-          vanish : function(code) {
-
-            map.setPaintProperty(
-            	'location_highlight',
-            	'fill-color',
-            	app.color( 'dark-100' )
-            )
-
-            map.setPaintProperty(
-            	'location_highlight',
-            	'fill-opacity',
-            	1
-            )
-
-            // map.setPaintProperty(
-            // 	'other_cities',
-            // 	'fill-color',
-            // 	'transparent'
-            // )
-
-          },
-
-          vanishAllBelow : function( count ) {
-
-            if ( count === false ) {
-              if ( map.getLayer( 'vanishable' ) ) map.removeLayer( 'vanishable' )
-              return false
-            }
-
-            app.story.map.controls.location.load()
-
-            if (map.getLayer("location_highlight")) map.removeLayer("location_highlight");
-            // if (map.getLayer("other_cities")) map.removeLayer("other_cities");
-
-            if (!map.getLayer("vanishable")) {
-            	map.addLayer({
-            			'id': 'vanishable',
-            			'type': 'fill',
-            			'source': 'mun',
-            			'source-layer': 'municipalities',
-            			'paint': {
-            				'fill-opacity': 1,
-            				'fill-outline-color': 'transparent',
-            				'fill-color': app.color( 'dark-100' )
-            			},
-            			'filter': ['<=', 'pop_2019', '']
-            		},
-            		'admin-1-boundary-bg');
-            }
-
-            map.setFilter(
-            	'vanishable', [
-            		'<=',
-            		[
-            			'number',
-            			['get', 'pop_2019']
-            		],
-            		count
-            	]);
-
-          }
-
-          */
 
         }
 
@@ -2309,10 +1909,10 @@ let app = {
 
       app.poster.reset()
 
-      gtag('event', 'view_search_results', {
-        'event_category': 'engagement',
-        'event_label': JSON.stringify( center ),
-      });
+      // gtag('event', 'view_search_results', {
+      //   'event_category': 'engagement',
+      //   'event_label': JSON.stringify( center ),
+      // });
 
     },
 
@@ -2393,10 +1993,6 @@ let app = {
             app.poster.atelie.element.appendChild( canvas )
 
             let url = canvas.toDataURL( app.poster.map.type )
-            // let blob = app.poster.image.get.blob( url, app.poster.map.type )
-
-            // app.poster.preview.update( blob )
-            // app.poster.button.update( blob )
 
             app.poster.preview.update( url )
             app.poster.button.update( url )
@@ -2483,33 +2079,6 @@ let app = {
 
           ctx.drawImage( image, 0, 0 )
           return canvas.toDataURL( app.poster.map.type )
-
-        },
-
-        blob : function ( b64Data, contentType='', sliceSize=512 ) {
-
-          let prefix = 'data:image/jpeg;base64,'
-          b64Data = b64Data.slice( prefix.length )
-
-          console.log( b64Data )
-
-          const byteCharacters = atob(b64Data);
-          const byteArrays = [];
-
-          for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-            const byteNumbers = new Array(slice.length);
-            for (let i = 0; i < slice.length; i++) {
-              byteNumbers[i] = slice.charCodeAt(i);
-            }
-
-            const byteArray = new Uint8Array(byteNumbers);
-            byteArrays.push(byteArray);
-          }
-
-          const blob = new Blob(byteArrays, {type: contentType});
-          return blob;
 
         }
 
@@ -2694,7 +2263,6 @@ let app = {
 
     app.variables.initialize()
     app.pages.initialize()
-    app.cover.initialize()
     app.main.initialize()
     app.search.initialize()
     app.story.initialize()
