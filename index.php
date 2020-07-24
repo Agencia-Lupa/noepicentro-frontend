@@ -127,7 +127,7 @@
 
           <footer>
             <p><small class="notes">Proteção de dados: Lupa e Google não armazenam endereços consultados nesta ferramenta. A Lupa recomenda cautela no compartilhamento de dados pessoais.</small></p>
-            <p><small class="notes">Leia mais em nossa <a href="privacidade.html" target="_blank" rel="nofollow">Política de Privacidade</a>.</small>
+            <p><small class="notes">Leia mais em nossa <a href="privacidade.php" target="_blank" rel="nofollow">Política de Privacidade</a>.</small>
           </footer>
 
           <section>
@@ -198,7 +198,7 @@
         </nav>
 
         <footer>
-          <p><small><a href="privacidade.html" target="_blank" rel="nofollow">Política de Privacidade</a></small></p>
+          <p><small><a href="privacidade.php" target="_blank" rel="nofollow">Política de Privacidade</a></small></p>
         </footer>
 
         <div class="background"></div>
