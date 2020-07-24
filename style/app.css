@@ -1091,6 +1091,7 @@ button {
 
 .swiper-slide {
   padding: 3.6rem 2rem 2.6rem;
+  user-select: none;
 }
 
 .arrows {

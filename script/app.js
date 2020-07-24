@@ -1,4 +1,4 @@
-let map;
+window.map = undefined
 
 let app = {
 
@@ -704,7 +704,6 @@ let app = {
 
                 setTimeout( app.story.map.controls.bubble.initialize, 1000 )
 
-
                 app.element.dataset.loaded = true
                 clearInterval( app.story.map.monitoring )
 
@@ -1065,6 +1064,12 @@ let app = {
 
       reset : function() {
 
+        app.element.dataset.step = ''
+        app.element.dataset.loaded = false
+
+        if ( app.variables.result )
+          delete app.variables.result
+
         if ( map ) {
 
           let layers = [
@@ -1090,6 +1095,8 @@ let app = {
           app.story.map.controls.marker.reset()
 
           map.remove()
+
+          delete window.map
 
         }
 
@@ -1157,7 +1164,7 @@ let app = {
 
         app.story.map.reset()
 
-        map = new mapboxgl.Map( {
+        window.map = new mapboxgl.Map( {
           container: app.story.map.id,
           style:     app.story.map.style,
           center:    app.story.map.user,
@@ -1185,9 +1192,6 @@ let app = {
         fetch( url, options )
           .then( response => response.json() )
           .then( data => {
-
-            if ( app.variables.result )
-              delete app.variables.result
 
             app.variables.result = data
             app.element.dataset.wouldVanish = data.user_city.would_vanish
