@@ -1,44 +1,20 @@
-# front
-App to be published
+# Front end
 
-```
-// To show or hide labels on the map
-labels.toggle(true|false)
+Esse repositório contém o JavaScript que alimenta o [aplicativo](https://noepicentro.com/), além do conteúdo (em HTML) e do estilo visual (em CSS).
 
-// To draw a pin on the user location
-user.draw(center)
+Foram utilizados HTML, CSS e JavaScript puros.<br>Contudo, algumas bibliotecas externas foram utilizadas:
 
-// To make the user pin pulse
-user.highlight(true|false)
+| Bibliotecas JavaScript|Objetivo|
+|:-|:-|
+|[Mapbox](https://docs.mapbox.com/mapbox-gl-js/api/)|Apresentar e interagir com o mapa|
+|[Turf](https://turfjs.org/)|Calcular raios em km, obter _bounding boxes_ e criar máscaras a partir do polígono de um município ou de um círculo|
+|[Swiper](https://swiperjs.com/)|Navegar entre as etapas da narrativa e ativar transições no mapa|
+|[html2canvas](http://html2canvas.hertzen.com/)|Gerar uma imagem `jpeg` personalizada para _download_ |
+|[Prefix Free](https://leaverou.github.io/prefixfree/)|Tornar o CSS compatível com todos os navegadores|
 
-// To draw radius of death
-circle.draw({})
 
-// To show or hide it
-circle.toggle(true|false)
 
-// To center it on screen
-circle.fitOnScreen(padding)
+Na prática, toda a interação com o site é orquestrada pelo `script/app.js`.<br>Todos os métodos e são propriedades de um único objeto global `app`.
 
-// To add population density layer (rendered, but hidden)
-people.draw()
-
-// To show or hide it
-people.toggle(true|false)
-
-// To highlight everyone who would die
-people.highlightInsideCircle(radius)
-
-// To highlight first deaths on the beginning of the story
-people.highlightSomeInsideCircle(amount|false)
-
-// To outline cities
-location.highlight(code,color|false)
-
-// To make then disappear by painting them black
-location.fill(code,color|false)
-
-// To add familiar places from Google Places API
-tooltip.draw({center,label})❓
-tooltip.toggle(true|false)❓
-```
+Para ver o resultado de todo esse código, acesse
+[noepicentro.com](https://noepicentro.com/).
