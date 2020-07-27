@@ -8,6 +8,17 @@ let app = {
 
   lang : document.documentElement.lang,
 
+  error : {
+    'pt-BR' : {
+      1 : 'Aparentemente, você está fora do Brasil. Quer tentar digitar um endereço?',
+      2 : 'Ops! Não conseguimos usar sua localização… Que tal digitar seu endereço?'
+    },
+    'en' : {
+      1 : 'Apparently, you are outside of Brazil. Could you please try entering an address?',
+      2 : 'Oops! We were unable to use your location… How about entering your address?'
+    }
+  },
+
   color : function( name ) {
 
     let style = getComputedStyle( document.documentElement )
@@ -609,7 +620,7 @@ let app = {
 
         console.error( error.code, error.message )
 
-        alert( 'Ops! Não conseguimos usar sua localização… Que tal digitar seu endereço?' )
+        alert( app.error[ app.lang ][ 2 ] )
 
       },
 
@@ -1246,6 +1257,14 @@ let app = {
         fetch( url, options )
           .then( response => response.json() )
           .then( data => {
+
+            if ( data.error ) {
+
+              alert( app.error[ app.lang ][ data.error ] )
+              app.pages.open( 'main' )
+              return false
+
+            }
 
             app.variables.result = data
             app.element.dataset.wouldVanish = data.user_city.would_vanish
