@@ -605,6 +605,7 @@ dt {
 .main nav span.button {
   margin-left: -2.4rem;
   cursor: default;
+  opacity: .5;
 }
 
 .main .lead .material-icons {

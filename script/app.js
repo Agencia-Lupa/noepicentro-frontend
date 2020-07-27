@@ -6,6 +6,8 @@ let app = {
 
   element : document.querySelector( '.app' ),
 
+  lang : document.documentElement.lang,
+
   color : function( name ) {
 
     let style = getComputedStyle( document.documentElement )
@@ -34,7 +36,7 @@ let app = {
       "Death count" : function() {
 
         let deaths = app.variables.initial.deaths
-        deaths = new Intl.NumberFormat( 'pt-BR' ).format( deaths )
+        deaths = new Intl.NumberFormat( app.lang ).format( deaths )
         return deaths
 
       },
@@ -43,7 +45,15 @@ let app = {
 
         let deaths = app.variables.initial.deaths
         let value = Math.round( deaths / 1000 )
-        return value + ' mil'
+        let string
+
+        if ( app.lang == 'pt-BR' )
+          string = value + ' mil'
+
+        if ( app.lang == 'en' )
+          string = new Intl.NumberFormat( app.lang ).format( value * 1000 )
+
+        return string
 
       },
 
@@ -57,7 +67,15 @@ let app = {
         diff.milliseconds = today - first
         diff.days = Math.floor( diff.milliseconds / (1000*60*60*24) )
 
-        return diff.days + ' dias'
+        let string = diff.days + ' '
+
+        if ( app.lang == 'pt-BR' )
+          string += 'dias'
+
+        if ( app.lang == 'en' )
+          string += 'days'
+
+        return string
 
       },
 
@@ -81,7 +99,7 @@ let app = {
           return Math.round( km * 1000 ) + 'm'
 
         let value = Math.round( km * 10 ) / 10
-        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
+        value = new Intl.NumberFormat( app.lang ).format( value )
         return  value + 'km'
 
       },
@@ -96,14 +114,14 @@ let app = {
       "Featured city 1 location" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 0 ]
-        return city.display_text.preffix + ' ' + city.display_text.place
+        return city.display_text[ app.lang ].prefix + ' ' + city.display_text[ app.lang ].place
 
       },
 
       "Featured city 1 location description" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 0 ]
-        return city.complement || ''
+        return city[ app.lang ].complement || ''
 
       },
 
@@ -119,7 +137,7 @@ let app = {
           return Math.round( km * 1000 ) + 'm'
 
         let value = Math.round( km * 10 ) / 10
-        value = new Intl.NumberFormat( 'pt-BR' ).format( value )
+        value = new Intl.NumberFormat( app.lang ).format( value )
         return  value + 'km'
 
       },
@@ -136,7 +154,16 @@ let app = {
         let city = app.variables.result.neighboring_city
         let population = city.pop_2019
         let value = Math.round( population / 1000 )
-        return value + ' mil'
+
+        let string
+
+        if ( app.lang == 'pt-BR' )
+          string = value + ' mil'
+
+        if ( app.lang == 'en' )
+          string = new Intl.NumberFormat( app.lang ).format( value * 1000 )
+
+        return string
 
       },
 
@@ -151,7 +178,15 @@ let app = {
           return difference
 
         let value = Math.round( difference / 1000 )
-        return value + ' mil'
+        let string
+
+        if ( app.lang == 'pt-BR' )
+          string = value + ' mil'
+
+        if ( app.lang == 'en' )
+          string = new Intl.NumberFormat( app.lang ).format( value * 1000 )
+
+        return string
 
       },
 
@@ -167,7 +202,7 @@ let app = {
           day: 'numeric'
         }
 
-        let text = date.toLocaleDateString( 'pt-BR', options )
+        let text = date.toLocaleDateString( app.lang, options )
         let markup = '<time datetime="' + timestamp + '">' + text + '</time>'
 
         return markup
@@ -180,7 +215,7 @@ let app = {
         let noon = 'T12:00:00-03:00'
         let date =  new Date( timestamp + noon )
 
-        return date.toLocaleDateString( 'pt-BR' )
+        return date.toLocaleDateString( app.lang )
 
       }
 
@@ -654,7 +689,7 @@ let app = {
 
               location = app.variables.result.capitals_to_highlight[ index - 1 ]
               center = location.radius.inner_point
-              label = location.display_text.place
+              label = location.display_text[ app.lang ].place
 
             }
 

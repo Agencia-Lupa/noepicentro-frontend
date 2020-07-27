@@ -1,14 +1,11 @@
+<? $version = '?v=1.0.2'; ?>
 <!DOCTYPE html>
-<html lang="pt-br" translate="no">
+<html lang="en" translate="no">
   <head>
 
     <title>E se todos os mortos por Covid&#8209;19 no Brasil fossem seus vizinhos? | Agência Lupa</title>
 
     <meta charset="UTF-8">
-
-    <!--
-    <meta name="robots"                       content="noindex, nofollow">
-    -->
 
     <meta name="viewport"                     content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,12 +25,10 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/swiper@6/swiper-bundle.min.css">
-    <link rel="stylesheet" href="style/app.css">
+    <link rel="stylesheet" href="style/app.css<?= $version ?>">
 
-    <!--
     <link rel="alternate" hreflang="en" href="https://piaui.folha.uol.com.br/lupa/epicentro/en/">
     <link rel="alternate" hreflang="pt" href="https://piaui.folha.uol.com.br/lupa/epicentro/">
-    -->
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172954415-1"></script>
@@ -66,17 +61,7 @@
       <div class="cover">
 
         <figure>
-
           <img src="media/cover/cover-1-b.png" alt="">
-
-          <!--
-          <figcaption class="kicker outline">
-            <span>Exemplo em</span>
-            <span>São Paulo (SP)</span>
-          </figcaption>
-          -->
-
-
         </figure>
 
       </div>
@@ -104,14 +89,10 @@
 
               <p class="dates">
                 <small class="notes">
-                  Publicado em <time datetime="2020-07-06">24 de julho de 2020</time>.<br>
-                  Dados atualizados em <em data-var="Update">..</em>.</time>
+                  Published on <time datetime="2020-07-06">July 24, 2020</time>.<br>
+                  Data updated on <em data-var="Update">..</em>.</time>
                 </small>
               </p>
-
-              <!-- <button type="button" class="button scroll-down" data-trigger="console.log('Scroll down')" aria-hidden="true">
-                <span class="material-icons" aria-hidden="true">arrow_downward</span>
-              </button> -->
 
             </div>
 
@@ -127,7 +108,7 @@
 
           <footer>
             <p><small class="notes">Proteção de dados: Lupa e Google não armazenam endereços consultados nesta ferramenta. A Lupa recomenda cautela no compartilhamento de dados pessoais.</small></p>
-            <p><small class="notes">Leia mais em nossa <a href="privacidade.html" target="_blank" rel="nofollow">Política de Privacidade</a>.</small>
+            <p><small class="notes">Leia mais em nossa <a href="privacy" target="_blank" rel="nofollow">Privacy Policy</a>.</small>
           </footer>
 
           <section>
@@ -192,13 +173,12 @@
         </article>
 
         <nav>
-          <span class="button">PT <span class="screen-reader">(Português)</span></span>
-          <!-- <a class="button" rel="alternate" href="pt" hreflang="pt" lang="pt">PT <span class="screen-reader">(Português)</span></a> -->
-          <a class="button" rel="alternate" href="en/" hreflang="en" lang="en">EN <span class="screen-reader">(English)</span></a>
+          <span class="button">English <span class="screen-reader"> version</span></span>
+          <a class="button" rel="alternate" href="./" hreflang="pt" lang="pt"><span class="screen-reader">Versão em </span>Português</a>
         </nav>
 
         <footer>
-          <p><small><a href="privacidade.html" target="_blank" rel="nofollow">Política de Privacidade</a></small></p>
+          <p><small><a href="privacy" target="_blank" rel="nofollow">Privacy Policy</a></small></p>
         </footer>
 
         <div class="background"></div>
@@ -265,8 +245,6 @@
           <div class="canvas">
 
             <div id="map"></div>
-
-            <!-- <canvas id="user"></canvas> -->
 
             <aside class="hints">
 
@@ -340,7 +318,7 @@
 
                   <div data-step="You are here" class="swiper-slide">
                     <p>
-                      Essa é a <strong>sua vizinhança</strong> no dia 16 de março. Nessa data, foi confirmada a primeira morte pelo novo coronavírus no Brasil.
+                      Essa é a <strong>sua vizinhança</strong> no dia March 16. Nessa data, foi confirmada a primeira morte pelo novo coronavírus no Brasil.
                     </p>
                   </div>
 
@@ -352,7 +330,7 @@
 
                   <div data-step="Following deaths" class="swiper-slide">
                     <p>
-                      Uma semana depois, no dia 24 de março, mais 46 pessoas haviam morrido por Covid&#8209;19 no Brasil. De novo, <strong>vamos fingir</strong> que elas viviam <strong>na sua vizinhança</strong>.
+                      Uma semana depois, no dia March 24, mais 46 pessoas haviam morrido por Covid&#8209;19 no Brasil. De novo, <strong>vamos fingir</strong> que elas viviam <strong>na sua vizinhança</strong>.
                     </p>
                   </div>
 
@@ -541,7 +519,7 @@
 
     <script src="script/turf.min.js"></script>
     <!-- turf modules is breaking on “turf.point()” -->
-    <script src="script/app.js"></script>
+    <script src="script/app.js<?= $version ?>"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
     <script src="script/html2canvas.min.js" async></script>
