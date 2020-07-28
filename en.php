@@ -104,7 +104,7 @@
           <p>Since the major Covid&#8209;19 outbreaks happened in a few metropolitan areas, many Brazilians don't see the effects of the disease in their daily lives.</p>
           <p>In order to make the dimension of our losses easier to understand, this simulation shows what would happen if all the confirmed Covid-19 deaths in the country happened around your address.</p>
           <p>After you start this experience, you will see a circle drawn around your location: in such a scenario, everyone who lives in that area would have died.</p>
-          <p>How far will this emptiness go?</p>
+          <p>How far would this emptiness go?</p>
 
           <footer>
             <p><small class="notes">Data protection: Lupa and Google do not store the addresses you provide. Lupa recommends caution when sharing personal data.</small></p>
