@@ -48,33 +48,33 @@
             <h1>Privacy Policy</h1>
           </header>
 
-          <p>A sua privacidade é importante para nós. É política da Agência Lupa respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site da <a href="https://lupa.news/">Agência Lupa</a>, e outros sites que possuímos e operamos.</p>
-          <p>Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.</p>
-          <p>Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemos dentro de meios comercialmente aceitáveis ​​para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou modificação não autorizados.</p>
-          <p>Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.</p>
-          <p>O nosso site pode ter links para sites externos que não são operados por nós. Esteja ciente de que não temos controle sobre o conteúdo e práticas desses sites e não podemos aceitar responsabilidade por suas respectivas políticas de privacidade.</p>
-          <p>Você é livre para recusar a nossa solicitação de informações pessoais, entendendo que talvez não possamos fornecer alguns dos serviços desejados.</p>
-          <p>O uso continuado de nosso site será considerado como aceitação de nossas práticas em torno de privacidade e informações pessoais. Se você tiver alguma dúvida sobre como lidamos com dados do usuário e informações pessoais, entre em contato conosco.</p>
+          <p>Your privacy is important to us. It is the policy of Agência Lupa to respect your privacy in relation to any information that we might collect on the <a href="https://lupa.news/">Agency Lupa</a> website, and other sites that we own and operate.</p>
+          <p>We request personal information only when we really need it to provide you with a service. We do this by fair and legal means, with your knowledge and consent. We also tell you why we are collecting it and how it will be used.</p>
+          <p>We only retain the information collected for as long as necessary to provide the requested service. When we store data, we protect it within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or modification.</p>
+          <p>We do not share personally identifiable information publicly or with third parties, except as required by law.</p>
+          <p>Our website may have links to external websites that are not operated by us. Please be aware that we have no control over the content and practices of these sites and we cannot accept responsibility for their respective privacy policies.</p>
+          <p>You are free to refuse our request for personal information, understanding that we may not be able to provide some of the desired services.</p>
+          <p>Your continued use of our website will be considered acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, please contact us.</p>
 
           <section>
 
             <header>
-              <h2>Política de Cookies</h2>
+              <h2>Cookies Policy</h2>
             </header>
 
-            <p>Como é prática comum em quase todos os sites profissionais, este site usa cookies, que são pequenos arquivos baixados no seu computador, para melhorar sua experiência. Esta página descreve quais informações eles coletam, como as usamos e por que às vezes precisamos armazenar esses cookies. Também compartilharemos como você pode impedir que esses cookies sejam armazenados, no entanto, isso pode fazer o downgrade ou 'quebrar' certos elementos da funcionalidade do site.</p>
-            <p>Utilizamos cookies por vários motivos, detalhados abaixo. Infelizmente, na maioria dos casos, não existem opções padrão do setor para desativar os cookies sem desativar completamente a funcionalidade e os recursos que eles adicionam a este site. É recomendável que você deixe todos os cookies se não tiver certeza se precisa ou não deles, caso sejam usados ​​para fornecer um serviço que você usa.</p>
-            <p>Você pode impedir a configuração de cookies ajustando as configurações do seu navegador (consulte a Ajuda do navegador para saber como fazer isso). Esteja ciente de que a desativação de cookies afetará a funcionalidade deste e de muitos outros sites que você visita. A desativação de cookies geralmente resultará na desativação de determinadas funcionalidades e recursos deste site. Portanto, é recomendável que você não desative os cookies.</p>
+            <p>As is common practice on almost all professional sites, this site uses cookies, which are small files downloaded to your computer, to improve your experience. This page describes what information they collect, how we use it and why we sometimes need to store these cookies. We will also share how you can prevent these cookies from being stored, however, this may downgrade or 'break' certain elements of the website's functionality.</p>
+            <p>We use cookies for a variety of reasons, detailed below. Unfortunately, in most cases, there are no industry standard options for disabling cookies without completely disabling the functionality and features that they add to this site. It is recommended that you leave all cookies if you are not sure whether or not you need them, if they are used to provide a service that you use.</p>
+            <p>You can prevent cookies from being set by adjusting your browser settings (see your browser's Help for how to do this). Be aware that disabling cookies will affect the functionality of this and many other websites you visit. Disabling cookies will generally result in disabling certain features on this site. Therefore, it is recommended that you do not disable cookies.</p>
 
             <section>
 
               <header>
-                <h3>Cookies de Terceiros</h3>
+                <h3>Third Party Cookies</h3>
               </header>
 
-              <p>Este site usa o Google Analytics, que é uma das soluções de análise mais difundidas e confiáveis ​​da Web, para nos ajudar a entender como você usa o site e como podemos melhorar sua experiência. Esses cookies podem rastrear itens como quanto tempo você gasta no site e as páginas visitadas, para que possamos continuar produzindo conteúdo atraente.</p>
-              <p>As análises de terceiros são usadas para rastrear e medir o uso deste site, para que possamos continuar produzindo conteúdo atrativo. Esses cookies podem rastrear itens como o tempo que você passa no site ou as páginas visitadas, o que nos ajuda a entender como podemos melhorar o site para você.</p>
-              <p>Para mais informações sobre cookies do Google Analytics, consulte a página oficial do Google Analytics.</p>
+              <p>This site uses Google Analytics, which is one of the most widespread and reliable analytics solutions on the web, to help us understand how you use the site and how we can improve your experience. These cookies can track items such as how much time you spend on the site and the pages you visit, so that we can continue to produce compelling content.</p>
+              <p>Third party analytics are used to track and measure the use of this site, so that we can continue to produce compelling content. These cookies can track items such as the time you spend on the site or the pages you visit, which helps us understand how we can improve the site for you.</p>
+              <p>For more information about Google Analytics cookies, see the official Google Analytics page.</p>
 
             </section>
 
@@ -83,7 +83,7 @@
           <footer>
             <p>
               <small class="notes">
-                Esta política é efetiva a partir de <time datetime="2020-07">Julho de 2020</time>.
+              This policy is effective from <time datetime="2020-07">July 2020</time>.
               </small>
             </p>
           </footer>
