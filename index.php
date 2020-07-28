@@ -85,7 +85,7 @@
                 <span>E se todos os mortos por Covid&#8209;19 no Brasil fossem seus vizinhos?</span>
               </h1>
 
-              <p class="lead">Descubra o que aconteceria com a sua vizinhança caso o epicentro da epidemia de Covid-19 no Brasil fosse sua casa.</p>
+              <p class="lead">Descubra o que aconteceria com a sua vizinhança caso o epicentro da epidemia de Covid&#8209;19 no Brasil fosse sua casa.</p>
 
               <p class="dates">
                 <small class="notes">
@@ -259,7 +259,7 @@
 
               <div class="hint">
                 <img src="media/hints/hint-white.svg">
-                <p><small>Pontos brancos representam mortes por Covid-19</small></p>
+                <p><small>Pontos brancos representam mortes por Covid&#8209;19</small></p>
               </div>
 
               <div class="hint">
@@ -451,7 +451,7 @@
             </figure>
 
             <div class="poster-content">
-              <p>Se todas as <strong><em data-var="Death count">milhares de</em></strong> mortes pela <strong>Covid-19</strong> tivessem acontecido ao meu redor, ninguém nesse raio ficaria vivo.</p>
+              <p>Se todas as <strong><em data-var="Death count">milhares de</em></strong> mortes pela <strong>Covid&#8209;19</strong> tivessem acontecido ao meu redor, ninguém nesse raio ficaria vivo.</p>
               <div class="brands">
                 <a><img src="media/brand/lupa.png"></a>
                 <a><div class="pipe"></div><img src="media/brand/google.svg"></a>
@@ -498,7 +498,7 @@
                 <span>Salvar imagem</span>
               </a>
 
-              <p>A imagem mostra até onde sua vizinhança sumiria do mapa caso as <em data-var="Death count"></em> mortes por Covid-19 no país estivessem concentradas ao seu redor.</p>
+              <p>A imagem mostra até onde sua vizinhança sumiria do mapa caso as <em data-var="Death count"></em> mortes por Covid&#8209;19 no país estivessem concentradas ao seu redor.</p>
               <p>
                 <small class="notes">O cálculo é uma estimativa e, portanto, o resultado apresentado no mapa é aproximado.</small>
               </p>
