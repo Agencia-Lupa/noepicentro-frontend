@@ -98,7 +98,7 @@
 
           </header>
 
-          <p>By yesterday, <em data-var="Death count">thousands of</em> people had died due to Covid&#8209;19 in Brazil.</p>
+          <p>Up until yesterday, <em data-var="Death count">thousands of</em> people had died due to Covid&#8209;19 in Brazil.</p>
           <p>These deaths are spread over more than half of Brazilian cities, in all of the 27 states in the country.</p>
           <p>What if they had happened near you?</p>
           <p>Since the major Covid&#8209;19 outbreaks happened in a few metropolitan areas, many Brazilians don't see the effects of the disease in their daily lives.</p>
