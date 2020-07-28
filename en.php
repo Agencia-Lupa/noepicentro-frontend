@@ -102,7 +102,7 @@
           <p>These deaths are spread over more than half of Brazilian cities, in all of the 27 states in the country.</p>
           <p>What if they had happened near you?</p>
           <p>Since the major Covid&#8209;19 outbreaks happened in a few metropolitan areas, many Brazilians don't see the effects of the disease in their daily lives.</p>
-          <p>In order to make the dimension of our losses easier to understand, this simulation shows what would happen if all the confirme Covid-19 deaths in the country happened around your address.</p>
+          <p>In order to make the dimension of our losses easier to understand, this simulation shows what would happen if all the confirmed Covid-19 deaths in the country happened around your address.</p>
           <p>After you start this experience, you will see a circle drawn around your location: in such a scenario, everyone who lives in that area would have died.</p>
           <p>How far will this emptiness go?</p>
 
@@ -338,7 +338,7 @@
                     <p>
                       Today,
                       <em data-var="Time since first death"></em>
-                      after the first death was confiremd, the death toll reaches <strong><em data-var="Death count">61.314</em></strong> in the whole country.
+                      after the first death was confirmed, the death toll reaches <strong><em data-var="Death count">61.314</em></strong> in the whole country.
                     </p>
                   </div>
 
@@ -382,7 +382,7 @@
 
                   <div data-step="Featured city 1 location" class="swiper-slide">
                     <p>
-                      Here tou can see how the <strong>area near <em data-var="Featured city 1 location"></em></strong>, <em data-var="Featured city 1 location description"></em>, would be if all the deaths were scattered around it. Everyone in a radius of <strong><em data-var="Featured city 1 radius"></em></strong> would be dead.
+                      Here you can see how the <strong>area near <em data-var="Featured city 1 location"></em></strong>, <em data-var="Featured city 1 location description"></em>, would be if all the deaths were scattered around it. Everyone in a radius of <strong><em data-var="Featured city 1 radius"></em></strong> would be dead.
                     </p>
                   </div>
 
@@ -449,7 +449,7 @@
             </figure>
 
             <div class="poster-content">
-              <p>If all the <strong><em data-var="Death count">milhares de</em></strong> <strong>Covid-19 deaths</strong> had happened around me, no one in this radius would be left alive.</p>
+              <p>If all the <strong><em data-var="Death count">thousands of</em></strong> <strong>Covid-19 deaths</strong> had happened around me, no one in this radius would be left alive.</p>
               <div class="brands">
                 <a><img src="media/brand/lupa.png"></a>
                 <a><div class="pipe"></div><img src="media/brand/google.svg"></a>
@@ -496,7 +496,7 @@
                 <span>Save image</span>
               </a>
 
-              <p>This image shows how far would your neighborhood would vanish if all the <em data-var="Death count"></em> in Brazil had happened around you.</p>
+              <p>This image shows how far would your neighborhood vanish if all the <em data-var="Death count"></em> in Brazil had happened around you.</p>
 
               <small class="notes">The results displayed in the map are an approximation.</small>
               </p>
