@@ -85,7 +85,7 @@
                 <span>What if all the Covid&#8209;19 deaths in Brazil happened in your neighborhood?</span>
               </h1>
 
-              <p class="lead">Find out what would happen to your neighborhood if the epicenter of the Covid-19 epidemic in Brazil was your home.</p>
+              <p class="lead">Find out what would happen to your neighborhood if the epicenter of the Covid&#8209;19 epidemic in Brazil was your home.</p>
 
               <p class="dates">
                 <small class="notes">
@@ -102,7 +102,7 @@
           <p>These deaths are spread over more than half of Brazilian cities, in all of the 27 states in the country.</p>
           <p>What if they had happened near you?</p>
           <p>Since the major Covid&#8209;19 outbreaks happened in a few metropolitan areas, many Brazilians don't see the effects of the disease in their daily lives.</p>
-          <p>In order to make the dimension of our losses easier to understand, this simulation shows what would happen if all the confirmed Covid-19 deaths in the country happened around your address.</p>
+          <p>In order to make the dimension of our losses easier to understand, this simulation shows what would happen if all the confirmed Covid&#8209;19 deaths in the country happened around your address.</p>
           <p>After you start this experience, you will see a circle drawn around your location: in such a scenario, everyone who lives in that area would have died.</p>
           <p>How far would this emptiness go?</p>
 
@@ -449,7 +449,7 @@
             </figure>
 
             <div class="poster-content">
-              <p>If all the <strong><em data-var="Death count">thousands of</em></strong> <strong>Covid-19 deaths</strong> had happened around me, no one in this radius would be left alive.</p>
+              <p>If all the <strong><em data-var="Death count">thousands of</em></strong> <strong>Covid&#8209;19 deaths</strong> had happened around me, no one in this radius would be left alive.</p>
               <div class="brands">
                 <a><img src="media/brand/lupa.png"></a>
                 <a><div class="pipe"></div><img src="media/brand/google.svg"></a>
