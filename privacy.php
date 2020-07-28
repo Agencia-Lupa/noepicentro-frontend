@@ -2,7 +2,7 @@
 <html lang="pt-br" translate="no">
   <head>
 
-    <title>Política de Privacidade</title>
+    <title>Privacy Policy</title>
 
     <meta name="robots" content="noindex, nofollow">
 
@@ -25,6 +25,16 @@
       }
     </style>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172954415-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-172954415-1');
+    </script>
+
   </head>
   <body>
 
@@ -35,7 +45,7 @@
         <article>
 
           <header>
-            <h1>Política de Privacidade</h1>
+            <h1>Privacy Policy</h1>
           </header>
 
           <p>A sua privacidade é importante para nós. É política da Agência Lupa respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site da <a href="https://lupa.news/">Agência Lupa</a>, e outros sites que possuímos e operamos.</p>
