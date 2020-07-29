@@ -9,7 +9,7 @@ let app = {
   lang : document.documentElement.lang,
 
   error : {
-    'pt-BR' : {
+    'pt-br' : {
       1 : 'Aparentemente, você está fora do Brasil. Quer tentar digitar um endereço?',
       2 : 'Ops! Não conseguimos usar sua localização… Que tal digitar seu endereço?'
     },
@@ -58,7 +58,7 @@ let app = {
         let value = Math.round( deaths / 1000 )
         let string
 
-        if ( app.lang == 'pt-BR' )
+        if ( app.lang == 'pt-br' )
           string = value + ' mil'
 
         if ( app.lang == 'en' )
@@ -80,7 +80,7 @@ let app = {
 
         let string = diff.days + ' '
 
-        if ( app.lang == 'pt-BR' )
+        if ( app.lang == 'pt-br' )
           string += 'dias'
 
         if ( app.lang == 'en' )
@@ -168,7 +168,7 @@ let app = {
 
         let string
 
-        if ( app.lang == 'pt-BR' )
+        if ( app.lang == 'pt-br' )
           string = value + ' mil'
 
         if ( app.lang == 'en' )
@@ -191,7 +191,7 @@ let app = {
         let value = Math.round( difference / 1000 )
         let string
 
-        if ( app.lang == 'pt-BR' )
+        if ( app.lang == 'pt-br' )
           string = value + ' mil'
 
         if ( app.lang == 'en' )

@@ -1,6 +1,6 @@
 <? $version = '?v=1.0.2'; ?>
 <!DOCTYPE html>
-<html lang="pt-BR" translate="no">
+<html lang="pt-br" translate="no">
   <head>
 
     <title>E se todos os mortos por Covid&#8209;19 no Brasil fossem seus vizinhos? | Agência Lupa</title>
