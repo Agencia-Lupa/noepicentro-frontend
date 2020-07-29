@@ -694,7 +694,12 @@ let app = {
             if ( index === 0 ) {
 
               center = app.story.map.user
-              label = 'Você está aqui'
+
+              if ( app.lang == 'pt-br' )
+                label = 'Você está aqui'
+
+              if ( app.lang == 'en' )
+                label = 'You are here'
 
             } else {
 
