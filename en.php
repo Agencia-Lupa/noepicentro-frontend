@@ -1,4 +1,3 @@
-<? $version = '?v=1.0.2'; ?>
 <!DOCTYPE html>
 <html lang="en" translate="no">
   <head>
@@ -25,7 +24,7 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/swiper@6/swiper-bundle.min.css">
-    <link rel="stylesheet" href="style/app.css<?= $version ?>">
+    <link rel="stylesheet" href="style/app.css?v=1.0.3">
 
     <link rel="alternate" hreflang="en" href="https://piaui.folha.uol.com.br/lupa/epicentro/en/">
     <link rel="alternate" hreflang="pt" href="https://piaui.folha.uol.com.br/lupa/epicentro/">
@@ -517,7 +516,7 @@
 
     <script src="script/turf.min.js"></script>
     <!-- turf modules is breaking on “turf.point()” -->
-    <script src="script/app.js<?= $version ?>"></script>
+    <script src="script/app.js?v=1.0.3"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
     <script src="script/html2canvas.min.js" async></script>
