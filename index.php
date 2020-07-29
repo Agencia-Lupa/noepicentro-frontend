@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" translate="no">
+<html lang="pt-br" path="./" translate="no">
   <head>
 
     <title>E se todos os mortos por Covid&#8209;19 no Brasil fossem seus vizinhos? | Agência Lupa</title>
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/swiper@6/swiper-bundle.min.css">
-    <link rel="stylesheet" href="style/app.css?v=1.0.4">
+    <link rel="stylesheet" href="style/app.css?v=1.0.5">
 
     <link rel="alternate" hreflang="en" href="https://piaui.folha.uol.com.br/lupa/epicentro/en/">
     <link rel="alternate" hreflang="pt" href="https://piaui.folha.uol.com.br/lupa/epicentro/">
@@ -107,7 +107,7 @@
 
           <footer>
             <p><small class="notes">Proteção de dados: Lupa e Google não armazenam endereços consultados nesta ferramenta. A Lupa recomenda cautela no compartilhamento de dados pessoais.</small></p>
-            <p><small class="notes">Leia mais em nossa <a href="privacidade" target="_blank" rel="nofollow">Política de Privacidade</a>.</small>
+            <p><small class="notes">Leia mais em nossa <a href="privacidade.php" target="_blank" rel="nofollow">Política de Privacidade</a>.</small>
           </footer>
 
           <section>
@@ -173,11 +173,11 @@
 
         <nav>
           <span class="button"><span class="screen-reader">Versão em </span>Português</span>
-          <a class="button" rel="alternate" href="en" hreflang="en" lang="en">English<span class="screen-reader"> version</span></a>
+          <a class="button" rel="alternate" href="en/" hreflang="en" lang="en">English<span class="screen-reader"> version</span></a>
         </nav>
 
         <footer>
-          <p><small><a href="privacidade" target="_blank" rel="nofollow">Política de Privacidade</a></small></p>
+          <p><small><a href="privacidade.php" target="_blank" rel="nofollow">Política de Privacidade</a></small></p>
         </footer>
 
         <div class="background"></div>
@@ -518,7 +518,7 @@
 
     <script src="script/turf.min.js"></script>
     <!-- turf modules is breaking on “turf.point()” -->
-    <script src="script/app.js?v=1.0.4"></script>
+    <script src="script/app.js?v=1.0.5"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
     <script src="script/html2canvas.min.js" async></script>

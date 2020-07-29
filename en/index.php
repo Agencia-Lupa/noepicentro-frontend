@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" translate="no">
+<html lang="en" path="../" translate="no">
   <head>
 
     <title>What if all the Covid&#8209;19 deaths in Brazil happened in your neighborhood? | Agência Lupa</title>
@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/swiper@6/swiper-bundle.min.css">
-    <link rel="stylesheet" href="style/app.css?v=1.0.4">
+    <link rel="stylesheet" href="../style/app.css?v=1.0.5">
 
     <link rel="alternate" hreflang="en" href="https://piaui.folha.uol.com.br/lupa/epicentro/en/">
     <link rel="alternate" hreflang="pt" href="https://piaui.folha.uol.com.br/lupa/epicentro/">
@@ -60,7 +60,7 @@
       <div class="cover">
 
         <figure>
-          <img src="media/cover/cover-1-b.png" alt="">
+          <img src="../media/cover/cover-1-b.png" alt="">
         </figure>
 
       </div>
@@ -73,8 +73,8 @@
 
             <div class="brands-wrapper">
               <div class="brands">
-                <a href="https://lupa.news/" target="_blank"><img src="media/brand/lupa.png" alt="Logotipo da Agência Lupa"></a>
-                <a href="https://newsinitiative.withgoogle.com/" target="_blank"><div class="pipe"></div><img src="media/brand/google.svg" alt="Logotipo da Google News Initiative"></a>
+                <a href="https://lupa.news/" target="_blank"><img src="../media/brand/lupa.png" alt="Logotipo da Agência Lupa"></a>
+                <a href="https://newsinitiative.withgoogle.com/" target="_blank"><div class="pipe"></div><img src="../media/brand/google.svg" alt="Logotipo da Google News Initiative"></a>
               </div>
             </div>
 
@@ -107,7 +107,7 @@
 
           <footer>
             <p><small class="notes">Data protection: Lupa and Google do not store the addresses you provide. Lupa recommends caution when sharing personal data.</small></p>
-            <p><small class="notes">You can know more by reading our <a href="privacy" target="_blank" rel="nofollow">Privacy Policy</a>.</small>
+            <p><small class="notes">You can know more by reading our <a href="../privacy.php" target="_blank" rel="nofollow">Privacy Policy</a>.</small>
           </footer>
 
           <section>
@@ -177,7 +177,7 @@
         </nav>
 
         <footer>
-          <p><small><a href="privacy" target="_blank" rel="nofollow">Privacy Policy</a></small></p>
+          <p><small><a href="../privacy.php" target="_blank" rel="nofollow">Privacy Policy</a></small></p>
         </footer>
 
         <div class="background"></div>
@@ -252,22 +252,22 @@
               </header>
 
               <div class="hint">
-                <img src="media/hints/hint-gray.svg">
+                <img src="../media/hints/hint-gray.svg">
                 <p><small>Each point is a person that lives here</small></p>
               </div>
 
               <div class="hint">
-                <img src="media/hints/hint-white.svg">
+                <img src="../media/hints/hint-white.svg">
                 <p><small>White points represent deaths by Covid&#8209;19</small></p>
               </div>
 
               <div class="hint">
-                <img src="media/hints/hint-circle.svg">
+                <img src="../media/hints/hint-circle.svg">
                 <p><small>Around <em data-var="Death count rounded"></em> people live inside the circle</small></p>
               </div>
 
               <div class="hint">
-                <img src="media/hints/hint-bubble.svg">
+                <img src="../media/hints/hint-bubble.svg">
                 <p><small>The bigger the bubble, the higher is the death count in a city</small></p>
               </div>
 
@@ -437,7 +437,7 @@
               <img class="poster-map" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
               <figcaption>
                 <p>
-                  <img src="media/poster/radius.svg">
+                  <img src="../media/poster/radius.svg">
                   <em data-var="User radius"></em>
                 </p>
                 <p>
@@ -450,9 +450,9 @@
             <div class="poster-content">
               <p>If all the <strong><em data-var="Death count">thousands of</em></strong> <strong>Covid&#8209;19 deaths</strong> had happened around me, no one in this radius would be left alive.</p>
               <div class="brands">
-                <a><img src="media/brand/lupa.png"></a>
-                <a><div class="pipe"></div><img src="media/brand/google.svg"></a>
-                <img src="media/brand/mapbox.svg">
+                <a><img src="../media/brand/lupa.png"></a>
+                <a><div class="pipe"></div><img src="../media/brand/google.svg"></a>
+                <img src="../media/brand/mapbox.svg">
               </div>
             </div>
 
@@ -514,12 +514,12 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/swiper@6/swiper-bundle.min.js"></script>
 
-    <script src="script/turf.min.js"></script>
+    <script src="../script/turf.min.js"></script>
     <!-- turf modules is breaking on “turf.point()” -->
-    <script src="script/app.js?v=1.0.4"></script>
+    <script src="../script/app.js?v=1.0.5"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
-    <script src="script/html2canvas.min.js" async></script>
+    <script src="../script/html2canvas.min.js" async></script>
 
   </body>
 </html>
