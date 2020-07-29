@@ -132,7 +132,7 @@ let app = {
       "Featured city 1 location description" : function() {
 
         let city = app.variables.result.capitals_to_highlight[ 0 ]
-        return city[ app.lang ].complement || ''
+        return city.display_text[ app.lang ].complement || ''
 
       },
 
