@@ -122,8 +122,8 @@
             <p>Some tracts are buildings in a city. Others, blocks or neighborhoods. We know exactly how many people lived in each of these areas in 2010, when the last census was done.</p>
             <p>The simulation sums the population of all the tracts around around you until it reaches a total that is close to the total Covid&#8209;19 deaths in the country.</p>
             <p>For this calculation, we use the death count as reported by <a href="https://brasil.io/dataset/covid19/caso_full/" target="_blank">Brasil.io</a>, a group of volunteers that has been gathering data from epidemiological reports since the beginning of the pandemic.</p>
-            <p>The full <a href="https://github.com/coldfoot/back" target="_blank"> methodology</a> involves drawing increasing radiuses, calculating intersections and making statistical estimates.</p>
-            <p>The source code is available in <a href="https://github.com/coldfoot/" target="_blank"> GitHub</a>, along with a more detailed description of all the math behind this piece.</p>
+            <p>The full <a href="https://github.com/noepicentro/back" target="_blank"> methodology</a> involves drawing increasing radiuses, calculating intersections and making statistical estimates.</p>
+            <p>The source code is available in <a href="https://github.com/noepicentro/" target="_blank"> GitHub</a>, along with a more detailed description of all the math behind this piece.</p>
 
           </section>
 

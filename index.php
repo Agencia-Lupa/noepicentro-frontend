@@ -122,8 +122,8 @@
             <p>Alguns setores representam prédios de uma cidade. Outros, quadras ou bairros. No último censo, em 2010, o IBGE contou quantos moradores havia em cada uma dessas áreas. Assim, cada ponto no mapa representa uma pessoa que vive naquela região.</p>
             <p>O aplicativo soma a população dos setores censitários ao seu redor até atingir um número próximo ao total de mortes por Covid&#8209;19 no país.</p>
             <p>Usamos número de óbitos divulgado pelo <a href="https://brasil.io/dataset/covid19/caso_full/" target="_blank">Brasil.io</a>, grupo de voluntários que tem reunido dados dos boletins epidemiológicos estaduais desde o início da pandemia.</p>
-            <p>A <a href="https://github.com/coldfoot/back" target="_blank">metodologia</a> completa envolve desenhar raios crescentes, calcular interseções e fazer estimativas estatísticas.</p>
-            <p>O código-fonte está disponível no <a href="https://github.com/coldfoot/" target="_blank">GitHub</a>.</p>
+            <p>A <a href="https://github.com/noepicentro/back" target="_blank">metodologia</a> completa envolve desenhar raios crescentes, calcular interseções e fazer estimativas estatísticas.</p>
+            <p>O código-fonte está disponível no <a href="https://github.com/noepicentro/" target="_blank">GitHub</a>.</p>
 
           </section>
 
