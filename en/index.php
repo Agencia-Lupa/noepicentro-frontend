@@ -329,7 +329,7 @@
 
                   <div data-step="Following deaths" class="swiper-slide">
                     <p>
-                      AA week later, on March 24, another 46 people had died due to Covid‑19 in Brazil. Again, <strong>let’s pretend</strong> they lived in <strong>your neighborhood</strong>.
+                      A week later, on March 24, another 46 people had died due to Covid‑19 in Brazil. Again, <strong>let’s pretend</strong> they lived in <strong>your neighborhood</strong>.
                     </p>
                   </div>
 
