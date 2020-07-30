@@ -505,8 +505,8 @@
               </a>
 
               <p>This image shows how far your neighborhood would vanish if all <em data-var="Death count"></em> in Brazil had happened around you.</p>
-
-              <small class="notes">The results displayed on the map are an approximation.</small>
+              <p>
+                <small class="notes">The results displayed on the map are an approximation.</small>
               </p>
 
             </div>
