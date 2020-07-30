@@ -197,7 +197,7 @@
               <label>
 
                 <span class="screen-reader">Where do you live?</span>
-                <input type="search" placeholder="Enter your address" name="address" autocorrect="off">
+                <input type="search" placeholder="Enter your address in Brazil" name="address" autocorrect="off">
 
                 <div>
 
