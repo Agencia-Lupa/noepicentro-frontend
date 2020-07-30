@@ -11,7 +11,7 @@
     <meta name="mobile-web-app-capable"       content="yes">
 
     <meta property="og:title"                 content="What if all Covid&#8209;19 deaths in Brazil happened in your neighborhood? | Agência Lupa">
-    <meta property="og:description"           content="Find out what would happen to your neighborhood if the epicenter of the Covid-19 epidemic in Brazil was your home.">
+    <meta property="og:description"           content="Find out what would happen to your neighborhood if the epicenter of the Covid&#8209;19 epidemic in Brazil was your home.">
     <meta property="og:image"                 content="https://piaui.folha.uol.com.br/lupa/epicentro/1200x1200.png">
 
     <link rel="icon"                          href="https://piaui.folha.uol.com.br/lupa/epicentro/favicon-32x32.png"    type="image/png" sizes="32x32">
@@ -329,7 +329,7 @@
 
                   <div data-step="Following deaths" class="swiper-slide">
                     <p>
-                      A week later, on March 24, another 46 people had died due to Covid‑19 in Brazil. Again, <strong>let’s pretend</strong> they lived in <strong>your neighborhood</strong>.
+                      A week later, on March 24, another 46 people had died due to Covid&#8209;19 in Brazil. Again, <strong>let’s pretend</strong> they lived in <strong>your neighborhood</strong>.
                     </p>
                   </div>
 

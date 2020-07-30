@@ -11,7 +11,7 @@
     <meta name="mobile-web-app-capable"       content="yes">
 
     <meta property="og:title"                 content="E se todos os mortos por Covid&#8209;19 no Brasil fossem seus vizinhos? | Agência Lupa">
-    <meta property="og:description"           content="Descubra o que aconteceria com a sua vizinhança caso o epicentro da epidemia de Covid-19 no Brasil fosse sua casa">
+    <meta property="og:description"           content="Descubra o que aconteceria com a sua vizinhança caso o epicentro da epidemia de Covid&#8209;19 no Brasil fosse sua casa">
     <meta property="og:image"                 content="https://piaui.folha.uol.com.br/lupa/epicentro/1200x1200.png">
 
     <link rel="icon"                          href="https://piaui.folha.uol.com.br/lupa/epicentro/favicon-32x32.png"    type="image/png" sizes="32x32">
