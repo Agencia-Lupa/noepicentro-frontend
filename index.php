@@ -106,7 +106,7 @@
           <p>Até onde iria a devastação?</p>
 
           <footer>
-            <p><small class="notes">Proteção de dados: Lupa e Google não armazenam endereços consultados nesta ferramenta. A Lupa recomenda cautela no compartilhamento de dados pessoais.</small></p>
+            <p><small class="notes">Proteção de dados: Lupa não armazena endereços consultados nesta ferramenta e recomenda cautela no compartilhamento de dados pessoais.</small></p>
             <p><small class="notes">Leia mais em nossa <a href="privacidade.php" target="_blank" rel="nofollow">Política de Privacidade</a>.</small>
           </footer>
 

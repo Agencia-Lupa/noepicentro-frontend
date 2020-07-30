@@ -2,7 +2,7 @@
 <html lang="en" path="../" translate="no">
   <head>
 
-    <title>What if all the Covid&#8209;19 deaths in Brazil happened in your neighborhood? | Agência Lupa</title>
+    <title>What if all Covid&#8209;19 deaths in Brazil happened in your neighborhood? | Agência Lupa</title>
 
     <meta charset="UTF-8">
 
@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable"       content="yes">
 
-    <meta property="og:title"                 content="What if all the Covid&#8209;19 deaths in Brazil happened in your neighborhood? | Agência Lupa">
+    <meta property="og:title"                 content="What if all Covid&#8209;19 deaths in Brazil happened in your neighborhood? | Agência Lupa">
     <meta property="og:description"           content="Find out what would happen to your neighborhood if the epicenter of the Covid-19 epidemic in Brazil was your home.">
     <meta property="og:image"                 content="https://piaui.folha.uol.com.br/lupa/epicentro/1200x1200.png">
 
@@ -81,10 +81,10 @@
             <div class="intro">
               <h1>
                 <span class="kicker">At The Epicenter<span class="screen-reader">: </span></span>
-                <span>What if all the Covid&#8209;19 deaths in Brazil happened in your neighborhood?</span>
+                <span>What if all Covid&#8209;19 deaths in Brazil happened in your neighborhood?</span>
               </h1>
 
-              <p class="lead">Find out what would happen to your neighborhood if the epicenter of the Covid&#8209;19 epidemic in Brazil was your home.</p>
+              <p class="lead">Find out what would happen if your address was the epicenter of the Covid&#8209;19 pandemic in Brazil.</p>
 
               <p class="dates">
                 <small class="notes">
@@ -98,15 +98,15 @@
           </header>
 
           <p>Up until yesterday, <em data-var="Death count">thousands of</em> people had died due to Covid&#8209;19 in Brazil.</p>
-          <p>These deaths are spread over more than half of Brazilian cities, in all of the 27 states in the country.</p>
+          <p>But it can be difficult to visualize what this means in a country so large. These deaths are spread over all 27 Brazilian states. More than half of all Brazilian cities have been affected.</p>
           <p>What if they had happened near you?</p>
-          <p>Since the major Covid&#8209;19 outbreaks happened in a few metropolitan areas, many Brazilians don't see the effects of the disease in their daily lives.</p>
-          <p>In order to make the dimension of our losses easier to understand, this simulation shows what would happen if all the confirmed Covid&#8209;19 deaths in the country happened around your address.</p>
+          <p>Since the major Covid&#8209;19 outbreaks happened in a few metropolitan areas, many Brazilians don’t see the effects of the disease in their daily lives.</p>
+          <p>In order to make the dimension of our losses easier to understand, this simulation shows what would happen if all confirmed Covid&#8209;19 deaths in the country happened around your address.</p>
           <p>After you start this experience, you will see a circle drawn around your location: in such a scenario, everyone who lives in that area would have died.</p>
           <p>How far would this emptiness go?</p>
 
           <footer>
-            <p><small class="notes">Data protection: Lupa and Google do not store the addresses you provide. Lupa recommends caution when sharing personal data.</small></p>
+            <p><small class="notes">Data protection: Lupa does not store the addresses you provide and recommends caution when sharing personal data.</small></p>
             <p><small class="notes">You can know more by reading our <a href="../privacy.php" target="_blank" rel="nofollow">Privacy Policy</a>.</small>
           </footer>
 
@@ -116,13 +116,13 @@
               <h2>How does the simulation work?</h2>
             </header>
 
-            <p>The death radius displayed around you depends on your location and the number of people who live near you.</p>
-            <p>In order to determine the size of the radius, we use data from the Brazilian census tracts. The tracts are small territorial blocks which were drawn by IBGE — the Brazilian Institute of Geography and Statistics.</p>
+            <p>The death radius displayed around you depends on your location and on the number of people who live near you.</p>
+            <p>In order to determine the size of the radius, we use data from the Brazilian census tracts. The tracts are small territorial blocks which were drawn by IBGE – the Brazilian Institute of Geography and Statistics.</p>
             <p>Some tracts are buildings in a city. Others, blocks or neighborhoods. We know exactly how many people lived in each of these areas in 2010, when the last census was done.</p>
-            <p>The simulation sums the population of all the tracts around around you until it reaches a total that is close to the total Covid&#8209;19 deaths in the country.</p>
+            <p>The simulation sums the population of all the tracts around you until it reaches a total that is close to the total Covid&#8209;19 deaths in the country.</p>
             <p>For this calculation, we use the death count as reported by <a href="https://brasil.io/dataset/covid19/caso_full/" target="_blank">Brasil.io</a>, a group of volunteers that has been gathering data from epidemiological reports since the beginning of the pandemic.</p>
             <p>The full <a href="https://github.com/noepicentro/back" target="_blank"> methodology</a> involves drawing increasing radiuses, calculating intersections and making statistical estimates.</p>
-            <p>The source code is available in <a href="https://github.com/noepicentro/" target="_blank"> GitHub</a>, along with a more detailed description of all the math behind this piece.</p>
+            <p>The source code is available on <a href="https://github.com/noepicentro/" target="_blank"> GitHub</a>, along with a more detailed description of all the math behind this piece.</p>
 
           </section>
 
@@ -317,19 +317,19 @@
 
                   <div data-step="You are here" class="swiper-slide">
                     <p>
-                      This is <strong> your neighborhood </strong> on March 16. On this day, Brazil confirmed its first death due to the novel coronavirus.
+                      This is <strong>your neighborhood</strong> on March 16. On this day, Brazil confirmed its first death due to the novel coronavirus.
                     </p>
                   </div>
 
                   <div data-step="First death" class="swiper-slide">
                     <p>
-                      The victim was Manoel Messias Freitas Filho, 62, who lived in the city of São Paulo. In the map, however, <strong>we pretend</strong> that <strong>one of your neighbors</strong> died instead.
+                      The victim was Manoel Messias Freitas Filho, 62, who lived in the city of São Paulo. On the map, however, <strong>we simulate</strong> that one of <strong>your neighbors</strong> died instead.
                     </p>
                   </div>
 
                   <div data-step="Following deaths" class="swiper-slide">
                     <p>
-                      A week later, on March 24, another 46 people had died due to Covid&#8209;19 in Brazil. Again, <strong>let's pretend</strong> that they lived <strong>in your neighborhood</strong>.
+                      AA week later, on March 24, another 46 people had died due to Covid‑19 in Brazil. Again, <strong>let’s pretend</strong> they lived in <strong>your neighborhood</strong>.
                     </p>
                   </div>
 
@@ -337,22 +337,22 @@
                     <p>
                       Today,
                       <em data-var="Time since first death"></em>
-                      after the first death was confirmed, the death toll reaches <strong><em data-var="Death count">61.314</em></strong> in the whole country.
+                      after the first death was confirmed, the death toll reached <strong><em data-var="Death count"></em></strong> in the whole country.
                     </p>
                   </div>
 
                   <div data-step="All deaths with outline" class="swiper-slide">
                     <p>
-                      Let's imagine that they all lived around you: <strong>everyone in this circle would have died</strong>. It has a radius of <strong><in data-var="User radius"></em></strong>, centered in your location.
+                      Let’s imagine that they all lived around you: <strong>everyone in this circle would have died</strong>. It has a radius of <strong><in data-var="User radius"></em></strong>, centered on your location.
                     </p>
                   </div>
 
                   <div data-step="City that would have vanished" class="swiper-slide">
                     <p data-would-vanish="false">
-                      If all the <strong><em data-var="Death count">61.314</em> deaths</strong> had happened in <strong><em data-var="Vanished city"></em></strong>, a city near you, it would be enough to erase it from the map. No one would be left alive.
+                      If all <strong><em data-var="Death count"></em> deaths</strong> had happened in <strong><em data-var="Vanished city"></em></strong>, a city near you, it would be enough to erase it from the map. No one would be left alive.
                     </p>
                     <p data-would-vanish="true">
-                      If all the <strong><em data-var="Death count">61.314</em> deaths</strong> had happened in your city, it would have been erased from the map. No one would be left alive.
+                      If all <strong><em data-var="Death count"></em> deaths</strong> had happened in your city, it would have been erased from the map. No one would be left alive.
                     </p>
                   </div>
 
@@ -360,14 +360,14 @@
                     <p data-would-vanish="false">
                       According to 2019 estimates, around
                       <em data-var="Vanished city population"></em>
-                      people live there. That is
+                      people live in <em data-var="Vanished city"></em>. That is
                       <em data-var="Vanished city population difference"></em>
                       <strong>less than the total confirmed deaths</strong> in the country.
                     </p>
                     <p data-would-vanish="true">
                       According to 2019 estimates, around
                       <em data-var="Vanished city population"></em>
-                      people live there. That is
+                      people live in <em data-var="User city"></em>. That is
                       <em data-var="Vanished city population difference"></em>
                       <strong>less than the total confirmed deaths</strong> in the country.
                     </p>
@@ -375,22 +375,31 @@
 
                   <div data-step="Featured city 1" class="swiper-slide">
                     <p>
-                      Now let's see how big would the death radius be in a large city not far from where you are: <strong><em data-var="Featured city 1"></em></strong>.
+                      Now let’s see how big the death radius would be in a large city, not far from where you are: <strong><em data-var="Featured city 1"></em></strong>.
                     </p>
                   </div>
 
                   <div data-step="Featured city 1 location" class="swiper-slide">
                     <p>
-                      Here you can see how the <strong>area near <em data-var="Featured city 1 location"></em></strong>, <em data-var="Featured city 1 location description"></em>, would be if all the deaths were scattered around it. Everyone in a radius of <strong><em data-var="Featured city 1 radius"></em></strong> would be dead.
+                      If all <em data-var="Death count"></em> deaths had happened around
+                      <strong><em data-var="Featured city 1 location"></em></strong>,
+                      <em data-var="Featured city 1 location description"></em>,
+                      the circle around it would have a radius of <strong><em data-var="Featured city 1 radius"></em></strong>.
                     </p>
                   </div>
 
                   <div data-step="Real distribution" class="swiper-slide">
-                    <p>In real life, however, the Covid&#8209;19 deaths aren't clustered in a single place. Now, the map shows were the <strong><em data-var="Death count">61.314</em> Brazilians that died</strong> due to the disease actually lived.</p>
+                    <p>
+                      In real life, however, Covid&#8209;19 deaths aren’t clustered in a single place. Now, the map shows where the
+                      <strong><em data-var="Death count"></em> Brazilians that died</strong>
+                      due to the disease actually lived.
+                    </p>
                   </div>
 
                   <div data-step="Share me" class="swiper-slide">
-                    <p>Since these people weren't near you, it may be that you <strong>don't get to see</strong> the scale of those losses in your daily life. Nevertheless, even if unnoticed, <strong>they all existed</strong>.</p>
+                    <p>
+                      Since these people were not around you, it may be <strong>hard for you to see</strong> the scale of those losses in your daily life. Nevertheless, even if unnoticed, <strong>they all existed</strong>.
+                    </p>
                   </div>
 
                 </div>
@@ -448,7 +457,7 @@
             </figure>
 
             <div class="poster-content">
-              <p>If all the <strong><em data-var="Death count">thousands of</em></strong> <strong>Covid&#8209;19 deaths</strong> had happened around me, no one in this radius would be left alive.</p>
+              <p>If all <strong><em data-var="Death count"></em></strong> <strong>Covid&#8209;19 deaths</strong> had happened around me, no one in this radius would be left alive.</p>
               <div class="brands">
                 <a><img src="../media/brand/lupa.png"></a>
                 <a><div class="pipe"></div><img src="../media/brand/google.svg"></a>
@@ -495,9 +504,9 @@
                 <span>Save image</span>
               </a>
 
-              <p>This image shows how far would your neighborhood vanish if all the <em data-var="Death count"></em> in Brazil had happened around you.</p>
+              <p>This image shows how far your neighborhood would vanish if all <em data-var="Death count"></em> in Brazil had happened around you.</p>
 
-              <small class="notes">The results displayed in the map are an approximation.</small>
+              <small class="notes">The results displayed on the map are an approximation.</small>
               </p>
 
             </div>
