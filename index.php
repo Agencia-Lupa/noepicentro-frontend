@@ -48,7 +48,8 @@
 
       data-page="(main|story|poster)"
       data-geolocation="(true|false)"
-      data-search="(blur|focus|suggestions|done)"
+      data-search="(blur|focus|done)"
+      data-suggestions="(true|null|false)"
       data-would-vanish="(name)"
       data-step="(name)"
       data-step-index="(int)"

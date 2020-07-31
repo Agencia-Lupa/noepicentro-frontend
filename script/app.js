@@ -527,7 +527,12 @@ let app = {
       fill : function( features ) {
 
         app.search.suggestions.clear()
-        app.element.dataset.search = 'suggestions'
+
+        if ( features.length > 1 )
+          app.element.dataset.suggestions = true
+
+        if ( features.length === 0 )
+          app.element.dataset.suggestions = null
 
         let ol = document.querySelector( '.suggestions ol' )
 
@@ -573,6 +578,8 @@ let app = {
             ol.removeChild(item)
             item = ol.lastElementChild
         }
+
+        app.element.dataset.suggestions = false
 
       },
 

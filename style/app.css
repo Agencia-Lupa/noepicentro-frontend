@@ -871,7 +871,15 @@ button {
   display: none;
 }
 
-@media( min-width: 800px ) {
+@media ( max-width: 340px ) {
+
+  .app[data-suggestions="true"] .geolocation {
+    display: none;
+  }
+
+}
+
+@media ( min-width: 800px ) {
 
   .search {
     left: 50%;
