@@ -524,8 +524,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
     <script src="https://unpkg.com/swiper@6/swiper-bundle.min.js"></script>
 
-    <script src="../script/turf.min.js"></script>
-    <!-- turf modules is breaking on “turf.point()” -->
+    <script src="../script/turf.modules.min.js"></script>
     <script src="../script/app.js?v=1.0.8"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>

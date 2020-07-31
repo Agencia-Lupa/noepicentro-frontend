@@ -102,8 +102,8 @@ let app = {
         let city = app.variables.result
 
         let km = turf.distance(
-          turf.point( city.radius.inner_point ),
-          turf.point( city.radius.outer_point )
+          turf.helpers.point( city.radius.inner_point ),
+          turf.helpers.point( city.radius.outer_point )
         )
 
         if ( km < 1 )
@@ -140,8 +140,8 @@ let app = {
 
         let city = app.variables.result.capitals_to_highlight[ 0 ]
         let km = turf.distance(
-          turf.point( city.radius.inner_point ),
-          turf.point( city.radius.outer_point )
+          turf.helpers.point( city.radius.inner_point ),
+          turf.helpers.point( city.radius.outer_point )
         )
 
         if ( km < 1 )
@@ -1119,8 +1119,8 @@ let app = {
 
         let feature = {}
 
-        feature.inner = turf.point( inner )
-        feature.outer = turf.point( outer)
+        feature.inner = turf.helpers.point( inner )
+        feature.outer = turf.helpers.point( outer)
 
         // calculate radius in km
         feature.radius = turf.distance(
@@ -1682,7 +1682,7 @@ let app = {
                 let first_47_len = 0;
 
                 let center = app.story.map.user;
-                let center_pt = turf.point(center);
+                let center_pt = turf.helpers.point(center);
 
                 let tries = 0;
                 let radiuses = [0.075, 0.1, 0.15, 0.2, 0.25, 0.5, 1, 2.5];
@@ -1717,7 +1717,7 @@ let app = {
                   } else livable_circle = circle;
 
                   // generates points in the iteration's circle bbox
-                  let random_points = turf.randomPoint(100, {
+                  let random_points = turf.random.randomPoint(100, {
                     bbox: bboxCircle
                   });
 
@@ -1748,7 +1748,7 @@ let app = {
                   // a 2.5km radius, just place the rest anywhere, regardless if in liveable area or not
                   if (tries > radiuses.length - 1) {
                     console.log("Não deu, vai em qq lugar.")
-                    let any_random_points = turf.randomPoint(amount - first_47_len, {bbox: bboxCircle});
+                    let any_random_points = turf.random.randomPoint(amount - first_47_len, {bbox: bboxCircle});
                     first_47.features = [...first_47.features, ...any_random_points.features];
                     break;
                   }
