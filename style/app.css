@@ -1766,6 +1766,7 @@ input[type="checkbox"]:checked + div .switch::before {
   position: absolute;
   bottom: 0;
   left: 0;
+  width: 82px;
   height: 18px;
 }
 
