@@ -174,7 +174,7 @@
 
         <nav>
           <span class="button">English <span class="screen-reader"> version</span></span>
-          <a class="button" rel="alternate" href="./" hreflang="pt" lang="pt"><span class="screen-reader">Versão em </span>Português</a>
+          <a class="button" rel="alternate" href="../" hreflang="pt" lang="pt"><span class="screen-reader">Versão em </span>Português</a>
         </nav>
 
         <footer>
