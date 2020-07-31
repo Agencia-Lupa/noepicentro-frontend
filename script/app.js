@@ -1747,7 +1747,7 @@ let app = {
                   // edge cases scenario: if couldn't generate 47 points in liveable areas in
                   // a 2.5km radius, just place the rest anywhere, regardless if in liveable area or not
                   if (tries > radiuses.length - 1) {
-                    console.log("Não deu, vai em qq lugar.")
+                    //console.log("Não deu, vai em qq lugar.")
                     let any_random_points = turf.random.randomPoint(amount - first_47_len, {bbox: bboxCircle});
                     first_47.features = [...first_47.features, ...any_random_points.features];
                     break;
@@ -1764,7 +1764,7 @@ let app = {
                   'first-deaths': first_47
                 }
 
-                console.log(data);
+                //console.log(data);
 
                 for (name of ['first-death', 'first-deaths']) {
                   if (!map.getLayer( name )) {
@@ -1922,7 +1922,7 @@ let app = {
             let municipalities = map.querySourceFeatures('mun', {sourceLayer: 'municipalities'});
             let features = municipalities.filter(d => d.properties.code_muni == code)
 
-            console.log("Quantas features?", features.length);
+            //console.log("Quantas features?", features.length);
 
             if ( features.length ) {
 
