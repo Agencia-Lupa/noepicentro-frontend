@@ -518,7 +518,7 @@
     <script src="https://unpkg.com/swiper@6/swiper-bundle.min.js"></script>
 
     <script src="script/turf.modules.min.js"></script>
-    <script src="script/app.js?v=1.0.8"></script>
+    <script src="script/app.js?v=1.0.9"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
     <script src="script/html2canvas.min.js" async></script>
