@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" path="../" translate="no">
+<html lang="en" path="../" translate="no" data-mockup="false">
   <head>
 
     <title>What if all Covid&#8209;19 deaths in Brazil happened in your neighborhood? | Agência Lupa</title>

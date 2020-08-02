@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" path="./" translate="no">
+<html lang="pt-br" path="./" translate="no" data-mockup="false">
   <head>
 
     <title>E se todos os mortos por Covid&#8209;19 no Brasil fossem seus vizinhos? | Agência Lupa</title>
