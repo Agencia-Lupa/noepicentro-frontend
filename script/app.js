@@ -1308,7 +1308,10 @@ let app = {
             if ( map.getLayer( 'actual_deaths' ) || map.getSource( 'mun_deaths' ) )
               return false
 
-            fetch( document.documentElement.getAttribute( 'path' ) + 'data/deaths.json' )
+            let path = document.documentElement.getAttribute( 'path' )
+            let update = '?update=' + app.variables.initial.date
+
+            fetch( path + 'data/deaths.json' + update )
             	.then(response => response.json())
             	.then(function(data_deaths_centroids) {
 
