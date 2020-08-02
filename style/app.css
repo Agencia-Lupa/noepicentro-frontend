@@ -1827,5 +1827,5 @@ html[data-mockup="true"],
 html[data-mockup="true"] *,
 html[data-mockup="true"] *::before,
 html[data-mockup="true"] *::after {
-  cursor: url( 'https://piaui.folha.uol.com.br/lupa/epicentro/media/cursor.svg' ) 16 16, auto !important;
+  cursor: url( './media/cursor.svg' ) 16 16, auto !important;
 }
