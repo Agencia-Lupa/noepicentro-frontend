@@ -1,6 +1,6 @@
 {
-  "name":"{{Title}}",
-  "short_name":"{{Title}}",
+  "name":"No Epicentro",
+  "short_name":"No Epicentro",
   "icons":[
     {
       "src":"/android-chrome-192x192.png",
