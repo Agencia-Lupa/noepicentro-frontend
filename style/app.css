@@ -1168,10 +1168,6 @@ button {
   color: var(--dark-25);
 }
 
-.arrows button:hover {
-  background: var(--dark-05);
-}
-
 .arrows button:first-child {
   border-right: .1rem solid var(--dark-10);
 }
@@ -1188,8 +1184,16 @@ button {
   background: var(--highlight);
 }
 
-.next.swiper-button-disabled:hover {
-  background: var(--highlight-shade);
+@media ( min-width:800px ) {
+
+  .arrows button:hover {
+    background: var(--dark-05);
+  }
+
+  .next.swiper-button-disabled:hover {
+    background: var(--highlight-shade);
+  }
+
 }
 
 .pulse,
