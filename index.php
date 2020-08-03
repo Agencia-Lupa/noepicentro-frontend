@@ -285,7 +285,7 @@
 
             <button type="button" class="button share" data-trigger="app.pages.open('poster')">
               <!-- <span class="material-icons" aria-hidden="true">save_alt</span> -->
-              <span>Compartilhar meu mapa</span>
+              <span>Salvar meu mapa</span>
             </button>
 
             <span class="button filler"></span>
@@ -476,7 +476,7 @@
             </nav>
 
             <header>
-              <h1 class="kicker">Compartilhar meu mapa</h1>
+              <h1 class="kicker">Salvar meu mapa</h1>
             </header>
 
             <span class="button filler"></span>
@@ -495,7 +495,7 @@
 
               <a id="download" class="button" download="no-epicentro.jpeg">
                 <span class="material-icons" aria-hidden="true">save_alt</span>
-                <span>Salvar imagem</span>
+                <span>Baixar imagem</span>
               </a>
 
               <p>A imagem mostra até onde sua vizinhança sumiria do mapa caso as <em data-var="Death count"></em> mortes por Covid&#8209;19 no país estivessem concentradas ao seu redor.</p>

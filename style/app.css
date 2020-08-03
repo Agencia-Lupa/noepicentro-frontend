@@ -1052,7 +1052,7 @@ button {
 
 .button.share {
   background: var(--highlight);
-  height: 4rem;
+  height: 4.8rem;
   overflow: hidden;
   border-radius: 2.4rem;
   transform: translateY(-200%);
@@ -1341,7 +1341,6 @@ input[type="checkbox"]:checked + div .switch::before {
 
 .hints {
   position: fixed;
-  /* top: 0; */
   right: 2rem;
   left: 6.4rem;
   display: flex;
@@ -1352,6 +1351,14 @@ input[type="checkbox"]:checked + div .switch::before {
   padding: 2.4rem 0;
   padding-right: 0;
   box-sizing: border-box;
+}
+
+@media (min-width: 415px) {
+  .hints {
+    right: 4.8rem;
+    left: 4.8rem;
+    align-items: center;
+  }
 }
 
 @media (min-width: 800px) {
@@ -1382,8 +1389,12 @@ input[type="checkbox"]:checked + div .switch::before {
   transform: translateY( -8rem );
   opacity: 0;
   transition: transform .6s ease-in-out, opacity .6s ease-in-out;
+
+  line-height: 1.333;
   /* display: none; */
 }
+
+
 
 .hint img {
   height: 4.8rem;
