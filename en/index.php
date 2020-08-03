@@ -254,12 +254,12 @@
 
               <div class="hint">
                 <img src="../media/hints/hint-gray.svg">
-                <p><small>Each point is a person that lives here</small></p>
+                <p><small>Each dot is a person that lives here</small></p>
               </div>
 
               <div class="hint">
                 <img src="../media/hints/hint-white.svg">
-                <p><small>White points represent deaths by Covid&#8209;19</small></p>
+                <p><small>White dots represent deaths by Covid&#8209;19</small></p>
               </div>
 
               <div class="hint">
@@ -505,7 +505,7 @@
                 <span>Save image</span>
               </a>
 
-              <p>This image shows how far your neighborhood would vanish if all <em data-var="Death count"></em> in Brazil had happened around you.</p>
+              <p>This image shows how far your neighborhood would vanish if all <em data-var="Death count"></em> deaths in Brazil had happened around you.</p>
               <p>
                 <small class="notes">The results displayed on the map are an approximation.</small>
               </p>
