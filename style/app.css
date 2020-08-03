@@ -956,7 +956,7 @@ button {
   border-width: .8rem .8rem 0 .8rem;
   border-color: var(--highlight) transparent transparent transparent;
   opacity: 0;
-  bottom: calc( .8rem + .1rem );
+  bottom: calc( .8rem + 1px );
 }
 
 .marker[data-label="true"]::before,
@@ -980,7 +980,7 @@ button {
 }
 
 .marker[data-label-index="0"]::after {
-  bottom: calc( 2.4rem + .1rem );
+  bottom: calc( 2.4rem + 1px );
 }
 
 #user {
