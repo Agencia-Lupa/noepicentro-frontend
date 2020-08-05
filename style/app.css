@@ -1838,9 +1838,41 @@ input[type="checkbox"]:checked + div .switch::before {
 
 }
 
+
+
+/* mockup */
+
 html[data-mockup="true"],
 html[data-mockup="true"] *,
 html[data-mockup="true"] *::before,
 html[data-mockup="true"] *::after {
   cursor: url( 'https://piaui.folha.uol.com.br/lupa/epicentro/media/cursor.svg' ) 16 16, auto !important;
+}
+
+
+
+/* simulating arbitrary death counts */
+
+[data-arbitrary-deaths]::before {
+  content: "Simulação arbitrária com " attr(data-arbitrary-deaths) " mortes";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 8px;
+  z-index: 3;
+  font-family: Inter, sans-serif;
+  line-height: 1.5;
+  font-size: 12px;
+  border-radius: 8px;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f24646;
+  color: var(--light-100);
+}
+
+[data-arbitrary-deaths] [data-var="Death count"],
+[data-arbitrary-deaths] [data-var="Death count rounded"],
+[data-arbitrary-deaths] [data-var="Vanished city population difference"] {
+  color: #f24646 !important;
 }

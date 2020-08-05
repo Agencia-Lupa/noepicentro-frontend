@@ -35,6 +35,27 @@ let app = {
 
   },
 
+  parameters : {
+
+    deaths : undefined,
+
+    initialize : function() {
+
+      let parameters = new URLSearchParams( window.location.search )
+
+      if ( parameters.has( 'deaths' ) ) {
+
+        let deaths = parseInt( parameters.get( 'deaths' ) )
+
+        app.parameters.deaths = deaths
+        document.documentElement.dataset.arbitraryDeaths = deaths
+
+      }
+
+    }
+
+  },
+
   variables : {
 
     elements : document.querySelectorAll( '[data-var]' ),
@@ -261,6 +282,9 @@ let app = {
       fetch( url, options )
         .then( response => response.json() )
         .then( data => {
+
+          if ( app.parameters.deaths )
+            data.deaths = app.parameters.deaths
 
           app.variables.initial = data
           app.variables.update(
@@ -1258,11 +1282,20 @@ let app = {
 
         let url = app.api
 
-        url += 'coords'
+        if ( app.parameters.deaths )
+          url += 'coords_deaths'
+        else
+          url += 'coords'
+
         url += '?'
         url += 'lat=' + app.story.map.user[ 1 ]
         url += '&'
         url += 'lon=' + app.story.map.user[ 0 ]
+
+        if ( app.parameters.deaths ) {
+          url += '&'
+          url += 'deaths=' + app.parameters.deaths
+        }
 
         let options = { mode : 'cors' }
 
@@ -2353,6 +2386,7 @@ let app = {
 
   initialize : function() {
 
+    app.parameters.initialize()
     app.variables.initialize()
     app.pages.initialize()
     app.main.initialize()
