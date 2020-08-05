@@ -47,8 +47,12 @@ let app = {
 
         let deaths = parseInt( parameters.get( 'deaths' ) )
 
-        app.parameters.deaths = deaths
-        document.documentElement.dataset.arbitraryDeaths = deaths
+        if ( deaths <= 200000 ) {
+
+          app.parameters.deaths = deaths
+          document.documentElement.dataset.arbitraryDeaths = deaths
+
+        }
 
       }
 
