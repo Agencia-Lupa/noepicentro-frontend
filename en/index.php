@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/swiper@6/swiper-bundle.min.css">
-    <link rel="stylesheet" href="../style/app.css?v=1.2.2">
+    <link rel="stylesheet" href="../style/app.css?v=1.2.3">
 
     <link rel="alternate" hreflang="en" href="https://piaui.folha.uol.com.br/lupa/epicentro/en/">
     <link rel="alternate" hreflang="pt" href="https://piaui.folha.uol.com.br/lupa/epicentro/">
@@ -462,7 +462,7 @@
               <div class="brands">
                 <a><img src="../media/brand/lupa.png"></a>
                 <a><div class="pipe"></div><img src="../media/brand/google.svg"></a>
-                <img src="../media/brand/mapbox.svg?v=1.2.2">
+                <img src="../media/brand/mapbox.svg?v=1.2.3">
               </div>
             </div>
 
@@ -525,7 +525,7 @@
     <script src="https://unpkg.com/swiper@6/swiper-bundle.min.js"></script>
 
     <script src="../script/turf.modules.min.js"></script>
-    <script src="../script/app.js?v=1.2.2"></script>
+    <script src="../script/app.js?v=1.2.3"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
     <script src="../script/html2canvas.min.js" async></script>

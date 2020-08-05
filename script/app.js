@@ -38,6 +38,7 @@ let app = {
   parameters : {
 
     deaths : undefined,
+    center : undefined,
 
     initialize : function() {
 
@@ -53,6 +54,13 @@ let app = {
           document.documentElement.dataset.arbitraryDeaths = deaths
 
         }
+
+      }
+
+      if ( parameters.has( 'center' ) ) {
+
+        let center = JSON.parse( parameters.get( 'center' ) )
+        app.parameters.center = center
 
       }
 
@@ -2397,6 +2405,9 @@ let app = {
     app.search.initialize()
     app.story.initialize()
     app.triggers.initialize()
+
+    if ( app.parameters.center )
+      app.story.begin( app.parameters.center )
 
   }
 
