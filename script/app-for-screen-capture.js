@@ -722,17 +722,234 @@ let app = {
 
       show : {
 
+        "Zoom in" : function() {
+
+          map[ app.story.map.transition() ]( {
+            center : app.story.map.user,
+            speed  : 1,
+            zoom   : 22,
+            pitch  : 0,
+            bearing: -45
+          } )
+
+          app.poster.button.toggle( false )
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
+
+
+          for ( let index of Array( 2 ).keys() ) {
+
+            let location, center, label;
+
+            if ( index === 0 ) {
+
+              center = app.story.map.user
+
+              if ( app.lang == 'pt-br' )
+                label = 'Você está aqui'
+
+              if ( app.lang == 'en' )
+                label = 'You are here'
+
+            } else {
+
+              location = app.variables.result.capitals_to_highlight[ index - 1 ]
+              center = location.radius.inner_point
+              label = location.display_text[ app.lang ].place
+
+            }
+
+            app.story.map.controls.marker.initialize(
+              center,
+              index,
+              label
+            )
+
+            app.story.map.controls.marker.toggle( index > 0 ? false : true, index )
+            app.story.map.controls.marker.toggleLabel( index > 0 ? false : true, index )
+
+          }
+
+
+          delete app.story.map.monitoring
+
+          app.story.map.monitoring = setInterval( function() {
+
+            if ( map.isStyleLoaded() && app.variables.result ) {
+
+              (function() {
+
+                app.story.map.controls.people.initialize()
+                // app.story.map.controls.people.toggle( { opacity: 1, radius: 1.5, color: '#555' } )
+                app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
+                app.story.map.controls.people.highlight.someInsideCircle.initialize( 47 )
+                app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+                app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+
+                for ( let index of Array( 1 ).keys() ) {
+
+                  let radius = app.variables.result.radius
+
+                  if ( index > 0 )
+                    radius = app.variables.result.capitals_to_highlight[ index - 1 ].radius
+
+                  app.story.map.controls.people.highlight.insideCircle.initialize(
+                    radius.inner_point,
+                    radius.outer_point,
+                    index
+                  )
+                  app.story.map.controls.people.highlight.insideCircle.toggle( true, index )
+
+                  app.story.map.controls.people.highlight.insideCircle.toggle( true, 0 )
+                  app.story.map.controls.circle.initialize(
+                    radius.inner_point,
+                    radius.outer_point,
+                    index
+                  )
+                  app.story.map.controls.circle.toggle( false, index )
+
+                }
+
+                app.story.map.controls.location.initialize( app.variables.result.neighboring_city.code_muni )
+                app.story.map.controls.location.toggle.highlight( false )
+                app.story.map.controls.location.toggle.mask( false )
+
+                setTimeout( app.story.map.controls.bubble.initialize, 1000 )
+
+                app.element.dataset.loaded = true
+                app.story.carousel.instance.keyboard.enable()
+
+                clearInterval( app.story.map.monitoring )
+
+              })()
+
+            }
+
+          }, 200 )
+
+        },
+
+        "Zoom out fast" : function() {
+
+          app.story.map.controls.marker.toggle( true, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
+          app.poster.button.toggle( false )
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( true, 0 )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 1 )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 2 )
+          app.story.map.controls.circle.toggle( false, 0 )
+          app.story.map.controls.circle.toggle( false, 1 )
+          app.story.map.controls.circle.toggle( false, 2 )
+          app.story.map.controls.circle.fitOnScreen( 0, 60 )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
+
+        },
+
+        "Zoom out slow" : function() {
+
+          app.story.map.controls.marker.toggle( true, 0 )
+          app.story.map.controls.marker.toggleLabel( false, 0 )
+          app.story.map.controls.marker.toggle( false, 1 )
+          app.story.map.controls.marker.toggleLabel( false, 1 )
+          app.story.map.controls.marker.toggle( false, 2 )
+          app.story.map.controls.marker.toggleLabel( false, 2 )
+
+          app.poster.button.toggle( false )
+          app.story.map.controls.labels.toggle( false )
+          app.story.map.controls.bubble.toggle( false )
+          app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+          app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+          app.story.map.controls.people.highlight.insideCircle.toggle( true, 0 )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 1 )
+          app.story.map.controls.people.highlight.insideCircle.toggle( false, 2 )
+          app.story.map.controls.circle.toggle( false, 0 )
+          app.story.map.controls.circle.toggle( false, 1 )
+          app.story.map.controls.circle.toggle( false, 2 )
+          app.story.map.controls.circle.fitOnScreen( 0, 60, 0, 60000 )
+          app.story.map.controls.location.toggle.highlight( false )
+          app.story.map.controls.location.toggle.mask( false )
+
+        },
+
+        // "Maracanã Zoom In" : function() {
+        //   // -43.230156,-22.912109
+        //
+        // },
+        // "Maracanã Zoom Out" : function() {
+        //   // -43.230156,-22.912109
+        //
+        // },
+        //
+        // "MASP Zoom In" : function() {
+        //   // -46.655910,-23.561444
+        //
+        // },
+        // "MASP Zoom Out" : function() {
+        //   // -46.655910,-23.561444
+        //
+        // },
+        //
+        // "Passeio Público Zoom In" : function() {
+        //   // -49.2675855,-25.4251957
+        //
+        // },
+        // "Passeio Público Zoom Out" : function() {
+        //   // -49.2675855,-25.4251957
+        //
+        // },
+        //
+        // "Dique do Tororó Zoom In" : function() {
+        //   // -38.504670, -12.984521
+        //
+        // },
+        // "Dique do Tororó Zoom Out" : function() {
+        //   // -38.504670, -12.984521
+        //
+        // },
+        //
+        // "Basílica Santuário Zoom In" : function() {
+        //   // -48.480996, -1.452692
+        //
+        // },
+        // "Basílica Santuário Zoom Out" : function() {
+        //   // -48.480996, -1.452692
+        //
+        // },
+
+
+
+
+
+
+
+
+
+
+
         "You are here" : function() {
 
           map[ app.story.map.transition() ]( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 15.5,
-            pitch  : 0
+            zoom   : 16,
+            pitch  : 0,
+            bearing: 0
           } )
 
           app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.labels.toggle( false )
           app.story.map.controls.bubble.toggle( false )
 
 
@@ -830,8 +1047,9 @@ let app = {
           map[ app.story.map.transition() ]( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 17,
+            zoom   : 18,
             pitch  : 60,
+            bearing: 60
           } )
 
           app.story.map.controls.marker.toggle( true, 0 )
@@ -862,8 +1080,9 @@ let app = {
           map[ app.story.map.transition() ]( {
             center : app.story.map.user,
             speed  : .1,
-            zoom   : 16.75,
-            pitch  : 60
+            zoom   : 17.75,
+            pitch  : 60,
+            bearing: 60
           } )
 
           app.story.map.controls.marker.toggle( true, 0 )
@@ -953,7 +1172,7 @@ let app = {
           app.story.map.controls.marker.toggleLabel( false, 2 )
 
           app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.labels.toggle( false )
           app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#333' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
@@ -1008,7 +1227,7 @@ let app = {
           app.story.map.controls.marker.toggleLabel( false, 2 )
 
           app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.labels.toggle( false )
           app.story.map.controls.bubble.toggle( true )
           app.story.map.controls.people.toggle( { opacity: 0, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
@@ -1042,7 +1261,7 @@ let app = {
           app.story.map.controls.marker.toggleLabel( false, 2 )
 
           app.poster.button.toggle( false )
-          app.story.map.controls.labels.toggle( true )
+          app.story.map.controls.labels.toggle( false )
           app.story.map.controls.bubble.toggle( false )
           app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#555' } )
           app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
@@ -1222,16 +1441,12 @@ let app = {
 
       padding : function() {
 
-        let distance   = 8
-        let base       = 100
-        let width      = window.innerWidth
-        let multiplier = width / base
-        let pad        = distance * multiplier
-        let nav        = document.querySelector( '.story nav' ).offsetHeight
+        let width = window.innerWidth
+        let pad   = width * -.1
 
         return {
-          top:    Math.max( pad, nav ) + app.story.map.offset.value,
-          bottom: pad                  + app.story.map.offset.value,
+          top:    pad * 3,
+          bottom: pad *.333, // pad * -.05,
           left:   pad,
           right:  pad
         }
@@ -1286,8 +1501,9 @@ let app = {
           container: app.story.map.id,
           style:     app.story.map.style,
           center:    app.story.map.user,
-          zoom:      19,
+          zoom:      22,
           pitch:     0,
+          bearing:   -45
           // interactive: app.browser.iOS() ? false : true
           // preserveDrawingBuffer: true
         } )
@@ -1597,7 +1813,7 @@ let app = {
 
           },
 
-          fitOnScreen : function( index, pitch = 0, bearing = 0 ) {
+          fitOnScreen : function( index, pitch = 0, bearing = 0, duration = 6000 ) {
 
             let circle = app.story.map.controls.circle.list[ index ]
           	let bbox = turf.bbox( circle )
@@ -1607,7 +1823,8 @@ let app = {
               {
                 animate: app.browser.iOS() ? false : true,
                 padding: app.story.map.padding(),
-                duration: 6000,
+                duration: duration,
+                // speed: 1,
                 pitch: pitch,
                 bearing: bearing
           	  }
@@ -1742,7 +1959,7 @@ let app = {
                 let radiuses = [0.075, 0.1, 0.15, 0.2, 0.25, 0.5, 1, 2.5];
 
                 let features_to_avoid = map.queryRenderedFeatures({
-              		layers: ["water", "landuse", "national-park"]
+              		layers: [ /*"water", "landuse", "national-park"*/ ]
               	});
 
                 while (first_47_len < amount) {
