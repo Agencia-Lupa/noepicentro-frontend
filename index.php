@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons&display=swap">
     <link rel="stylesheet" href="https://unpkg.com/swiper@6/swiper-bundle.min.css">
-    <link rel="stylesheet" href="style/app.css?v=1.2.3">
+    <link rel="stylesheet" href="style/app.css?v=1.2.4">
 
     <link rel="alternate" hreflang="en" href="https://piaui.folha.uol.com.br/lupa/epicentro/en/">
     <link rel="alternate" hreflang="pt" href="https://piaui.folha.uol.com.br/lupa/epicentro/">
@@ -58,10 +58,10 @@
 
     >
 
-      <div class="cover">
+      <div class="cover" aria-hidden="true">
 
         <figure>
-          <img src="media/cover/cover-1-b.png" alt="">
+          <img src="media/cover/cover-1-b.png" alt="Apenas como exemplo, este mapa mostra uma região metropolitana com milhares de pontos espalhados (cada ponto representa uma pessoa que vive ali).">
         </figure>
 
       </div>
@@ -125,6 +125,8 @@
             <p>A <a href="https://github.com/noepicentro/back" target="_blank">metodologia</a> completa envolve desenhar raios crescentes, calcular interseções e fazer estimativas estatísticas.</p>
             <p>O código-fonte está disponível no <a href="https://github.com/noepicentro/" target="_blank">GitHub</a>.</p>
 
+            <a href="#form" class="screen-reader">Pular para campo de busca do seu endereço</a>
+
           </section>
 
           <section>
@@ -187,7 +189,7 @@
 
       <div class="search">
 
-        <form autocomplete="off" spellcheck="false">
+        <form id="form" autocomplete="off" spellcheck="false" tabindex="0">
 
           <fieldset>
 
@@ -197,7 +199,7 @@
 
               <label>
 
-                <span class="screen-reader">Onde você mora?</span>
+                <span class="screen-reader">Busque seu endereço e escolha uma das sugestões que vão aparecer abaixo</span>
                 <input type="search" placeholder="Insira seu endereço aqui" name="address" autocorrect="off">
 
                 <div>
@@ -238,11 +240,11 @@
 
       </div>
 
-      <div class="story">
+      <div id="story" class="story" tabindex="0">
 
         <article>
 
-          <div class="canvas">
+          <div class="canvas" aria-hidden="true">
 
             <div id="map"></div>
 
@@ -288,7 +290,7 @@
               <span>Salvar meu mapa</span>
             </button>
 
-            <span class="button filler"></span>
+            <span class="button filler" aria-hidden="true"></span>
 
           </nav>
 
@@ -298,7 +300,7 @@
 
           <div class="steps-container">
 
-            <div class="controls">
+            <div class="controls" aria-hidden="true">
 
               <label>
                 <input type="checkbox" name="labels" class="screen-reader" checked>
@@ -394,6 +396,12 @@
 
                   <div data-step="Share me" class="swiper-slide">
                     <p>Como nem todos estavam ao seu redor, é possível que você <strong>não veja</strong> a dimensão dessa perda no cotidiano. Porém, mesmo que você não note, todas <strong>essas pessoas existiam</strong>.</p>
+                    <button type="button" class="screen-reader" data-trigger="app.pages.open('poster')">
+                      <span>Salvar meu mapa (clique para gerar um pôster em formato JPG)</span>
+                    </button>
+                    <button type="button" class="screen-reader" data-trigger="app.pages.open('main')">
+                      <span class="screen-reader">Encerrar simulação</span>
+                    </button>
                   </div>
 
                 </div>
@@ -402,7 +410,7 @@
 
               </div>
 
-              <div class="arrows">
+              <div class="arrows" aria-hidden="true">
                 <button type="button" class="prev">
                   <span class="material-icons" aria-hidden="true">chevron_left</span>
                   <span class="screen-reader">Voltar uma etapa da história</span>
@@ -424,7 +432,7 @@
 
       </div>
 
-      <div class="poster">
+      <div id="poster" class="poster" tabindex="0">
 
         <div class="atelie" aria-hidden="true">
           <div class="poster-html">
@@ -455,7 +463,7 @@
               <div class="brands">
                 <a><img src="media/brand/lupa.png"></a>
                 <a><div class="pipe"></div><img src="media/brand/google.svg"></a>
-                <img src="media/brand/mapbox.svg?v=1.2.3">
+                <img src="media/brand/mapbox.svg?v=1.2.4">
               </div>
             </div>
 
@@ -487,7 +495,7 @@
 
             <figure>
               <div class="poster-canvas">
-                <img class="poster-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+                <img class="poster-preview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Pré-visualização do pôster que mostra o raio de devastação ao redor do seu endereço.">
               </div>
             </figure>
 
@@ -518,7 +526,7 @@
     <script src="https://unpkg.com/swiper@6/swiper-bundle.min.js"></script>
 
     <script src="script/turf.modules.min.js"></script>
-    <script src="script/app.js?v=1.2.3"></script>
+    <script src="script/app.js?v=1.2.4"></script>
 
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
     <script src="script/html2canvas.min.js" async></script>

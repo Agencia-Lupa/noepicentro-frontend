@@ -328,6 +328,7 @@ let app = {
           app.variables.result.radius.inner_point,
           app.variables.result.radius.outer_point
         )
+        window.poster.focus()
       }
 
       if ( name == 'poster' || name == 'main' )
@@ -336,6 +337,8 @@ let app = {
       if ( name == 'story' && app.pages.previous == 'poster' )
         app.story.carousel.instance.keyboard.enable()
 
+      if ( name == 'story' )
+        window.story.focus()
 
       gtag('event', 'view_page', {
         'event_category': 'engagement',
