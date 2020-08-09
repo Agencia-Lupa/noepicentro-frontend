@@ -58,10 +58,10 @@
 
     >
 
-      <div class="cover">
+      <div class="cover" aria-hidden="true">
 
         <figure>
-          <img src="../media/cover/cover-1-b.png" alt="">
+          <img src="../media/cover/cover-1-b.png" alt="Just as an example, this map shows a metropolitan region with thousands of scattered dots (each dot represents a person who lives there).">
         </figure>
 
       </div>
@@ -125,6 +125,8 @@
             <p>The full <a href="https://github.com/noepicentro/back" target="_blank"> methodology</a> involves drawing increasing radiuses, calculating intersections and making statistical estimates.</p>
             <p>The source code is available on <a href="https://github.com/noepicentro/" target="_blank"> GitHub</a>, along with a more detailed description of all the math behind this piece.</p>
 
+            <a href="#form" class="screen-reader">Skip to to the the address search field</a>
+
           </section>
 
           <section>
@@ -187,7 +189,7 @@
 
       <div class="search">
 
-        <form autocomplete="off" spellcheck="false">
+        <form id="form" autocomplete="off" spellcheck="false" tabindex="0">
 
           <fieldset>
 
@@ -197,7 +199,7 @@
 
               <label>
 
-                <span class="screen-reader">Where do you live?</span>
+                <span class="screen-reader">Search for your address and then pick one of the suggestions that will appear below</span>
                 <input type="search" placeholder="Enter your address in Brazil" name="address" autocorrect="off">
 
                 <div>
@@ -238,11 +240,11 @@
 
       </div>
 
-      <div class="story">
+      <div id="story" class="story" tabindex="0">
 
         <article>
 
-          <div class="canvas">
+          <div class="canvas" aria-hidden="true">
 
             <div id="map"></div>
 
@@ -280,7 +282,7 @@
 
             <button type="button" class="button close" data-trigger="app.pages.open('main')">
               <span class="material-icons" aria-hidden="true">close</span>
-              <span class="screen-reader">End simulation</span>
+              <span class="screen-reader">Exit simulation</span>
             </button>
 
             <button type="button" class="button share" data-trigger="app.pages.open('poster')">
@@ -288,7 +290,7 @@
               <span>Share my map</span>
             </button>
 
-            <span class="button filler"></span>
+            <span class="button filler" aria-hidden="true"></span>
 
           </nav>
 
@@ -298,7 +300,7 @@
 
           <div class="steps-container">
 
-            <div class="controls">
+            <div class="controls" aria-hidden="true">
 
               <label>
                 <input type="checkbox" name="labels" class="screen-reader" checked>
@@ -401,6 +403,12 @@
                     <p>
                       Since these people were not around you, it may be <strong>hard for you to see</strong> the scale of those losses in your daily life. Nevertheless, even if unnoticed, <strong>they all existed</strong>.
                     </p>
+                    <button type="button" class="screen-reader" data-trigger="app.pages.open('poster')">
+                      <span>Share my map (click to generate poster for download in JPG format)</span>
+                    </button>
+                    <button type="button" class="screen-reader" data-trigger="app.pages.open('main')">
+                      <span class="screen-reader">Exit simulation</span>
+                    </button>
                   </div>
 
                 </div>
@@ -409,7 +417,7 @@
 
               </div>
 
-              <div class="arrows">
+              <div class="arrows" aria-hidden="true">
                 <button type="button" class="prev">
                   <span class="material-icons" aria-hidden="true">chevron_left</span>
                   <span class="screen-reader">Go one step back</span>
@@ -431,7 +439,7 @@
 
       </div>
 
-      <div class="poster">
+      <div id="poster" class="poster" tabindex="0">
 
         <div class="atelie" aria-hidden="true">
           <div class="poster-html">
@@ -444,7 +452,7 @@
             </div>
 
             <figure class="poster-figure">
-              <img class="poster-map" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+              <img class="poster-map" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Preview of the poster that shows the devastation radius around your address.">
               <figcaption>
                 <p>
                   <img src="../media/poster/radius.svg">
