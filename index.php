@@ -531,5 +531,21 @@
     <script src="https://unpkg.com/prefixfree/prefixfree.min.js" async></script>
     <script src="script/html2canvas.min.js" async></script>
 
+    <!-- temp for recording screen capture -->
+    <style>
+    .cover,
+    .main,
+    .search,
+    .poster,
+    .story nav,
+    .story .steps-container,
+    .story .hints,
+    .mapboxgl-control-container,
+    .marker::before,
+    .marker::after {
+      opacity: 0 !important;
+    }
+    </style>
+
   </body>
 </html>

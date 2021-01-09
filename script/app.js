@@ -48,7 +48,7 @@ let app = {
 
         let deaths = parseInt( parameters.get( 'deaths' ) )
 
-        if ( deaths >= 10000 && deaths <= 200000 ) {
+        if ( deaths >= 10000 && deaths <= 300000 ) {
 
           app.parameters.deaths = deaths
           document.documentElement.dataset.arbitraryDeaths = deaths
@@ -2417,3 +2417,81 @@ let app = {
 }
 
 app.initialize()
+
+
+
+
+
+
+// temp for screen recording
+
+document.onkeydown = function(e) {
+
+    let key = e.keyCode;
+
+    if ( key===48 ) { // 0
+        
+      // Show/hide map layers:
+
+      app.story.map.controls.marker.toggle( true, 0 )
+      app.story.map.controls.marker.toggleLabel( false, 0 )
+      app.story.map.controls.marker.toggle( false, 1 )
+      app.story.map.controls.marker.toggleLabel( false, 1 )
+      app.story.map.controls.marker.toggle( false, 2 )
+      app.story.map.controls.marker.toggleLabel( false, 2 )
+      app.story.map.controls.labels.toggle( false )
+      app.story.map.controls.bubble.toggle( false )
+      app.story.map.controls.people.toggle( { opacity: 1, radius: 1, color: '#fff' } )
+      app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-death' )
+      app.story.map.controls.people.highlight.someInsideCircle.toggle( false, 'first-deaths' )
+      app.story.map.controls.people.highlight.insideCircle.toggle( true, 0 )
+      app.story.map.controls.people.highlight.insideCircle.toggle( false, 1 )
+      app.story.map.controls.people.highlight.insideCircle.toggle( false, 2 )
+      app.story.map.controls.circle.toggle( false, 0 )
+      app.story.map.controls.circle.toggle( false, 1 )
+      app.story.map.controls.circle.toggle( false, 2 )
+      app.story.map.controls.location.toggle.highlight( false )
+      app.story.map.controls.location.toggle.mask( false )
+
+    }
+
+    if ( key===49 ) { // 1
+
+      // Go to Zoom-in step
+
+      map.flyTo( {
+        center : app.story.map.user,
+        speed  : .5,
+        zoom   : 18.8,
+        pitch  : 0,
+        bearing: -45
+      } )
+
+    }
+
+
+    if ( key===50 ) { // 2
+
+      // Go to Zoom-out step
+
+      let circle = app.story.map.controls.circle.list[ 0 ]
+      let bbox = turf.bbox( circle )
+
+      map.fitBounds(
+        bbox,
+        {
+          animate: true,
+          padding: {
+          top:    -720,
+          bottom: -60,
+          left:   -720,
+          right:  -720,
+          },
+          duration: 6000 * 10,
+          pitch: 60,
+          bearing: 0
+        }
+      )
+
+    }
+}
