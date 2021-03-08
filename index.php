@@ -320,7 +320,7 @@
 
                   <div data-step="You are here" class="swiper-slide">
                     <p>
-                      Essa é a <strong>sua vizinhança</strong> no dia 16 de março. Nessa data, foi confirmada a primeira morte pelo novo coronavírus no Brasil.
+                      Essa é a <strong>sua vizinhança</strong> no dia 16 de março de 2020. Nessa data, foi confirmada a primeira morte pelo novo coronavírus no Brasil.
                     </p>
                   </div>
 
@@ -332,7 +332,7 @@
 
                   <div data-step="Following deaths" class="swiper-slide">
                     <p>
-                      Uma semana depois, no dia 24 de março, mais 46 pessoas haviam morrido por Covid&#8209;19 no Brasil. De novo, <strong>vamos fingir</strong> que elas viviam <strong>na sua vizinhança</strong>.
+                      Uma semana depois, no dia 24 de março de 2020, mais 46 pessoas haviam morrido por Covid&#8209;19 no Brasil. De novo, <strong>vamos fingir</strong> que elas viviam <strong>na sua vizinhança</strong>.
                     </p>
                   </div>
 

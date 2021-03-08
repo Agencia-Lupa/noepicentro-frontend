@@ -320,7 +320,7 @@
 
                   <div data-step="You are here" class="swiper-slide">
                     <p>
-                      This is <strong>your neighborhood</strong> on March 16. On this day, Brazil confirmed its first death due to the novel coronavirus.
+                      This is <strong>your neighborhood</strong> on March 16, 2020. On this day, Brazil confirmed its first death due to the novel coronavirus.
                     </p>
                   </div>
 
@@ -332,7 +332,7 @@
 
                   <div data-step="Following deaths" class="swiper-slide">
                     <p>
-                      A week later, on March 24, another 46 people had died due to Covid&#8209;19 in Brazil. Again, <strong>let’s pretend</strong> they lived in <strong>your neighborhood</strong>.
+                      A week later, on March 24, 2020, another 46 people had died due to Covid&#8209;19 in Brazil. Again, <strong>let’s pretend</strong> they lived in <strong>your neighborhood</strong>.
                     </p>
                   </div>
 
