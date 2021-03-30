@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://unpkg.com/normalize.css@8/normalize.css">
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Material+Icons&display=swap">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@6/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@6.1.3/swiper-bundle.min.css">
     <link rel="stylesheet" href="../style/app.css?v=1.2.4">
 
     <link rel="alternate" hreflang="en" href="https://piaui.folha.uol.com.br/lupa/epicentro/en/">
@@ -530,7 +530,7 @@
     </div>
 
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.js"></script>
-    <script src="https://unpkg.com/swiper@6/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper@6.1.3/swiper-bundle.min.js"></script>
 
     <script src="../script/turf.modules.min.js"></script>
     <script src="../script/app.js?v=1.2.4"></script>
