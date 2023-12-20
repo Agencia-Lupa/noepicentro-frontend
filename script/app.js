@@ -2,7 +2,7 @@ window.map = undefined
 
 let app = {
 
-  api : 'https://api2.noepicentro.com/', // https://caco.app/
+  api : 'https://api.noepicentro.news/', // https://caco.app/
 
   element : document.querySelector( '.app' ),
 
