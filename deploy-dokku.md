@@ -52,9 +52,9 @@ dokku ssh-keys:add admin path/to/pub_key
 On Dokku server, set the correct values for the variables:
 
 ```shell
-export ADMIN_EMAIL="admin@noepicentro.news"
+export ADMIN_EMAIL="admin@noepicentro.com"
 export APP_NAME="noepicentro-frontend"
-export DOMAIN="noepicentro.news"
+export DOMAIN="noepicentro.com"
 ```
 
 Now, run the commands to create and configure the app:
@@ -88,4 +88,3 @@ Finally, on server again:
 # Create/configure SSL certificate:
 dokku letsencrypt:enable $APP_NAME
 ```
-
